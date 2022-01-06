@@ -1,5 +1,20 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { 
+    Body, 
+    Controller, 
+    Delete, 
+    Get, 
+    Param, 
+    Patch, 
+    Post, 
+    Query, 
+    UploadedFiles, 
+    UseGuards, 
+    UseInterceptors,
+    Res,
+} from '@nestjs/common';
+
 import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { GetUser } from 'src/auth/jwt/get-user.decorator';
 import { User } from 'src/auth/user.entity';
 
@@ -22,6 +37,14 @@ export class ProductController {
         return this.productService.getProductsForAll(getProductsDto)
     }
 
+    @Get('/:imgpath')
+    seeUploadedFile(
+        @Param('imgpath') image,
+        @Res() res,
+    ) {
+        return res.sendFile(image, { root: 'uploads/categories' })
+    }
+
     @Get()
     @UseGuards(AuthGuard())
     getProducts(
@@ -40,6 +63,7 @@ export class ProductController {
         return this.productService.getProductByID(id, user)
     }
 
+
     @Post()
     @UseGuards(AuthGuard())
     createProduct(
@@ -47,6 +71,15 @@ export class ProductController {
         @GetUser() user: User
     ): Promise<Product> {
         return this.productService.createProduct(createProductDto, user)
+    }
+
+    @Post('/upload')
+    @UseGuards(AuthGuard())
+    @UseInterceptors(FileInterceptor('image'))
+    uploadProductImage(
+        @UploadedFiles() file,
+    ) {
+        console.log(file)
     }
 
     @Delete('/:id')

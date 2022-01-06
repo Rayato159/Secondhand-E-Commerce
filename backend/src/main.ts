@@ -4,9 +4,11 @@ import { ValidationPipe } from '@nestjs/common';
 import { TransformInterceptor } from './transform.interceptor'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule)
+  app.setGlobalPrefix('/api')
   app.useGlobalPipes(new ValidationPipe())
   app.useGlobalInterceptors(new TransformInterceptor())
-  await app.listen(3000);
+  app.enableCors()
+  await app.listen(3000)
 }
-bootstrap();
+bootstrap()
