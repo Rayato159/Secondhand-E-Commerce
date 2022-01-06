@@ -11,7 +11,7 @@ const Category = () => {
                 {
                     categories.map((category, i) => {
                         return (
-                            <div key={i} className="shadow-lg w-64 mx-auto my-6 hover:bg-slate-200 transition duration-300">
+                            <div key={i} className="shadow-lg w-64 mx-auto my-6 hover:bg-slate-200 hover:scale-110 transition duration-300">
                                 <img className="object-cover md:w-64 md:h-48 w-64 h-48 mx-auto" src={`/assets/images/categories/${category.fileName}`} alt="car" />
                                 <div className="px-4 py-6 font-bold text-center text-xl">
                                     {category.category}
