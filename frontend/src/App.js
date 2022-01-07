@@ -13,7 +13,7 @@ import Sell from './pages/Sell'
 
 function App() {
     return (
-        <div className="App">
+        <div className="App h-screen">
             <BrowserRouter>
                 <Navbar />
                     <Routes>
