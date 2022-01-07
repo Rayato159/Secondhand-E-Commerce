@@ -1,23 +1,23 @@
 const categories = [
     {
-        category: 'รถมือสอง',
-        fileName: 'car.jpg'
+        categoryThai: 'รถมือสอง',
+        categoryEng: 'car'
     },
     {
-        category: 'เครื่องบินมือสอง',
-        fileName: 'plane.jpg'
+        categoryThai: 'เครื่องบินมือสอง',
+        categoryEng: 'plane'
     },
     {
-        category: 'มือถือ แท็บเล็ต',
-        fileName: 'mobile.jpg'
+        categoryThai: 'มือถือ แท็บเล็ต',
+        categoryEng: 'mobile'
     },
     {
-        category: 'คอมพิวเตอร์',
-        fileName: 'computer.jpg'
+        categoryThai: 'คอมพิวเตอร์',
+        categoryEng: 'computer'
     },
     {
-        category: 'รองเท้า',
-        fileName: 'shoes.jpg'
+        categoryThai: 'รองเท้า',
+        categoryEng: 'shoes'
     },
 ]
 
