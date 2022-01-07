@@ -1,7 +1,7 @@
 const Sell = () => {
     return (
-        <div>
-            
+        <div className="Sell">
+            Sell route
         </div>
     )
 }

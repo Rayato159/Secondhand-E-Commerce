@@ -1,7 +1,7 @@
 const Register = () => {
     return (
-        <div>
-            
+        <div className="Register">
+            Register route
         </div>
     )
 }

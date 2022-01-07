@@ -1,7 +1,7 @@
 const Login = () => {
     return (
-        <div>
-            
+        <div className="Login">
+            Login route
         </div>
     )
 }

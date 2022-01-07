@@ -6,6 +6,9 @@ import Navbar from './components/Navbar'
 
 // Pages
 import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Sell from './pages/Sell'
 
 
 function App() {
@@ -14,8 +17,11 @@ function App() {
             <BrowserRouter>
                 <Navbar />
                     <Routes>
-                        <Route path="/" element={<Home />}>
-                            
+                        <Route>
+                            <Route path="/" element={<Home />} />
+                            <Route path="login" element={<Login />} />
+                            <Route path="register" element={<Register />} />
+                            <Route path="products/sell" element={<Sell />} />
                         </Route>
                     </Routes>
             </BrowserRouter>

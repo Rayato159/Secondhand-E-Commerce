@@ -22,7 +22,7 @@ const Navbar = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </button>
-                        <Link className="flex items-center space-x-2 text-amber-500 hover:text-amber-400 transition duration-300 cursor-pointer" to="/">
+                        <Link to="/" className="flex items-center space-x-2 text-amber-500 hover:text-amber-400 transition duration-300 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                             </svg>
@@ -45,12 +45,12 @@ const Navbar = () => {
                     {/* Responsive */}
                     <div className="flex space-x-8 items-center px-4 py-2 cursor-pointer">  
                         <div className="hidden md:flex space-x-4 items-center">
-                            <Link to="/login" className="hover:text-slate-400">Login</Link>
-                            <Link to="/register" className="hover:text-slate-400" as={Link}>Register</Link>
+                            <Link to="login" className="hover:text-slate-400">Login</Link>
+                            <Link to="register" className="hover:text-slate-400">Register</Link>
                         </div>    
 
                         <div className="flex space-x-4 items-center cursor-pointer">
-                            <Link to="/products/sell" className="font-bold text-amber-900 bg-amber-500 hover:bg-amber-400 hover:scale-105 transition duration-300 px-3 py-2.5 rounded">
+                            <Link to="products/sell" className="font-bold text-amber-900 bg-amber-500 hover:bg-amber-400 hover:scale-105 transition duration-300 px-3 py-2.5 rounded">
                                 ลงขาย
                             </Link>
                         </div>
@@ -69,8 +69,8 @@ const Navbar = () => {
                                 </svg>
                             </button>
                         </div>
-                        <Link to="/login" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600">Login</Link>
-                        <Link to="/register" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600">Register</Link>
+                        <Link to="login" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600">Login</Link>
+                        <Link to="register" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600">Register</Link>
                     </div>
                 :null}
             </div>
