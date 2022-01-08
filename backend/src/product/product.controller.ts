@@ -37,13 +37,13 @@ export class ProductController {
         return this.productService.getProductsForAll(getProductsDto)
     }
 
-    @Get('/:imgpath')
-    seeUploadedFile(
-        @Param('imgpath') image,
-        @Res() res,
-    ) {
-        return res.sendFile(image, { root: 'uploads/categories' })
-    }
+    // @Get('/:path')
+    // seeUploadedFile(
+    //     @Param('imgpath') image,
+    //     @Res() res,
+    // ) {
+    //     return res.sendFile(image, { root: 'uploads/categories' })
+    // }
 
     @Get()
     @UseGuards(AuthGuard())
@@ -73,14 +73,14 @@ export class ProductController {
         return this.productService.createProduct(createProductDto, user)
     }
 
-    @Post('/upload')
-    @UseGuards(AuthGuard())
-    @UseInterceptors(FileInterceptor('image'))
-    uploadProductImage(
-        @UploadedFiles() file,
-    ) {
-        console.log(file)
-    }
+    // @Post('/upload')
+    // @UseGuards(AuthGuard())
+    // @UseInterceptors(FileInterceptor('image'))
+    // uploadProductImage(
+    //     @UploadedFiles() file,
+    // ) {
+    //     console.log(file)
+    // }
 
     @Delete('/:id')
     @UseGuards(AuthGuard())

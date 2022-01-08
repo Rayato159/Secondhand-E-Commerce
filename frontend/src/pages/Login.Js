@@ -9,6 +9,7 @@ const Login = () => {
     // React Hook
     const [user, setUser] = useState(null)
     const [remember, setRemember] = useState(false)
+    const [isPending, setIsPending] = useState(false)
 
     // Navigate
     const navigate = useNavigate()
@@ -22,10 +23,7 @@ const Login = () => {
             remember,
         } = data
 
-        setUser({
-            email,
-            password,
-        })
+        setUser({ email, password })
      })
 
     return (

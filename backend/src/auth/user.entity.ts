@@ -1,4 +1,5 @@
 import { Product } from "src/product/product.entity";
+import { UserRoleEnum } from "./enum/user-role.enum";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'users'})
@@ -32,6 +33,9 @@ export class User {
 
     @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
     created: Date
+
+    @Column({ default: UserRoleEnum.USER })
+    role: UserRoleEnum
 
     @OneToMany((_type) => Product, (products) => products.user, { eager: true })
     products: Product[]

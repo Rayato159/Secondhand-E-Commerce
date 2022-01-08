@@ -26,13 +26,17 @@ export class AuthService {
         const { email, password } = signInCredentialsDto
 
         const user = await this.userRepository.findOne({ email: email.toLocaleLowerCase() })
+        const role = user.role
+        const id = user.id
+
         if(user && await bcrypt.compare(password, user.password)) {
-            const payload: JwtPayload = { email }
-            const accessToken: string = await this.jwtService.sign(payload)
+            const payload: JwtPayload = { id, role }
+            const accessToken: string = this.jwtService.sign(payload)
             return { accessToken }
         } else {
             throw new NotFoundException('Please check your email or password.')
         }
+
     }
 
     async updateAccount(updateAcoountDto: UpdateAccountDto, user: User): Promise<string> {

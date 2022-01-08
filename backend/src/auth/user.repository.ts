@@ -16,26 +16,42 @@ export class UserRepository extends Repository<User> {
             password,
             phone,
             birthday,
+            role,
         } = signUpCredentialsDto
 
         const salt = await bcrypt.genSalt()
         const hashedPassword = await bcrypt.hash(password, salt)
 
-        const emailCheck = await this.findOne({ email })
+        const emailCheck = await this.findOne({ email: email.toLocaleLowerCase() })
         if(emailCheck) {
             throw new ConflictException('This email has been already using.')
         }
 
-        const user = this.create({
-            first_name,
-            last_name,
-            email: email.toLocaleLowerCase(),
-            password: hashedPassword,
-            phone,
-            birthday,
-        })
+        if(!role) {
+            const user = this.create({
+                first_name,
+                last_name,
+                email: email.toLocaleLowerCase(),
+                password: hashedPassword,
+                phone,
+                birthday,
+            })
 
-        await this.save(user)
+            await this.save(user)
+
+        } else {
+            const user = this.create({
+                first_name,
+                last_name,
+                email: email.toLocaleLowerCase(),
+                password: hashedPassword,
+                phone,
+                birthday,
+                role,
+            })
+    
+            await this.save(user)
+        }
     }
 
     async updateAccount(updateAcoountDto: UpdateAccountDto, user: User): Promise<string> {
