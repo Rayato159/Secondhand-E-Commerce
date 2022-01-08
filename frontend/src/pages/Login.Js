@@ -1,20 +1,32 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from "react-router-dom";
+
+import './Login.css'
 
 const Login = () => {
 
-    const [emailPlaceholder, setEmailPlaceholder] = useState("rayato@example.com")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    // React Hook
+    const [user, setUser] = useState(null)
+    const [remember, setRemember] = useState(false)
+
+    // Navigate
+    const navigate = useNavigate()
+
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const formEventHandle = () => {
-        setEmailPlaceholder("")
-    }
+    const onSubmit = handleSubmit((data) => {
+        const {
+            email,
+            password,
+            remember,
+        } = data
 
-    const onSubmit = handleSubmit(({ email, password, remember }) => {
-        console.log(email, password, remember)
-    })
+        setUser({
+            email,
+            password,
+        })
+     })
 
     return (
         <div className="Login">
@@ -41,16 +53,20 @@ const Login = () => {
                                 <input 
                                     {...register(
                                             "email", 
-                                            { 
+                                            {
                                                 required: true, 
                                                 pattern: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
                                             }
                                         )
                                     }
-                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder={emailPlaceholder} onClick={formEventHandle}/>
+                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="mongsue@example.com"/>
                                 {
                                     errors.email?.type === "required" &&
                                     <div className="text-sm text-red-500">Email is required</div>
+                                }
+                                {
+                                    errors.email?.type === "pattern" &&
+                                    <div className="text-sm text-red-500">Invalid email pattern</div>
                                 }
                             </div>
 
@@ -84,6 +100,7 @@ const Login = () => {
                                         type="checkbox" className="h-4 w-4 rounded focus:border-slate-300 focus:ring-1 focus:ring-slate-300" />
                                     <label htmlFor="" className="ml-2 text-sm">Remember me</label>
                                 </div>
+                                <div className="text-sm text-blue-500 hover:text-blue-400 cursor-pointer">forget password?</div>
                             </div>
 
                             <div>
