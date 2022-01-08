@@ -31,7 +31,7 @@ const Navbar = () => {
                         {/* Search Box */}
                         <div className="hidden md:flex items-center py-2">
                             <div className="flex text-black px-2">
-                                <input type="text" name="serch" placeholder="Search" className="bg-white h-9 px-4 pr-9 rounded-full text-sm items-center focus:outline-none" />
+                                <input type="text" name="serch" placeholder="Search" className="bg-white h-9 px-4 pr-9 rounded-full text-sm items-center focus:outline-none focus:border-slate-300 focus:ring-slate-300" />
                                 <button type="submit" className="item-center px-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -44,8 +44,8 @@ const Navbar = () => {
                     {/* Responsive */}
                     <div className="flex space-x-8 items-center px-4 py-2 cursor-pointer">  
                         <div className="hidden md:flex space-x-4 items-center">
-                            <Link to="login" className="hover:text-slate-400">Login</Link>
-                            <Link to="register" className="hover:text-slate-400">Register</Link>
+                            <Link to="login" className="hover:text-slate-400 font-bold">Login</Link>
+                            <Link to="register" className="hover:text-slate-400 font-bold">Register</Link>
                         </div>    
 
                         <div className="flex space-x-4 items-center cursor-pointer">
@@ -61,15 +61,15 @@ const Navbar = () => {
                 {showToggleBar?
                     <div className="md:hidden cursor-pointer">
                         <div className="flex text-black px-2 my-4">
-                            <input type="text" name="serch" placeholder="Search" className="bg-white h-8 px-4 pr-8 rounded-full text-sm items-center focus:outline-none"/>
+                            <input type="text" name="serch" placeholder="Search" className="bg-white h-8 px-4 pr-8 rounded-full text-sm items-center focus:outline-none focus:border-slate-300 focus:ring-slate-300"/>
                             <button type="submit" className="items-center px-2 text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </button>
                         </div>
-                        <Link to="login" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600">Login</Link>
-                        <Link to="register" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600">Register</Link>
+                        <Link to="login" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">Login</Link>
+                        <Link to="register" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">Register</Link>
                     </div>
                 :null}
             </div>
