@@ -25,7 +25,7 @@ export class AuthService {
     async signIn(signInCredentialsDto: SignInCredentialsDto): Promise<{ accessToken: string }> {
         const { email, password } = signInCredentialsDto
 
-        const user = await this.userRepository.findOne({ email })
+        const user = await this.userRepository.findOne({ email: email.toLocaleLowerCase() })
         if(user && await bcrypt.compare(password, user.password)) {
             const payload: JwtPayload = { email }
             const accessToken: string = await this.jwtService.sign(payload)
@@ -36,41 +36,6 @@ export class AuthService {
     }
 
     async updateAccount(updateAcoountDto: UpdateAccountDto, user: User): Promise<string> {
-        const {
-            first_name,
-            last_name,
-            phone,
-            password,
-            picture,
-        } = updateAcoountDto
-
-        try {
-            const updatedUser = await this.userRepository.findOne(user.id)
-
-            if(first_name) {
-                updatedUser.first_name = first_name
-            }
-
-            if(last_name) {
-                updatedUser.last_name = last_name
-            }
-
-            if(phone) {
-                updatedUser.phone = phone
-            }
-
-            if(password) {
-                updatedUser.password = password
-            }
-
-            if(picture) {
-                updatedUser.picture = picture
-            }
-
-            await this.userRepository.save(updatedUser)
-            return 'success'
-        } catch(error) {
-            throw new NotFoundException('User not found :(')
-        }
+        return this.userRepository.updateAccount(updateAcoountDto, user)
     }
 }
