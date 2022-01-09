@@ -1,17 +1,44 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useController } from 'react-hook-form'
 import { useNavigate } from "react-router-dom";
 
 import './Login.css'
 
 const Register = () => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { 
+        register, 
+        handleSubmit,
+        formState: { errors }, 
+    } = useForm()
 
+    // Variable
+    const [user, setUser] = useState(null)
+    const [password, setPassword] = useState("")
+    const [rePassword, setRePassword] = useState("")
+
+    // Event controller
     const [isHidePassword, setIsHidePassword] = useState(true)
 
     const onSubmit = handleSubmit((data) => {
-        console.log(data)
+        const {
+            first_name,
+            last_name,
+            phone,
+            email,
+            password,
+            passwordConfirm
+        } = data
+
+        if(password === passwordConfirm) {
+            setUser({
+                first_name,
+                last_name,
+                phone,
+                email,
+                password,
+            })
+        }
     })
 
     const eventHidePassword = () => {
@@ -41,9 +68,22 @@ const Register = () => {
                                 <input 
                                     {...register(
                                             "first_name",
+                                            {
+                                                required: true,
+                                                minLength: 1,
+                                                maxLength: 50,
+                                            }
                                         )
                                     }
-                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="สมชาย"/>
+                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="มือสอง"/>
+                                {
+                                    errors.first_name?.type === "required" &&
+                                    <div className="text-sm text-red-500">first name is requried</div>
+                                }
+                                {
+                                    errors.first_name?.type === "minLength" || errors.first_name?.type === "maxLength" &&
+                                    <div className="text-sm text-red-500">first name is too long</div>
+                                }
                             </div>
 
                             <div>
@@ -54,9 +94,22 @@ const Register = () => {
                                 <input 
                                     {...register(
                                             "last_name",
+                                            {
+                                                required: true,
+                                                minLength: 1,
+                                                maxLength: 50,
+                                            }
                                         )
                                     }
-                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="มุ่งมั่น"/>
+                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="มองสือ"/>
+                                {
+                                    errors.last_name?.type === "required" &&
+                                    <div className="text-sm text-red-500">last name is requried</div>
+                                }
+                                {
+                                    errors.last_name?.type === "minLength" || errors.first_name?.type === "maxLength" &&
+                                    <div className="text-sm text-red-500">last name is too long</div>
+                                }
                             </div>
 
                             <div>
@@ -67,9 +120,21 @@ const Register = () => {
                                 <input 
                                     {...register(
                                             "phone",
+                                            {
+                                                required: true,
+                                                pattern: /([0][0-9])\d{8}/,
+                                            }
                                         )
                                     }
                                 type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="0123456789"/>
+                                {
+                                    errors.phone?.type === "required" &&
+                                    <div className="text-sm text-red-500">phone number is requried</div>
+                                }
+                                {
+                                    errors.phone?.type === "pattern" &&
+                                    <div className="text-sm text-red-500">wanna xss my website?</div>
+                                }
                             </div>
 
                             <div>
@@ -80,9 +145,21 @@ const Register = () => {
                                 <input 
                                     {...register(
                                             "email",
+                                            {
+                                                required: true, 
+                                                pattern: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+                                            }
                                         )
                                     }
                                 type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="mongsue@example.com"/>
+                                {
+                                    errors.email?.type === "required" &&
+                                    <div className="text-sm text-red-500">email is requried</div>
+                                }
+                                {
+                                    errors.email?.type === "pattern" &&
+                                    <div className="text-sm text-red-500">wanna xss my website?</div>
+                                }
                             </div>
 
                             <div>
@@ -91,9 +168,14 @@ const Register = () => {
                                     <div className="text-sm text-red-500 ml-1">*</div>
                                 </label>
                                 <div className="relative flex justify-end items-center">
-                                    <input 
+                                    <input
                                         {...register(
                                                 "password",
+                                                {
+                                                    required: true,
+                                                    minLength: 8,
+                                                    pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                                                }
                                             )
                                         }
                                     type={isHidePassword? "password":"text"} className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300" />
@@ -107,6 +189,18 @@ const Register = () => {
                                         </svg>
                                     }
                                 </div>
+                                {
+                                    errors.password?.type === "required" &&
+                                    <div className="text-sm text-red-500">password is requried</div>
+                                }
+                                {
+                                    errors.password?.type === "minLength" &&
+                                    <div className="text-sm text-red-500">password must be at least 8 characters</div>
+                                }
+                                {
+                                    errors.password?.type === "pattern" &&
+                                    <div className="text-sm text-red-500">password is too week</div>
+                                }
                             </div>
 
                             <div>
@@ -114,12 +208,20 @@ const Register = () => {
                                     <div className="font-bold text-md">Re-enter password</div>
                                     <div className="text-sm text-red-500 ml-1">*</div>
                                 </label>
-                                <input 
+                                <input
                                     {...register(
-                                            "reEnterPassword",
+                                            "passwordConfirm",
+                                            {
+                                                required: true,
+                                                pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                                            }
                                         )
                                     }
                                 type={isHidePassword? "password":"text"} className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"/>
+                                {
+                                    errors.passwordConfirm?.type === "required" &&
+                                    <div className="text-sm text-red-500">please confirm your password</div>
+                                }
                             </div>
 
                             <div>

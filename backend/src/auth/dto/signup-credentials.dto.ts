@@ -4,13 +4,13 @@ import { UserRoleEnum } from "../enum/user-role.enum"
 export class SignUpCredentialsDto {
     @IsNotEmpty()
     @IsString()
-    @MinLength(4)
+    @MinLength(1)
     @MaxLength(50)
     first_name: string
 
     @IsNotEmpty()
     @IsString()
-    @MinLength(4)
+    @MinLength(1)
     @MaxLength(50)
     last_name: string
 

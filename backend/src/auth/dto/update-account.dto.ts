@@ -4,13 +4,13 @@ export class UpdateAccountDto {
 
     @IsOptional()
     @IsString()
-    @MinLength(4)
+    @MinLength(1)
     @MaxLength(50)
     first_name?: string
 
     @IsOptional()
     @IsString()
-    @MinLength(4)
+    @MinLength(1)
     @MaxLength(50)
     last_name?: string
 
