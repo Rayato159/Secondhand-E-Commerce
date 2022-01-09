@@ -1,6 +1,4 @@
-import { Optional } from "@nestjs/common"
-import { IsEmail, IsNotEmpty, IsString, IsEnum } from "class-validator"
-import { UserRoleEnum } from "../enum/user-role.enum"
+import { IsEmail, IsNotEmpty, IsString } from "class-validator"
 
 export class SignInCredentialsDto {
     @IsNotEmpty()

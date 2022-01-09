@@ -12,11 +12,6 @@ const Register = () => {
         formState: { errors }, 
     } = useForm()
 
-    // Variable
-    const [user, setUser] = useState(null)
-    const [password, setPassword] = useState("")
-    const [rePassword, setRePassword] = useState("")
-
     // Event controller
     const [isHidePassword, setIsHidePassword] = useState(true)
 
@@ -24,22 +19,44 @@ const Register = () => {
         const {
             first_name,
             last_name,
+            birthday,
             phone,
             email,
             password,
             passwordConfirm
         } = data
 
+        // Check confirm password in progress.
+
+        const user = {
+            first_name,
+            last_name,
+            birthday,
+            phone,
+            email,
+            password,
+        }
+
         if(password === passwordConfirm) {
-            setUser({
-                first_name,
-                last_name,
-                phone,
-                email,
-                password,
-            })
+            saveUser(user)
         }
     })
+
+    const saveUser = (user) => {
+        try {
+            fetch('http://localhost:3000/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            })
+            console.log('success')
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     const eventHidePassword = () => {
         setIsHidePassword(!isHidePassword)
@@ -110,6 +127,22 @@ const Register = () => {
                                     errors.last_name?.type === "minLength" || errors.first_name?.type === "maxLength" &&
                                     <div className="text-sm text-red-500">last name is too long</div>
                                 }
+                            </div>
+
+                            <div>
+                                <label htmlFor="" className="flex items-center">
+                                    <div className="font-bold text-md">เดือน/วัน/ปี เกิด</div>
+                                    <div className="text-sm text-red-500 ml-1">*</div>
+                                </label>
+                                <input 
+                                    {...register(
+                                            "birthday",
+                                            {
+                                                required: true,
+                                            }
+                                        )
+                                    }
+                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="mm/dd/yyyy"/>
                             </div>
 
                             <div>

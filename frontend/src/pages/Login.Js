@@ -45,9 +45,9 @@ const Login = () => {
         }
     }
 
-    console.log(accessToken)
 
     if(accessToken) {
+        console.log({ message: 'success', token: accessToken })
         return (
             <Navigate to="/:id/profile" />
         )
