@@ -33,9 +33,9 @@ const Navbar = () => {
                             <div className="flex text-black px-2">
                                 <input type="text" name="serch" placeholder="Search" className="bg-white h-9 px-4 pr-9 rounded-full text-sm items-center focus:outline-none focus:border-slate-300 focus:ring-slate-300" />
                                 <button type="submit" className="item-center px-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>

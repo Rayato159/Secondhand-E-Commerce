@@ -12,7 +12,7 @@ const Category = () => {
                 {
                     categories.map((category, i) => {
                         return (
-                            <Link to={`/products/${category.categoryEng.toLocaleLowerCase()}`} key={i} className="rounded shadow-lg w-64 mx-auto my-6 hover:bg-slate-200 transition duration-300">
+                            <Link to={`/products?category=${category.categoryEng.toLocaleLowerCase()}`} key={i} className="rounded shadow-lg w-64 mx-auto my-6 hover:bg-slate-200 transition duration-300">
                                 <img className="object-cover w-64 h-48 mx-auto md:rounded-t" src={`/assets/images/categories/${category.categoryEng}.jpg`} alt="car" />
                                 <div className="px-4 py-6 font-bold text-center text-xl">
                                     {category.categoryThai}
