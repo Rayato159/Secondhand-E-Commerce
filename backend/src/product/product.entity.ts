@@ -12,9 +12,6 @@ export class Product {
 
     @Column()
     product_name: string
-
-    @Column()
-    lifespan: string
     
     @Column({ type: 'double precision' })
     price: number

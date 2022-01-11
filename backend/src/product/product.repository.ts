@@ -12,7 +12,6 @@ export class ProductRepository extends Repository<Product> {
     async createProduct(createProductDto: CreateProductDto, user: User): Promise<Product> {
         const {
             product_name,
-            lifespan,
             price,
             description,
             address,
@@ -21,7 +20,6 @@ export class ProductRepository extends Repository<Product> {
 
         const product = this.create({
             product_name,
-            lifespan,
             price,
             description,
             address,

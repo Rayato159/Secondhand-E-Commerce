@@ -5,9 +5,6 @@ import { ProductCategory } from "../enum/product-category.enum";
 export class CreateProductDto {
     @IsNotEmpty()
     product_name: string
-
-    @IsNotEmpty()
-    lifespan: string
     
     @IsNotEmpty()
     price: number
