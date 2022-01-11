@@ -4,13 +4,15 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import './Login.css'
 
+// Components
+import SubmitButton from '../components/SubmitButton';
+
 const Login = () => {
 
     // Route
     const navigate = useNavigate()
 
     // React Hook
-    const [remember, setRemember] = useState(false)
     const [isHidePassword, setIsHidePassword] = useState(true)
     const [accessToken, setAccessToken] = useState(null)
 
@@ -27,27 +29,30 @@ const Login = () => {
         } = data
 
         setIsPending(true)
+        fetchLogin(email, password)
+    })
 
-        fetch('http://localhost:3000/api/auth/signin', {
+    const fetchLogin = async (email, password) => {
+        const res = await fetch('http://localhost:3000/api/auth/signin', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ email, password }),
 
-        }).then((res) => {
-            setIsPending(false)
-
-            if(res.status === 201) {
-                setAccessToken(res.json())
-                navigate('/')
-            }
-
-            setIsLoginError(true)
         })
-    })
 
-    console.log(accessToken)
+        if(res.status === 201) {
+            const token = await res.json()
+            console.log(token)
+            setAccessToken(token)
+            setIsPending(false)
+            navigate('/')
+        }
+
+        setIsPending(false)
+        setIsLoginError(true)
+    }
 
     const eventHidePassword = () => {
         setIsHidePassword(!isHidePassword)
@@ -146,27 +151,9 @@ const Login = () => {
                                     Please check your email or password.
                                 </div>
                             :null}
-
-                            {isPending?
-                                <div>
-                                    <button disabled className="flex relative w-full bg-amber-400 text-amber-800 rounded p-2 mt-6 justify-center">
-                                        <div className="flex space-x-8">
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="absolute animate-spin h-5 w-5 items-center" viewBox="0 0 20 20" fill="currentColor">
-                                                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
-                                                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
-                                            </svg>
-                                            <div className="font-bold">
-                                                Processing...
-                                            </div>
-                                        </div>        
-                                    </button>
-                                </div>:
-                                <div>
-                                    <button className="flex relative justify-center w-full bg-amber-500 hover:bg-amber-400 text-amber-800 rounded p-2 mt-6 font-bold">
-                                        Login
-                                    </button>
-                                </div>
-                            }
+                            
+                            {/* Button */}
+                            <SubmitButton isPending={isPending} Content={"Login"} />
                         
                         </form>
                     </div>

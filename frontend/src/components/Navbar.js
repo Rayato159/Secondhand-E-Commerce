@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
 
     const [showToggleBar, setShowToggleBar] = useState(false)
 
@@ -26,7 +26,7 @@ const Navbar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                             </svg>
-                            <span className="font-bold">Mongsue</span>
+                            <span className="font-bold text-xl">Mongsue</span>
                         </Link>
                         {/* Search Box */}
                         <div className="hidden md:flex items-center py-2">
@@ -42,8 +42,8 @@ const Navbar = () => {
                     {/* Responsive */}
                     <div className="flex space-x-8 items-center px-4 py-2 cursor-pointer">  
                         <div className="hidden md:flex space-x-4 items-center">
-                            <Link to="login" className="hover:text-slate-400 font-bold">Login</Link>
-                            <Link to="register" className="hover:text-slate-400 font-bold">Register</Link>
+                            <Link to="login" className="hover:text-slate-400 font-bold">{user? user:"Login"}</Link>
+                            {user? null:<Link to="register" className="hover:text-slate-400 font-bold">Register</Link>}
                         </div>    
 
                         <div className="flex space-x-4 items-center cursor-pointer">
@@ -66,8 +66,8 @@ const Navbar = () => {
                                 </svg>
                             </div>
                         </div>
-                        <Link to="login" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">Login</Link>
-                        <Link to="register" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">Register</Link>
+                        <Link to="login" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">{user? user:"Login"}</Link>
+                        {user? null:<Link to="register" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">Register</Link>}
                     </div>
                 :null}
             </div>

@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
-import { useForm, useController } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useNavigate } from "react-router-dom";
 
 import './Login.css'
+
+// Components
+import SubmitButton from '../components/SubmitButton';
 
 const Register = () => {
 
@@ -12,7 +15,10 @@ const Register = () => {
         formState: { errors }, 
     } = useForm()
 
+    const navigate = useNavigate()
+
     // Event controller
+    const [isPending, setIsPending] = useState(false)
     const [isHidePassword, setIsHidePassword] = useState(true)
 
     const onSubmit = handleSubmit((data) => {
@@ -37,26 +43,23 @@ const Register = () => {
             password,
         }
 
-        if(password === passwordConfirm) {
-            saveUser(user)
-        }
-    })
+        setIsPending(true)
 
-    const saveUser = (user) => {
-        try {
+        if(password === passwordConfirm) {
             fetch('http://localhost:3000/api/auth/signup', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify(user),
+                body: JSON.stringify(user)
+            }).then((res) => {
+                if(res.status === 201) {
+                    setIsPending(false)
+                    navigate('/login')
+                }
             })
-            console.log('success')
-
-        } catch (e) {
-            console.log(e)
         }
-    }
+    })
 
     const eventHidePassword = () => {
         setIsHidePassword(!isHidePassword)
@@ -139,10 +142,19 @@ const Register = () => {
                                             "birthday",
                                             {
                                                 required: true,
+                                                pattern: /(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/
                                             }
                                         )
                                     }
                                 type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="mm/dd/yyyy"/>
+                                {
+                                    errors.birthday?.type === "required" &&
+                                    <div className="text-sm text-red-500">birthday is requried</div>
+                                }
+                                {
+                                    errors.birthday?.type === "pattern" &&
+                                    <div className="text-sm text-red-500">must be mm/dd/yyyy</div>
+                                }
                             </div>
 
                             <div>
@@ -256,10 +268,9 @@ const Register = () => {
                                     <div className="text-sm text-red-500">please confirm your password</div>
                                 }
                             </div>
-
-                            <div>
-                                <button className="w-full bg-amber-500 hover:bg-amber-400 text-amber-800 rounded p-2 mt-6">สมัครสมาชิก</button>
-                            </div>
+                            
+                            {/* Button */}
+                            <SubmitButton isPending={isPending} Content={"สมัครสมาชิก"} />
                         </form>
                     </div>
                 </div>
