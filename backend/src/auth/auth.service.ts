@@ -42,7 +42,7 @@ export class AuthService {
 
     async getUsers(user: User): Promise<User[]> {
         if(user.role !== UserRoleEnum.ADMIN) {
-            throw new ForbiddenException('Never gonna give you up: https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+            throw new ForbiddenException('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
         }
 
         try {

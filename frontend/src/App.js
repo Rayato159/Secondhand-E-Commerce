@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Sell from './pages/Sell'
+import ChangePassword from './pages/ChangePassword'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                             <Route>
                                 <Route path="/" element={<Home />} />
                                 <Route path="login" element={<Login />} />
+                                <Route path="change_password" element={<ChangePassword />} />
                                 <Route path="register" element={<Register />} />
                                 <Route path="products/sell" element={<Sell />} />
                             </Route>

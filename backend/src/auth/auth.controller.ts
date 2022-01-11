@@ -29,7 +29,7 @@ export class AuthController {
     @Get('/users')
     @UseGuards(AuthGuard())
     async getUsers(
-        @Body() user: User,
+        @GetUser() user: User,
     ): Promise<User[]> {
         return this.authService.getUsers(user)
     }
@@ -38,12 +38,12 @@ export class AuthController {
     @UseGuards(AuthGuard())
     async getUserByID(
         @Param('id') id: string,
-        @Body() user: User
+        @GetUser() user: User
     ): Promise<any> {
         return this.authService.getUserbByID(id, user)
     }
 
-    @Patch('/:id/update')
+    @Patch('/update')
     @UseGuards(AuthGuard())
     async updateAccount(
         @Body() updateAccountDto: UpdateAccountDto,

@@ -79,7 +79,9 @@ export class UserRepository extends Repository<User> {
             }
 
             if(password) {
-                updatedUser.password = password
+                const salt = await bcrypt.genSalt()
+                const hashedPassword = await bcrypt.hash(password, salt)
+                updatedUser.password = hashedPassword
             }
 
             if(picture) {

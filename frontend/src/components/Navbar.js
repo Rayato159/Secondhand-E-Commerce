@@ -10,7 +10,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="bg-slate-800 sticky top-0 w-full">
+        <nav className="bg-slate-800 sticky top-0 w-full z-50">
             <div className="max-w-6xl mx-auto">
                 <div className="flex text-white justify-between">
 

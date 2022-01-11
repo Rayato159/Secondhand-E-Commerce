@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Navigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import './Login.css'
 
 const Login = () => {
 
+    // Route
+    const navigate = useNavigate()
+
     // React Hook
     const [remember, setRemember] = useState(false)
     const [isHidePassword, setIsHidePassword] = useState(true)
     const [accessToken, setAccessToken] = useState(null)
+
+    const [isPending, setIsPending] = useState(false)
+    const [isLoginError, setIsLoginError] = useState(false)
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -20,37 +26,31 @@ const Login = () => {
             remember,
         } = data
 
-        saveUser(email, password)
+        setIsPending(true)
+
+        fetch('http://localhost:3000/api/auth/signin', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+
+        }).then((res) => {
+            setIsPending(false)
+
+            if(res.status === 201) {
+                setAccessToken(res.json())
+                navigate('/')
+            }
+
+            setIsLoginError(true)
+        })
     })
+
+    console.log(accessToken)
 
     const eventHidePassword = () => {
         setIsHidePassword(!isHidePassword)
-    }
-
-    const saveUser = async (email, password) => {
-        try {
-            const res = await fetch('http://localhost:3000/api/auth/signin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({email, password}),
-            })
-
-            const token = await res.json()
-
-            setAccessToken(token.accessToken)
-        } catch (e) {
-            setAccessToken(e)
-        }
-    }
-
-
-    if(accessToken) {
-        console.log({ message: 'success', token: accessToken })
-        return (
-            <Navigate to="/:id/profile" />
-        )
     }
 
     return (
@@ -84,7 +84,7 @@ const Login = () => {
                                             }
                                         )
                                     }
-                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="mongsue@example.com"/>
+                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300 items-center"  placeholder="mongsue@example.com"/>
                                 {
                                     errors.email?.type === "required" &&
                                     <div className="text-sm text-red-500">email is required</div>
@@ -109,7 +109,7 @@ const Login = () => {
                                                 }
                                             )
                                         }
-                                    type={isHidePassword? "password":"text"} className="relative w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300" />
+                                    type={isHidePassword? "password":"text"} className="relative w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300 items-center" />
                                     {isHidePassword?
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 absolute mx-2 text-gray-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" onClick={eventHidePassword}>
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
@@ -136,12 +136,37 @@ const Login = () => {
                                         type="checkbox" className="h-4 w-4 rounded focus:border-slate-300 focus:ring-1 focus:ring-slate-300" />
                                     <label htmlFor="" className="ml-2 text-sm">Remember me</label>
                                 </div>
-                                <div className="text-sm text-blue-500 hover:text-blue-400 cursor-pointer">forget password?</div>
+                                <Link to="/change_password" className="text-sm text-blue-500 hover:text-blue-400 cursor-pointer">
+                                    forget password?
+                                </Link>
                             </div>
 
-                            <div>
-                                <button className="w-full bg-amber-500 hover:bg-amber-400 text-amber-800 rounded p-2 my-3">Login</button>
-                            </div>
+                            {isLoginError?
+                                <div className="text-red-500 text-sm mt-1">
+                                    Please check your email or password.
+                                </div>
+                            :null}
+
+                            {isPending?
+                                <div>
+                                    <button disabled className="flex relative w-full bg-amber-400 text-amber-800 rounded p-2 mt-6 justify-center">
+                                        <div className="flex space-x-8">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="absolute animate-spin h-5 w-5 items-center" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
+                                                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
+                                            </svg>
+                                            <div className="font-bold">
+                                                Processing...
+                                            </div>
+                                        </div>        
+                                    </button>
+                                </div>:
+                                <div>
+                                    <button className="flex relative justify-center w-full bg-amber-500 hover:bg-amber-400 text-amber-800 rounded p-2 mt-6 font-bold">
+                                        Login
+                                    </button>
+                                </div>
+                            }
                         
                         </form>
                     </div>
