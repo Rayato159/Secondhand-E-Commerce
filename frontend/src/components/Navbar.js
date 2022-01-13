@@ -1,13 +1,45 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-const Navbar = ({ user }) => {
+const Navbar = () => {
 
     const [showToggleBar, setShowToggleBar] = useState(false)
 
+    const [user, setUser] = useState(null)
+    const [token, setToken] = useState(sessionStorage.getItem("accessToken"))
+
     const toggleBarEvent = () => {
-        return setShowToggleBar(!showToggleBar)
+        setShowToggleBar(!showToggleBar)
     }
+
+    const deleteTokenEvent = () => {
+        sessionStorage.removeItem("accessToken")
+        setToken(null)
+    }
+
+    const fetchUser = async () => {
+        const res = await fetch('http://localhost:3000/api/auth/users/me', {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+
+        if(res.status === 200) {
+            const result = await res.json()
+            setUser(result)
+        } else {
+            setUser(null)
+        }
+    }
+
+    useEffect(() => {
+        setToken(sessionStorage.getItem("accessToken"))
+    }, [user])
+
+    useEffect(() => {
+        fetchUser()
+    }, [token])
 
     return (
         <nav className="bg-slate-800 sticky top-0 w-full z-50">
@@ -39,11 +71,17 @@ const Navbar = ({ user }) => {
                         </div>
                     </div>
 
-                    {/* Responsive */}
+                    {/* Login Register */}
                     <div className="flex space-x-8 items-center px-4 py-2 cursor-pointer">  
                         <div className="hidden md:flex space-x-4 items-center">
-                            <Link to="login" className="hover:text-slate-400 font-bold">{user? user:"Login"}</Link>
-                            {user? null:<Link to="register" className="hover:text-slate-400 font-bold">Register</Link>}
+                            {user?
+                                <Link to="profile" className="hover:text-slate-400 font-bold">{user.first_name}</Link>:
+                                <Link to="login" className="hover:text-slate-400 font-bold">Login</Link>
+                            }
+                            {user? 
+                                <button onClick={deleteTokenEvent} className="hover:text-slate-400 font-bold">Logout</button>:
+                                <Link to="register" className="hover:text-slate-400 font-bold">Register</Link>
+                            }
                         </div>    
 
                         <div className="flex space-x-4 items-center cursor-pointer">
@@ -66,8 +104,14 @@ const Navbar = ({ user }) => {
                                 </svg>
                             </div>
                         </div>
-                        <Link to="login" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">{user? user:"Login"}</Link>
-                        {user? null:<Link to="register" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">Register</Link>}
+                        {user?
+                            <Link to="profile" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">{user.first_name}</Link>:
+                            <Link to="login" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">Login</Link>
+                        }
+                        {user? 
+                            <button onClick={deleteTokenEvent} className="block w-full text-white text-sm text-left px-4 py-2 h-10 hover:bg-slate-600 font-bold">Logout</button>:
+                            <Link to="register" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">Register</Link>
+                        }
                     </div>
                 :null}
             </div>

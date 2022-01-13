@@ -34,6 +34,14 @@ export class AuthController {
         return this.authService.getUsers(user)
     }
 
+    @Get('users/me')
+    @UseGuards(AuthGuard())
+    async getUserButMe(
+        @GetUser() user: User
+    ): Promise<User> {
+        return this.authService.getUserButMe(user)
+    }
+
     @Get('/:id')
     @UseGuards(AuthGuard())
     async getUserByID(

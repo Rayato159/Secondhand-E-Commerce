@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -7,21 +7,20 @@ import './Login.css'
 // Components
 import SubmitButton from '../components/SubmitButton';
 
-const Login = () => {
+const Login = (props) => {
 
     // Route
     const navigate = useNavigate()
 
     // React Hook
     const [isHidePassword, setIsHidePassword] = useState(true)
-    const [accessToken, setAccessToken] = useState(null)
 
     const [isPending, setIsPending] = useState(false)
     const [isLoginError, setIsLoginError] = useState(false)
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = handleSubmit((data) => {
+    const onLoginSubmit = handleSubmit((data) => {
         const {
             email,
             password,
@@ -44,8 +43,8 @@ const Login = () => {
 
         if(res.status === 201) {
             const token = await res.json()
-            console.log(token)
-            setAccessToken(token)
+
+            sessionStorage.setItem("accessToken", token.accessToken)
             setIsPending(false)
             navigate('/')
         }
@@ -57,7 +56,7 @@ const Login = () => {
     const eventHidePassword = () => {
         setIsHidePassword(!isHidePassword)
     }
-
+    
     return (
         <div className="Login">
             <div className="flex flex-col max-w-md mx-auto justify-center">
@@ -73,7 +72,7 @@ const Login = () => {
                             </div>
                         </div>
 
-                        <form className="space-y-2" onSubmit={onSubmit}>
+                        <form className="space-y-2" onSubmit={onLoginSubmit}>
 
                             <div>
                                 <label htmlFor="" className="flex text-sm items-center">

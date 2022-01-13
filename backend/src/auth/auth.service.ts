@@ -87,6 +87,15 @@ export class AuthService {
         }
     }
 
+    async getUserButMe(user: User):  Promise<User> {
+        try{
+            const userButMe = await this.userRepository.findOne(user.id)
+            return userButMe
+        } catch(e) {
+            throw new NotFoundException('Are you sure you are logged in?')
+        }
+    }
+
     async updateAccount(updateAcoountDto: UpdateAccountDto, user: User): Promise<string> {
         return this.userRepository.updateAccount(updateAcoountDto, user)
     }

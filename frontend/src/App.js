@@ -11,22 +11,14 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Sell from './pages/Sell'
 import ChangePassword from './pages/ChangePassword'
-import TestComponents from './pages/TestComponents'
+import NotFound from './pages/NotFound'
 
-
-function App() {
-
-    const [user, setUser] = useState(null)
-    const [isToken, setIsToken] = useState(null)
-
-    // useEffect(() => {
-    //     setIsToken()
-    // }, [])
+export const App = () => {
 
     return (
         <div className="flex flex-col h-screen justify-between">
             <BrowserRouter>
-                    <Navbar user={user}/>
+                    <Navbar />
                         <Routes>
                             <Route>
                                 <Route path="/" element={<Home />} />
@@ -34,7 +26,7 @@ function App() {
                                 <Route path="change_password" element={<ChangePassword />} />
                                 <Route path="register" element={<Register />} />
                                 <Route path="products/sell" element={<Sell />} />
-                                <Route path="tests" element={<TestComponents />} />
+                                <Route path="*" element={<NotFound />} />
                             </Route>
                         </Routes>
                     <Footer />
@@ -42,5 +34,3 @@ function App() {
         </div>
     )
 }
-
-export default App
