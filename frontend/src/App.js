@@ -15,10 +15,36 @@ import NotFound from './pages/NotFound'
 
 export const App = () => {
 
+    const [token, setToken] = useState(null)
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        setToken(sessionStorage.getItem("accessToken"))
+    }, [])
+
+    useEffect(() => {
+        fetchUser()
+    }, [token])
+
+    const fetchUser = async () => {
+        const res = await fetch('http://localhost:3000/api/auth/users/me', {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+        })
+
+        if(res.status === 200) {
+            const user = await res.json()
+            
+            setUser(user)
+        }
+    }
+    
     return (
         <div className="flex flex-col h-screen justify-between">
             <BrowserRouter>
-                    <Navbar />
+                    <Navbar user={user} />
                         <Routes>
                             <Route>
                                 <Route path="/" element={<Home />} />

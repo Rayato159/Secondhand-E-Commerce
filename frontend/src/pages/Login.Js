@@ -47,6 +47,7 @@ const Login = (props) => {
             sessionStorage.setItem("accessToken", token.accessToken)
             setIsPending(false)
             navigate('/')
+            window.location.reload()
         }
 
         setIsPending(false)

@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
 
     const [showToggleBar, setShowToggleBar] = useState(false)
-
-    const [user, setUser] = useState(null)
     const [token, setToken] = useState(sessionStorage.getItem("accessToken"))
 
     const toggleBarEvent = () => {
@@ -16,30 +14,6 @@ const Navbar = () => {
         sessionStorage.removeItem("accessToken")
         setToken(null)
     }
-
-    const fetchUser = async () => {
-        const res = await fetch('http://localhost:3000/api/auth/users/me', {
-            method: 'GET',
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-
-        if(res.status === 200) {
-            const result = await res.json()
-            setUser(result)
-        } else {
-            setUser(null)
-        }
-    }
-
-    useEffect(() => {
-        setToken(sessionStorage.getItem("accessToken"))
-    }, [user])
-
-    useEffect(() => {
-        fetchUser()
-    }, [token])
 
     return (
         <nav className="bg-slate-800 sticky top-0 w-full z-50">
