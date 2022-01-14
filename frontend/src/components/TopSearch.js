@@ -3,7 +3,7 @@ import itemLists from "../models/itemLists"
 const TopSearch = () => {
 
     return (
-        <div className="max-w-6xl md:mx-auto md:text-left text-center md:px-4 px-6 py-4 mb-12 md:border-2 md:rounded md:border-slate-500">
+        <div className="max-w-6xl md:mx-auto md:text-left text-center md:px-4 px-6 py-4 mb-12 md:border-2 md:rounded md:border-slate-800">
             <div className="font-bold text-xl">คำค้นหายอดนิยม</div>
             <div className="grid md:grid-cols-5 grid-cols-2 gap-2 px-6 py-4 text-sm text-center">
                 {
