@@ -7,15 +7,20 @@ import './Login.css'
 // Components
 import SubmitButton from '../components/SubmitButton';
 
-const Register = () => {
+const Register = ({ user }) => {
+
+    //Route
+    const navigate = useNavigate()
+
+    if(user) {
+        navigate('/')
+    }
 
     const { 
         register, 
         handleSubmit,
         formState: { errors }, 
     } = useForm()
-
-    const navigate = useNavigate()
 
     // Event controller
     const [isPending, setIsPending] = useState(false)
@@ -75,14 +80,14 @@ const Register = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
                             <div className="font-bold text-2xl">
-                                สมัครสมาชิกใหม่
+                                Register
                             </div>
                         </div>
 
                         <form className="space-y-2" onSubmit={onSubmit}>
                             <div>
                                 <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">ชื่อ (ไม่ต้องมีคำนำหน้า)</div>
+                                    <div className="font-bold text-md">First Name</div>
                                     <div className="text-sm text-red-500 ml-1">*</div>
                                 </label>
                                 <input 
@@ -95,7 +100,7 @@ const Register = () => {
                                             }
                                         )
                                     }
-                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="มือสอง"/>
+                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="Mongsue"/>
                                 {
                                     errors.first_name?.type === "required" &&
                                     <div className="text-sm text-red-500">first name is requried</div>
@@ -108,7 +113,7 @@ const Register = () => {
 
                             <div>
                                 <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">นามสกุล</div>
+                                    <div className="font-bold text-md">Last Name</div>
                                     <div className="text-sm text-red-500 ml-1">*</div>
                                 </label>
                                 <input 
@@ -121,7 +126,7 @@ const Register = () => {
                                             }
                                         )
                                     }
-                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="มองสือ"/>
+                                type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="Muesong"/>
                                 {
                                     errors.last_name?.type === "required" &&
                                     <div className="text-sm text-red-500">last name is requried</div>
@@ -134,7 +139,7 @@ const Register = () => {
 
                             <div>
                                 <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">เดือน/วัน/ปี เกิด</div>
+                                    <div className="font-bold text-md">Birthday: dd/mm/yyyy</div>
                                     <div className="text-sm text-red-500 ml-1">*</div>
                                 </label>
                                 <input 
@@ -159,7 +164,7 @@ const Register = () => {
 
                             <div>
                                 <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">เบอร์โทร</div>
+                                    <div className="font-bold text-md">Phone Number</div>
                                     <div className="text-sm text-red-500 ml-1">*</div>
                                 </label>
                                 <input 
@@ -270,7 +275,7 @@ const Register = () => {
                             </div>
                             
                             {/* Button */}
-                            <SubmitButton isPending={isPending} Content={"สมัครสมาชิก"} />
+                            <SubmitButton isPending={isPending} Content={"Register"} />
                         </form>
                     </div>
                 </div>

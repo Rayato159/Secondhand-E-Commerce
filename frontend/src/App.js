@@ -80,7 +80,7 @@ export const App = () => {
                                 <Route path="/" element={<Home />} />
                                 <Route path="login" element={<Login isLogin={isLogin} user={user} error={error} />} />
                                 <Route path="change_password" element={<ChangePassword />} />
-                                <Route path="register" element={<Register />} />
+                                <Route path="register" element={<Register user={user} />} />
                                 <Route path="products/sell" element={<Sell />} />
                                 <Route path="*" element={<NotFound />} />
                             </Route>

@@ -8,9 +8,13 @@ import './Login.css'
 import SubmitButton from '../components/SubmitButton';
 
 const Login = ({ isLogin, user, error }) => {
-
+    
     // Route
     const navigate = useNavigate()
+    
+    if(user) {
+        navigate('/')
+    }
 
     //RickRoll
     const [failCount, setFailCount] = useState(3)
