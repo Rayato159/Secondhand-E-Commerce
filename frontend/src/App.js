@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Sell from './pages/Sell'
+import Products from './pages/Products'
 import ChangePassword from './pages/ForgetPassword'
 import NotFound from './pages/NotFound'
 
@@ -81,6 +82,7 @@ export const App = () => {
                                 <Route path="login" element={<Login isLogin={isLogin} user={user} error={error} />} />
                                 <Route path="change_password" element={<ChangePassword />} />
                                 <Route path="register" element={<Register user={user} />} />
+                                <Route path="products" element={<Products />} />
                                 <Route path="products/sell" element={<Sell />} />
                                 <Route path="*" element={<NotFound />} />
                             </Route>
