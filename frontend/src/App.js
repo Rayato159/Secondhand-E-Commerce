@@ -10,45 +10,75 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Sell from './pages/Sell'
-import ChangePassword from './pages/ChangePassword'
+import ChangePassword from './pages/ForgetPassword'
 import NotFound from './pages/NotFound'
 
 export const App = () => {
 
-    const [token, setToken] = useState(null)
     const [user, setUser] = useState(null)
+    const [token, setToken] = useState(sessionStorage.getItem("accessToken"))
+    const [error, setError] = useState(null)
 
-    useEffect(() => {
-        setToken(sessionStorage.getItem("accessToken"))
-    }, [])
+    const isLogin = (userDetails) => {
+        signIn(userDetails)
+    }
 
-    useEffect(() => {
-        fetchUser()
-    }, [token])
+    const signIn = async (userDetails) => {
+        const res = await fetch('http://localhost:3000/api/auth/signin', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userDetails)
+        })
+    
+        if(res.status === 201) {
+            const token = await res.json()
+            sessionStorage.setItem("accessToken", token.accessToken)
+            setToken(sessionStorage.getItem("accessToken"))
+        } else {
+            const error = await res.json()
+            setError(error)
+        }
 
-    const fetchUser = async () => {
+        getUserButMe(token)
+    }
+
+    const getUserButMe = async (token) => {
         const res = await fetch('http://localhost:3000/api/auth/users/me', {
             method: 'GET',
             headers: {
                 "Authorization": `Bearer ${token}`
-            },
+            }
         })
 
         if(res.status === 200) {
             const user = await res.json()
-            
             setUser(user)
+        } else {
+            setUser(null)
         }
     }
+
+    const isLogout = (token) => {
+        if(window.confirm("Are you sure?")) {
+            sessionStorage.removeItem("accessToken")
+            setToken(token)
+        }
+    }
+
+    useEffect(() => {
+        getUserButMe(token)
+    }, [token])
     
     return (
         <div className="flex flex-col h-screen justify-between">
             <BrowserRouter>
-                    <Navbar user={user} />
+                    <Navbar user={user} isLogout={isLogout} />
                         <Routes>
                             <Route>
                                 <Route path="/" element={<Home />} />
-                                <Route path="login" element={<Login />} />
+                                <Route path="login" element={<Login isLogin={isLogin} user={user} error={error} />} />
                                 <Route path="change_password" element={<ChangePassword />} />
                                 <Route path="register" element={<Register />} />
                                 <Route path="products/sell" element={<Sell />} />

@@ -7,56 +7,46 @@ import './Login.css'
 // Components
 import SubmitButton from '../components/SubmitButton';
 
-const Login = (props) => {
+const Login = ({ isLogin, user, error }) => {
 
     // Route
     const navigate = useNavigate()
 
-    // React Hook
-    const [isHidePassword, setIsHidePassword] = useState(true)
+    //RickRoll
+    const [failCount, setFailCount] = useState(3)
+    const [flag, setFlag] = useState(false)
 
+    const [isHidePassword, setIsHidePassword] = useState(true)
     const [isPending, setIsPending] = useState(false)
-    const [isLoginError, setIsLoginError] = useState(false)
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const onLoginSubmit = handleSubmit((data) => {
-        const {
-            email,
-            password,
-            remember,
-        } = data
-
-        setIsPending(true)
-        fetchLogin(email, password)
-    })
-
-    const fetchLogin = async (email, password) => {
-        const res = await fetch('http://localhost:3000/api/auth/signin', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-
-        })
-
-        if(res.status === 201) {
-            const token = await res.json()
-
-            sessionStorage.setItem("accessToken", token.accessToken)
-            setIsPending(false)
-            navigate('/')
-            window.location.reload()
-        }
-
-        setIsPending(false)
-        setIsLoginError(true)
-    }
 
     const eventHidePassword = () => {
         setIsHidePassword(!isHidePassword)
     }
+
+    const onLoginSubmit = handleSubmit((userDetails) => {
+
+        setIsPending(true)
+        isLogin(userDetails)
+    })
+
+    useEffect(() => {
+        if(error) {
+            setFailCount(failCount-1)
+
+            if(failCount === 1) {
+                setFlag(true)
+                window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+            }
+        }
+        
+        setIsPending(false)
+        if(user !== null) {
+            navigate('/')
+        }
+
+    }, [user, error])
     
     return (
         <div className="Login">
@@ -80,7 +70,7 @@ const Login = (props) => {
                                     <div className="font-bold">Email</div>
                                     <div className="text-sm text-red-500 ml-1">*</div>
                                 </label>
-                                <input 
+                                <input autoComplete="off"
                                     {...register(
                                             "email", 
                                             {
@@ -106,7 +96,7 @@ const Login = (props) => {
                                     <div className="text-sm text-red-500 ml-1">*</div>
                                 </label>
                                 <div className="relative flex items-center justify-end">
-                                    <input 
+                                    <input autoComplete="off"
                                         {...register(
                                                 "password", 
                                                 { 
@@ -132,7 +122,7 @@ const Login = (props) => {
                             </div>
 
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center">
+                                {/* <div className="flex items-center">
                                     <input 
                                         {...register(
                                                 "remember",
@@ -140,17 +130,28 @@ const Login = (props) => {
                                         } 
                                         type="checkbox" className="h-4 w-4 rounded focus:border-slate-300 focus:ring-1 focus:ring-slate-300" />
                                     <label htmlFor="" className="ml-2 text-sm">Remember me</label>
-                                </div>
+                                </div> */}
                                 <Link to="/change_password" className="text-sm text-blue-500 hover:text-blue-400 cursor-pointer">
                                     forget password?
                                 </Link>
                             </div>
-
-                            {isLoginError?
-                                <div className="text-red-500 text-sm mt-1">
-                                    Please check your email or password.
+                            
+                            {/* Login Error Check */}
+                            {failCount === 2 &&
+                                <div className="text-sm text-red-500">
+                                    Please check username or password and try again.
                                 </div>
-                            :null}
+                            }
+                            {failCount === 1 &&
+                                <div className="text-sm text-red-500">
+                                    Please, I don't want to tell you again.
+                                </div>
+                            }
+                            {flag &&
+                                <div className="text-sm text-red-500">
+                                    Never gonna give you up.
+                                </div>
+                            }
                             
                             {/* Button */}
                             <SubmitButton isPending={isPending} Content={"Login"} />

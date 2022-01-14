@@ -1,18 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-const Navbar = ({ user }) => {
+const Navbar = ({ user, isLogout }) => {
 
     const [showToggleBar, setShowToggleBar] = useState(false)
-    const [token, setToken] = useState(sessionStorage.getItem("accessToken"))
 
     const toggleBarEvent = () => {
         setShowToggleBar(!showToggleBar)
-    }
-
-    const deleteTokenEvent = () => {
-        sessionStorage.removeItem("accessToken")
-        setToken(null)
     }
 
     return (
@@ -53,7 +47,7 @@ const Navbar = ({ user }) => {
                                 <Link to="login" className="hover:text-slate-400 font-bold">Login</Link>
                             }
                             {user? 
-                                <button onClick={deleteTokenEvent} className="hover:text-slate-400 font-bold">Logout</button>:
+                                <button onClick={() => isLogout(null)} className="hover:text-slate-400 font-bold">Logout</button>:
                                 <Link to="register" className="hover:text-slate-400 font-bold">Register</Link>
                             }
                         </div>    
@@ -83,7 +77,7 @@ const Navbar = ({ user }) => {
                             <Link to="login" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">Login</Link>
                         }
                         {user? 
-                            <button onClick={deleteTokenEvent} className="block w-full text-white text-sm text-left px-4 py-2 h-10 hover:bg-slate-600 font-bold">Logout</button>:
+                            <button onClick={() => isLogout(null)} className="block w-full text-white text-sm text-left px-4 py-2 h-10 hover:bg-slate-600 font-bold">Logout</button>:
                             <Link to="register" className="block text-white text-sm px-4 py-2 h-10 hover:bg-slate-600 font-bold">Register</Link>
                         }
                     </div>
