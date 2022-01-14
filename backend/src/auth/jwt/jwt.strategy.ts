@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { PassportStrategy } from "@nestjs/passport";
 import { Strategy, ExtractJwt } from 'passport-jwt'
 import { JwtPayload } from "./jwt-payload.interface";
+import { ConfigService } from "@nestjs/config";
 
 import { UserRepository } from "../user.repository";
 import { User } from "../user.entity";
@@ -12,10 +13,11 @@ import { User } from "../user.entity";
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(
         @InjectRepository(UserRepository)
-        private userRepository: UserRepository
+        private userRepository: UserRepository,
+        private configService: ConfigService,
     ) {
         super({
-            secretOrKey: 'Rasputin',
+            secretOrKey: configService.get('JWT_SECRET'),
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
         });
     }
