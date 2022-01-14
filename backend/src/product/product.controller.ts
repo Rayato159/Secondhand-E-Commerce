@@ -73,14 +73,14 @@ export class ProductController {
         return this.productService.createProduct(createProductDto, user)
     }
 
-    // @Post('/upload')
-    // @UseGuards(AuthGuard())
-    // @UseInterceptors(FileInterceptor('image'))
-    // uploadProductImage(
-    //     @UploadedFiles() file,
-    // ) {
-    //     console.log(file)
-    // }
+    @Post('/picture/upload')
+    @UseGuards(AuthGuard())
+    @UseInterceptors(FileInterceptor('image'))
+    uploadProductImage(
+        @UploadedFiles() file,
+    ) {
+        console.log(file)
+    }
 
     @Delete('/:id')
     @UseGuards(AuthGuard())
