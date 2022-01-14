@@ -6,6 +6,8 @@ import './Login.css'
 
 // Components
 import SubmitButton from '../components/SubmitButton';
+import FormLabel from '../components/FormLabel';
+import ErrorTag from '../components/ErrorTag';
 
 const Register = ({ user }) => {
 
@@ -86,10 +88,7 @@ const Register = ({ user }) => {
 
                         <form className="space-y-2" onSubmit={onSubmit}>
                             <div>
-                                <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">First Name</div>
-                                    <div className="text-sm text-red-500 ml-1">*</div>
-                                </label>
+                                <FormLabel label={"First Name"} />
                                 <input 
                                     {...register(
                                             "first_name",
@@ -103,19 +102,16 @@ const Register = ({ user }) => {
                                 type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="Mongsue"/>
                                 {
                                     errors.first_name?.type === "required" &&
-                                    <div className="text-sm text-red-500">first name is requried</div>
+                                    <ErrorTag message={"first name is requried"} />
                                 }
                                 {
                                     errors.first_name?.type === "minLength" || errors.first_name?.type === "maxLength" &&
-                                    <div className="text-sm text-red-500">first name is too long</div>
+                                    <ErrorTag message={"first name is too long"} />
                                 }
                             </div>
 
                             <div>
-                                <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">Last Name</div>
-                                    <div className="text-sm text-red-500 ml-1">*</div>
-                                </label>
+                                <FormLabel label={"Last Name"} />
                                 <input 
                                     {...register(
                                             "last_name",
@@ -129,19 +125,16 @@ const Register = ({ user }) => {
                                 type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="Muesong"/>
                                 {
                                     errors.last_name?.type === "required" &&
-                                    <div className="text-sm text-red-500">last name is requried</div>
+                                    <ErrorTag message={"last name is requried"} />
                                 }
                                 {
                                     errors.last_name?.type === "minLength" || errors.first_name?.type === "maxLength" &&
-                                    <div className="text-sm text-red-500">last name is too long</div>
+                                    <ErrorTag message={"last name is too long"} />
                                 }
                             </div>
 
                             <div>
-                                <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">Birthday: dd/mm/yyyy</div>
-                                    <div className="text-sm text-red-500 ml-1">*</div>
-                                </label>
+                                <FormLabel label={"Birthday: dd/mm/yyyy"} />
                                 <input 
                                     {...register(
                                             "birthday",
@@ -154,19 +147,16 @@ const Register = ({ user }) => {
                                 type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="mm/dd/yyyy"/>
                                 {
                                     errors.birthday?.type === "required" &&
-                                    <div className="text-sm text-red-500">birthday is requried</div>
+                                    <ErrorTag message={"birthday is requried"} />
                                 }
                                 {
                                     errors.birthday?.type === "pattern" &&
-                                    <div className="text-sm text-red-500">must be mm/dd/yyyy</div>
+                                    <ErrorTag message={"must be mm/dd/yyyy"} />
                                 }
                             </div>
 
                             <div>
-                                <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">Phone Number</div>
-                                    <div className="text-sm text-red-500 ml-1">*</div>
-                                </label>
+                                <FormLabel label={"Phone Number"} />
                                 <input 
                                     {...register(
                                             "phone",
@@ -179,19 +169,16 @@ const Register = ({ user }) => {
                                 type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="0123456789"/>
                                 {
                                     errors.phone?.type === "required" &&
-                                    <div className="text-sm text-red-500">phone number is requried</div>
+                                    <ErrorTag message={"phone number is requried"} />
                                 }
                                 {
                                     errors.phone?.type === "pattern" &&
-                                    <div className="text-sm text-red-500">wanna xss my website?</div>
+                                    <ErrorTag message={"wanna xss my website?"} />
                                 }
                             </div>
 
                             <div>
-                                <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">Email</div>
-                                    <div className="text-sm text-red-500 ml-1">*</div>
-                                </label>
+                                <FormLabel label={"Email"} />
                                 <input 
                                     {...register(
                                             "email",
@@ -204,19 +191,16 @@ const Register = ({ user }) => {
                                 type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"  placeholder="mongsue@example.com"/>
                                 {
                                     errors.email?.type === "required" &&
-                                    <div className="text-sm text-red-500">email is requried</div>
+                                    <ErrorTag message={"email is requried"} />
                                 }
                                 {
                                     errors.email?.type === "pattern" &&
-                                    <div className="text-sm text-red-500">wanna xss my website?</div>
+                                    <ErrorTag message={"wanna xss my website?"} />
                                 }
                             </div>
 
                             <div>
-                                <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">Password</div>
-                                    <div className="text-sm text-red-500 ml-1">*</div>
-                                </label>
+                                <FormLabel label={"Password"} />
                                 <div className="relative flex justify-end items-center">
                                     <input
                                         {...register(
@@ -241,23 +225,20 @@ const Register = ({ user }) => {
                                 </div>
                                 {
                                     errors.password?.type === "required" &&
-                                    <div className="text-sm text-red-500">password is requried</div>
+                                    <ErrorTag message={"password is requried"} />
                                 }
                                 {
                                     errors.password?.type === "minLength" &&
-                                    <div className="text-sm text-red-500">password must be at least 8 characters</div>
+                                    <ErrorTag message={"password must be at least 8 characters"} />
                                 }
                                 {
                                     errors.password?.type === "pattern" &&
-                                    <div className="text-sm text-red-500">password is too week</div>
+                                    <ErrorTag message={"password is too week"} />
                                 }
                             </div>
 
                             <div>
-                                <label htmlFor="" className="flex items-center">
-                                    <div className="font-bold text-md">Re-enter password</div>
-                                    <div className="text-sm text-red-500 ml-1">*</div>
-                                </label>
+                                <FormLabel label={"Re-Enter Password"} />
                                 <input
                                     {...register(
                                             "passwordConfirm",
@@ -270,7 +251,7 @@ const Register = ({ user }) => {
                                 type={isHidePassword? "password":"text"} className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300"/>
                                 {
                                     errors.passwordConfirm?.type === "required" &&
-                                    <div className="text-sm text-red-500">please confirm your password</div>
+                                    <ErrorTag message={"please confirm your password"} />
                                 }
                             </div>
                             

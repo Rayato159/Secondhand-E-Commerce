@@ -7,9 +7,9 @@ const Products = () => {
             <div className="max-w-6xl mx-auto md:my-12 m-8">
                 <div className="flex flex-col justify-center">
                     <div className="grid md:grid-cols-5 grid-cols-2 md:gap-x-20 gap-x-8 md:gap-y-12 gap-y-8 mx-auto">
-                        {tests.map((test) => {
+                        {tests.map((test, i) => {
                             return (
-                                <div className="bg-slate-300 w-32 h-36 text-center">
+                                <div key={i} className="bg-slate-300 w-32 h-36 text-center">
                                     {test}
                                 </div>
                             )

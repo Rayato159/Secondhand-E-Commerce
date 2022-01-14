@@ -6,6 +6,8 @@ import './Login.css'
 
 // Components
 import SubmitButton from '../components/SubmitButton';
+import FormLabel from '../components/FormLabel';
+import ErrorTag from '../components/ErrorTag';
 
 const Login = ({ isLogin, user, error }) => {
     
@@ -70,11 +72,8 @@ const Login = ({ isLogin, user, error }) => {
                         <form className="space-y-2" onSubmit={onLoginSubmit}>
 
                             <div>
-                                <label htmlFor="" className="flex text-sm items-center">
-                                    <div className="font-bold">Email</div>
-                                    <div className="text-sm text-red-500 ml-1">*</div>
-                                </label>
-                                <input autoComplete="off"
+                                <FormLabel label={"Email"} />
+                                <input
                                     {...register(
                                             "email", 
                                             {
@@ -86,21 +85,18 @@ const Login = ({ isLogin, user, error }) => {
                                 type="text" className="w-full border border-gray-300 rounded p-2 mt-1 focus:border-slate-300 focus:ring-slate-300 items-center"  placeholder="mongsue@example.com"/>
                                 {
                                     errors.email?.type === "required" &&
-                                    <div className="text-sm text-red-500">email is required</div>
+                                    <ErrorTag message={"email is required"}/>
                                 }
                                 {
                                     errors.email?.type === "pattern" &&
-                                    <div className="text-sm text-red-500">invalid email pattern</div>
+                                    <ErrorTag message={"invalid email pattern"}/>
                                 }
                             </div>
 
                             <div>
-                                <label htmlFor="" className="flex text-sm font-bold items-center">
-                                    <div className="font-bold">Password</div>
-                                    <div className="text-sm text-red-500 ml-1">*</div>
-                                </label>
+                                <FormLabel label={"Password"} />
                                 <div className="relative flex items-center justify-end">
-                                    <input autoComplete="off"
+                                    <input
                                         {...register(
                                                 "password", 
                                                 { 
@@ -121,7 +117,7 @@ const Login = ({ isLogin, user, error }) => {
                                 </div>
                                 {
                                     errors.password?.type === "required" &&
-                                    <div className="text-sm text-red-500">password is required</div>
+                                    <ErrorTag message={"password is required"}/>
                                 }
                             </div>
 
@@ -142,19 +138,13 @@ const Login = ({ isLogin, user, error }) => {
                             
                             {/* Login Error Check */}
                             {failCount === 2 &&
-                                <div className="text-sm text-red-500">
-                                    Please check username or password and try again.
-                                </div>
+                                <ErrorTag message={"Please check username or password and try again."}/>
                             }
                             {failCount === 1 &&
-                                <div className="text-sm text-red-500">
-                                    Please, I don't want to tell you again.
-                                </div>
+                                <ErrorTag message={"Please, I don't want to tell you again."}/>
                             }
                             {flag &&
-                                <div className="text-sm text-red-500">
-                                    Never gonna give you up.
-                                </div>
+                                <ErrorTag message={"Never gonna give you up."}/>
                             }
                             
                             {/* Button */}
