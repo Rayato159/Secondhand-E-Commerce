@@ -7,28 +7,29 @@ import { SignInCredentialsDto } from './dto/signin-credentials.dto';
 import { User } from './user.entity';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import { GetUser } from './jwt/get-user.decorator';
+import { DeleteResult } from 'typeorm';
 
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
 
-    @Post('/signup')
-    async signUp(
+    @Post('signup')
+    signUp(
         @Body() signUpCredentialsDto: SignUpCredentialsDto
     ): Promise<void> {
         return  this.authService.signUp(signUpCredentialsDto)
     }
 
-    @Post('/signin')
-    async signIn(
+    @Post('signin')
+    signIn(
         @Body() signInCredentialsDto: SignInCredentialsDto
     ): Promise<{ accessToken: string }> {
         return this.authService.signIn(signInCredentialsDto)
     }
 
-    @Get('/users')
+    @Get('users')
     @UseGuards(AuthGuard())
-    async getUsers(
+    getUsers(
         @GetUser() user: User,
     ): Promise<User[]> {
         return this.authService.getUsers(user)
@@ -36,36 +37,36 @@ export class AuthController {
 
     @Get('users/me')
     @UseGuards(AuthGuard())
-    async getUserButMe(
+    getUserButMe(
         @GetUser() user: User
     ): Promise<User> {
         return this.authService.getUserButMe(user)
     }
 
-    @Get('/:id')
+    @Get(':id')
     @UseGuards(AuthGuard())
-    async getUserByID(
+    getUserByID(
         @Param('id') id: string,
         @GetUser() user: User
     ): Promise<any> {
         return this.authService.getUserbByID(id, user)
     }
 
-    @Patch('/update')
+    @Patch('update')
     @UseGuards(AuthGuard())
-    async updateAccount(
+    updateAccount(
         @Body() updateAccountDto: UpdateAccountDto,
         @GetUser() user: User,
-    ): Promise<string> {
+    ): Promise<User> {
         return this.authService.updateAccount(updateAccountDto, user)
     }
 
-    @Delete('/:id')
+    @Delete(':id')
     @UseGuards(AuthGuard())
-    async deleteUser(
+    deleteUser(
         @Param('id') id: string,
         @GetUser() user: User,
-    ): Promise<User> {
+    ): Promise<DeleteResult> {
         return this.authService.deleteUser(id, user)
     }
 }

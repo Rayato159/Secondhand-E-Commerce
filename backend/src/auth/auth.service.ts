@@ -10,6 +10,7 @@ import { JwtPayload } from './jwt/jwt-payload.interface';
 import { UpdateAccountDto } from './dto/update-account.dto'
 import { User } from './user.entity';
 import { UserRoleEnum } from './enum/user-role.enum';
+import { DeleteResult } from 'typeorm';
 
 @Injectable()
 export class AuthService {
@@ -35,21 +36,27 @@ export class AuthService {
             const accessToken: string = this.jwtService.sign(payload)
             return { accessToken }
         } else {
-            throw new NotFoundException('Please check your email or password.')
+            throw new NotFoundException({
+                message: 'Please check your email or password.'
+            })
         }
 
     }
 
     async getUsers(user: User): Promise<User[]> {
         if(user.role !== UserRoleEnum.ADMIN) {
-            throw new ForbiddenException('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+            throw new ForbiddenException({
+                message: ['https://www.youtube.com/watch?v=dQw4w9WgXcQ']
+            })
         }
 
         try {
             const users = await this.userRepository.find()
             return users
         } catch(e) {
-            throw new NotFoundException('Users are empty.')
+            throw new NotFoundException({
+                message: ['Users are empty.']
+            })
         }
     }
 
@@ -83,7 +90,9 @@ export class AuthService {
             return findUser
 
         } catch(e) {
-            throw new NotFoundException('User not found.')
+            throw new NotFoundException({
+                message: ['Users are empty.']
+            })
         }
     }
 
@@ -92,26 +101,31 @@ export class AuthService {
             const userButMe = await this.userRepository.findOne(user.id)
             return userButMe
         } catch(e) {
-            throw new NotFoundException('Are you sure you are logged in?')
+            throw new NotFoundException({
+                message: ['Never gonna give you up.']
+            })
         }
     }
 
-    async updateAccount(updateAcoountDto: UpdateAccountDto, user: User): Promise<string> {
+    async updateAccount(updateAcoountDto: UpdateAccountDto, user: User): Promise<User> {
         return this.userRepository.updateAccount(updateAcoountDto, user)
     }
 
-    async deleteUser(id: string, user: User): Promise<User> {
+    async deleteUser(id: string, user: User): Promise<DeleteResult> {
 
         if(user.role !== UserRoleEnum.ADMIN) {
-            throw new ForbiddenException('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+            throw new ForbiddenException({
+                message: ['https://www.youtube.com/watch?v=dQw4w9WgXcQ']
+            })
         }
 
         try {
-            const userDelete = await this.userRepository.findOne(id)
-            await this.userRepository.delete(id)
+            const userDelete =  await this.userRepository.delete(id)
             return userDelete
         } catch(e) {
-            throw new NotFoundException('User not found')
+            throw new NotFoundException({
+                message: ['User not found']
+            })
         }
     }
 }

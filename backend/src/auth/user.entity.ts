@@ -1,6 +1,6 @@
 import { Product } from "src/product/product.entity";
 import { UserRoleEnum } from "./enum/user-role.enum";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({name: 'users'})
 export class User {
@@ -22,20 +22,21 @@ export class User {
     @Column()
     password: string
 
-    @Column({ type: 'date' })
-    birthday: Date
-
     @Column({ default: '' })
     picture: string
 
     @Column({ type: 'boolean', default: false})
     cheater: boolean
 
-    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
-    created: Date
-
     @Column({ default: UserRoleEnum.USER })
     role: UserRoleEnum
+
+    // Default
+    @CreateDateColumn()
+    created_at: Date;
+        
+    @UpdateDateColumn()
+    updated_at: Date;
 
     @OneToMany((_type) => Product, (products) => products.user, { eager: true })
     products: Product[]

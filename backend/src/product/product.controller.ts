@@ -13,6 +13,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/jwt/get-user.decorator';
 import { User } from 'src/auth/user.entity';
+import { DeleteResult } from 'typeorm';
 
 import { CreateProductDto } from './dto/create-product.dto';
 import { GetProductsDto } from './dto/get-products.dto';
@@ -26,7 +27,7 @@ export class ProductController {
         private productService: ProductService
     ) {}
 
-    @Get('/all')
+    @Get('all')
     getProductsForAll(
         @Query() getProductsDto: GetProductsDto,
     ): Promise<Product[]> {
@@ -42,7 +43,7 @@ export class ProductController {
         return this.productService.getProducts(getProductsDto, user)
     }
 
-    @Get('/:id')
+    @Get(':id')
     @UseGuards(AuthGuard())
     getProductByID(
         @Param('id') id: string,
@@ -61,16 +62,16 @@ export class ProductController {
         return this.productService.createProduct(createProductDto, user)
     }
 
-    @Delete('/:id')
+    @Delete(':id')
     @UseGuards(AuthGuard())
     deleteProduct(
         @Param('id') id: string,
         @GetUser() user: User,
-    ): Promise<void> {
+    ): Promise<DeleteResult> {
         return this.productService.deleteProduct(id, user)
     }
     
-    @Patch('/:id/update')
+    @Patch(':id/update')
     @UseGuards(AuthGuard())
     updateProduct(
         @Param('id') id: string,

@@ -15,7 +15,6 @@ export class ProductRepository extends Repository<Product> {
             price,
             description,
             address,
-            category,
         } = createProductDto
 
         const product = this.create({
@@ -24,7 +23,6 @@ export class ProductRepository extends Repository<Product> {
             description,
             address,
             status: ProductStatus.AVAILABLE,
-            category,
             user,
         })
 
@@ -37,7 +35,7 @@ export class ProductRepository extends Repository<Product> {
     }
 
     async getProducts(getProductsDto: GetProductsDto, user: User): Promise<Product[]> {
-        const { search, category } = getProductsDto
+        const { search } = getProductsDto
         const query = this.createQueryBuilder('products')
 
         query.where({ user })
@@ -46,13 +44,6 @@ export class ProductRepository extends Repository<Product> {
             query.andWhere(
                 '(LOWER(products.product_name) LIKE LOWER(:search))',
                 { search: `%${search}%` }
-            )
-        }
-
-        if(category) {
-            query.andWhere(
-                'products.category = :category', 
-                { category }
             )
         }
 
@@ -65,20 +56,13 @@ export class ProductRepository extends Repository<Product> {
     }
 
     async getProductsForAll(getProductsDto: GetProductsDto): Promise<Product[]> {
-        const { search, category } = getProductsDto
+        const { search } = getProductsDto
         const query = this.createQueryBuilder('products')
 
         if(search) {
             query.andWhere(
                 '(LOWER(products.product_name) LIKE LOWER(:search))',
                 { search: `%${search}%` }
-            )
-        }
-
-        if(category) {
-            query.andWhere(
-                'products.category = :category', 
-                { category }
             )
         }
 

@@ -1,8 +1,6 @@
 import { Exclude } from "class-transformer";
 import { User } from "src/auth/user.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-
-import { ProductCategory } from "./enum/product-category.enum";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProductStatus } from "./enum/product-status.enum";
 
 @Entity({ name: 'products' })
@@ -25,14 +23,15 @@ export class Product {
     @Column()
     status: ProductStatus
 
-    @Column()
-    category: ProductCategory
-
     @Column({ default: '' })
     picture: string
 
-    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
-    created: Date
+    // Default
+    @CreateDateColumn()
+    created_at: Date;
+        
+    @UpdateDateColumn()
+    updated_at: Date;
 
     @ManyToOne((_type) => User, (user) => user.products, { eager: false })
     @Exclude({ toPlainOnly: true })

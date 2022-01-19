@@ -35,9 +35,6 @@ export class SignUpCredentialsDto {
     })
     phone: string
 
-    @IsNotEmpty()
-    birthday: Date
-
     @IsOptional()
     @IsEnum(UserRoleEnum)
     role?: UserRoleEnum

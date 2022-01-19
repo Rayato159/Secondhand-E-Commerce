@@ -15,7 +15,6 @@ export class UserRepository extends Repository<User> {
             email,
             password,
             phone,
-            birthday,
             role,
         } = signUpCredentialsDto
 
@@ -24,7 +23,9 @@ export class UserRepository extends Repository<User> {
 
         const emailCheck = await this.findOne({ email: email.toLocaleLowerCase() })
         if(emailCheck) {
-            throw new ConflictException('This email has been already using.')
+            throw new ConflictException({
+                message: ['This email has been already using.']
+            })
         }
 
         if(!role) {
@@ -34,7 +35,6 @@ export class UserRepository extends Repository<User> {
                 email: email.toLocaleLowerCase(),
                 password: hashedPassword,
                 phone,
-                birthday,
             })
 
             await this.save(user)
@@ -46,7 +46,6 @@ export class UserRepository extends Repository<User> {
                 email: email.toLocaleLowerCase(),
                 password: hashedPassword,
                 phone,
-                birthday,
                 role,
             })
     
@@ -54,7 +53,7 @@ export class UserRepository extends Repository<User> {
         }
     }
 
-    async updateAccount(updateAcoountDto: UpdateAccountDto, user: User): Promise<string> {
+    async updateAccount(updateAcoountDto: UpdateAccountDto, user: User): Promise<User> {
         const {
             first_name,
             last_name,
@@ -89,9 +88,12 @@ export class UserRepository extends Repository<User> {
             }
 
             await this.save(updatedUser)
-            return 'success'
+            return updatedUser
+            
         } catch(error) {
-            throw new NotFoundException('User not found :(')
+            throw new NotFoundException({
+                message: ['Never gonna give you up.']
+            })
         }
     }
 }

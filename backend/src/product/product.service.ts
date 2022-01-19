@@ -7,6 +7,7 @@ import { GetProductsDto } from './dto/get-products.dto';
 import { Product } from './product.entity';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { User } from 'src/auth/user.entity';
+import { DeleteResult } from 'typeorm';
 
 @Injectable()
 export class ProductService {
@@ -42,9 +43,7 @@ export class ProductService {
             price,
             description,
             address,
-            picture,
             status,
-            category,
         } = updateProductDto
         
         const product = await this.getProductByID(id, user)
@@ -65,16 +64,8 @@ export class ProductService {
             product.address = address
         }
 
-        if(picture) {
-            product.picture = picture
-        }
-
         if(status) {
             product.status = status
-        }
-
-        if(category) {
-            product.category = category
         }
         
         try{
@@ -85,9 +76,10 @@ export class ProductService {
         }
     }
 
-    async deleteProduct(id: string, user: User): Promise<void> {
+    async deleteProduct(id: string, user: User): Promise<DeleteResult> {
         try {
            const result = await this.productRepository.delete({ id, user })
+           return result
         } catch(error) {
             throw new NotFoundException()
         }

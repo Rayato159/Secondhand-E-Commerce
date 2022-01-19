@@ -1,13 +1,7 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator'
-
-import { ProductCategory } from '../enum/product-category.enum'
+import { IsOptional, IsString } from 'class-validator'
 
 export class GetProductsDto {
     @IsOptional()
     @IsString()
     search?: string
-
-    @IsOptional()
-    @IsEnum(ProductCategory)
-    category?: ProductCategory
 }
