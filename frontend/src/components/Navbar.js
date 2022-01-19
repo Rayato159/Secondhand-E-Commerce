@@ -71,7 +71,7 @@ export const Navbar = () => {
 
             {/* Toggle Bar */}
             {isShowToggle?
-              <div className='md:hidden w-full bg-neutral-300'>
+              <div className='md:hidden w-full'>
                 <div className="flex flex-col">
 
                   {/* Searchbox */}
