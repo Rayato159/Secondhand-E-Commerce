@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom'
 // Custom Styles
 import '../pages/Form.css'
 
+// Redux
+import { useDispatch } from 'react-redux'
+import { searchLoading, searchSuccess }  from '../features/searchSlice'
+
 // Components
 import { LinkNavbar } from './LinkNavbar'
 import { ResLinkNavbar } from './ResLinkNavbar'
@@ -14,17 +18,21 @@ import { Searchbox } from './Searchbox'
 export const Navbar = () => {
 
   const [isShowToggle, setIsShowToggle] = useState(false)
+  const [searchEvent, setSearchEvent] = useState("")
+
+  const dispatch = useDispatch()
 
   const parentOnSubmit = (e) => {
     e.preventDefault()
 
-    console.log('test')
+    dispatch(searchLoading())
+    dispatch(searchSuccess(searchEvent))
   }
 
   return (
       <div>
         <nav className='bg-mycolor-200 sticky top-0 w-full z-50 shadow-lg'>
-          <div className='max-w-6xl mx-auto'>
+          <div className='max-w-7xl mx-auto'>
             <div className='flex justify-between'>
               {/* Left */}
               <div className='flex space-x-6 items-center p-4'>
@@ -53,7 +61,7 @@ export const Navbar = () => {
 
               {/* Mid Searchbox */}
               <div className='hidden md:flex items-center p-4'>
-                <Searchbox onSumbitHandle={(e) => parentOnSubmit(e)} onChangeHandle={(value) => console.log(value)} />
+                <Searchbox onSumbitHandle={(e) => parentOnSubmit(e)} onChangeHandle={(value) => setSearchEvent(value)} />
               </div>
 
               {/* Right */}
@@ -70,7 +78,7 @@ export const Navbar = () => {
 
                   {/* Searchbox */}
                   <div className='py-3'>
-                    <Searchbox onSumbitHandle={(e) => parentOnSubmit(e)} onChangeHandle={(value) => console.log(value)} />
+                    <Searchbox onSumbitHandle={(e) => parentOnSubmit(e)} onChangeHandle={(value) => setSearchEvent(value)} />
                   </div>
 
                   {/* Login */}

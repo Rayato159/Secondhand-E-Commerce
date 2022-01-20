@@ -16,6 +16,7 @@ import {
 // Components
 import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
+import { HomeCover } from './components/HomeCover'
 
 // Pages
 import { Home } from './pages/Home'
@@ -24,7 +25,7 @@ import { Login } from './pages/Login';
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <div className='flex flex-col h-screen justify-between'>
+      <div className='flex flex-col h-screen'>
         <Navbar />
           <Routes>
               <Route index element={<Home />} />
