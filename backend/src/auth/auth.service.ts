@@ -28,16 +28,14 @@ export class AuthService {
         const { email, password } = signInCredentialsDto
 
         const user = await this.userRepository.findOne({ email: email.toLocaleLowerCase() })
-        const role = user.role
-        const id = user.id
 
         if(user && await bcrypt.compare(password, user.password)) {
-            const payload: JwtPayload = { id, role }
+            const payload: JwtPayload = { email: email.toLocaleLowerCase() }
             const accessToken: string = this.jwtService.sign(payload)
             return { accessToken }
         } else {
             throw new NotFoundException({
-                message: 'Please check your email or password.'
+                message: ['Never gonna give you up.']
             })
         }
 

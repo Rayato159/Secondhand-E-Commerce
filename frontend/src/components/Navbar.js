@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // Route
 import { Link } from 'react-router-dom'
@@ -7,8 +7,13 @@ import { Link } from 'react-router-dom'
 import '../pages/Form.css'
 
 // Redux
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { searchLoading, searchSuccess }  from '../features/searchSlice'
+import { userLoading, userSuccess, userFail } from '../features/userSlice'
+import { logout } from '../features/loginSlice'
+
+// Services
+import { getUserButMe } from '../services/userService'
 
 // Components
 import { LinkNavbar } from './LinkNavbar'
@@ -17,10 +22,16 @@ import { Searchbox } from './Searchbox'
 
 export const Navbar = () => {
 
+  // Hook State
   const [isShowToggle, setIsShowToggle] = useState(false)
   const [searchEvent, setSearchEvent] = useState("")
 
+  // Redux State
   const dispatch = useDispatch()
+  const [{ isAuth }, { isUserLoading, isUser, isUserErrors }] = useSelector((state) => [
+    state.login,
+    state.user,
+  ])
 
   const parentOnSubmit = (e) => {
     e.preventDefault()
@@ -28,6 +39,20 @@ export const Navbar = () => {
     dispatch(searchLoading())
     dispatch(searchSuccess(searchEvent))
   }
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await getUserButMe()
+        dispatch(userSuccess(res))
+      } catch(e) {
+        dispatch(userFail(e.message))
+      }
+    }
+
+    dispatch(userLoading())
+    fetchUser()
+  }, [isAuth])
 
   return (
       <div>
@@ -65,10 +90,18 @@ export const Navbar = () => {
               </div>
 
               {/* Right */}
-              <div className='hidden md:flex space-x-6 items-center p-4'>
-                <LinkNavbar path={"/login"} message={"เข้าสู่ระบบ"}/>
-                <LinkNavbar path={"/register"} message={"สมัครสมาชิก"}/>
-              </div>
+              {isUser?
+                <div className='hidden md:flex space-x-6 items-center p-4'>
+                  <LinkNavbar path={"/profile"} message={isUser.first_name}/>
+                  <button onClick={() => dispatch(logout())} className='text-sm hover:text-gray-500'>
+                    ออกจากระบบ
+                  </button>
+                </div>:
+                <div className='hidden md:flex space-x-6 items-center p-4'>
+                  <LinkNavbar path={"/login"} message={"เข้าสู่ระบบ"}/>
+                  <LinkNavbar path={"/register"} message={"สมัครสมาชิก"}/>
+                </div>
+              }
             </div>
 
             {/* Toggle Bar */}

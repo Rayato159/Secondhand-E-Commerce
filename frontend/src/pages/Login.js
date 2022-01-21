@@ -1,14 +1,42 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux'
+import { loginLoading, loginSuccess, loginFail } from  '../features/loginSlice'
+
+// Services
+import { signin } from '../services/loginService'
 
 // Components
 import { FormLabel } from '../components/FormLabel'
 
 export const Login = () => {
 
-    const [isError, setIsError] = useState([
-        // 'Username mustn\'t be empty',
-        // 'Password mustn\'t be empty'
-    ])
+    // Navigate
+    const navigate = useNavigate()
+
+    // Import from store
+    const { isLoginLoading, isLoginErrors } = useSelector((state) => state.login)
+    const dispatch = useDispatch()
+
+    // State
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    // Submit function
+    const onSubmitHandle = async (e) => {
+        e.preventDefault()
+
+        dispatch(loginLoading())
+        try {
+            const res = await signin(email, password)
+            dispatch(loginSuccess())
+            navigate('/')
+        } catch(e) {
+            dispatch(loginFail(e.message))
+        }
+    }
 
     return (
         <div className='my-4'>
@@ -27,7 +55,7 @@ export const Login = () => {
                     </div>
 
                     {/* Login-Form */}
-                    <form className='flex flex-col space-y-4 bg-white p-6 w-full'>
+                    <form onSubmit={onSubmitHandle} className='flex flex-col space-y-4 bg-white p-6 w-full'>
 
                         {/* Header */}
                         <div className='font-bold text-center'>
@@ -38,19 +66,19 @@ export const Login = () => {
                             {/* Email */}
                             <div>
                                 <FormLabel message={'Email'}/>
-                                <input className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="text" placeholder='mongsue@example.com' />
+                                <input onChange={(e) => setEmail(e.target.value)} className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="text" placeholder='mongsue@example.com' />
                             </div>
 
                             {/* Password */}
                             <div>
                                 <FormLabel message={'Password'}/>
-                                <input className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="password" />
+                                <input onChange={(e) => setPassword(e.target.value)} className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="password" />
                             </div>
                         </div>
 
-                        {isError.length > 0 &&
+                        {isLoginErrors.length > 0 &&
                             <div className='bg-red-300 border border-red-500 p-2'>
-                                {isError.map((e, i) => {
+                                {isLoginErrors.map((e, i) => {
                                     return (
                                         <div key={i} className='text-sm text-red-500'>
                                             * {e}
@@ -62,9 +90,14 @@ export const Login = () => {
 
                         {/* Button */}
                         <div className='flex justify-center py-4'>
-                            <button className='bg-mycolor-600 hover:bg-mycolor-500 text-white py-1 px-2 w-full'>
-                                เข้าสู่ระบบ
-                            </button>
+                            {isLoginLoading?
+                                <button className='bg-mycolor-500 text-white py-1 px-2 w-full'>
+                                    กำลังดำเนินการ...
+                                </button>:
+                                <button className='bg-mycolor-600 hover:bg-mycolor-500 text-white py-1 px-2 w-full'>
+                                    เข้าสู่ระบบ
+                                </button>
+                            }
                         </div>
                     </form>
                 </div>
