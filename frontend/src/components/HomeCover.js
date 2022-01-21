@@ -7,7 +7,7 @@ export const HomeCover = () => {
             <div className="max-w-6xl mx-auto">
                 <div className="flex justify-between items-center">
                     <div className="flex flex-col py-10 px-4">
-                        <div className='font-extrabold font-serif italic md:text-6xl text-4xl text-white'>
+                        <div className='font-extrabold italic md:text-6xl text-4xl text-white'>
                             Mongsue
                         </div>
                         <div className='text-sm md:text-xl text-white py-3'>

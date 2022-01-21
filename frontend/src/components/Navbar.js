@@ -47,7 +47,7 @@ export const Navbar = () => {
                 </div>
 
                 {/* Logo */}
-                <Link to="/" className='font-extrabold font-serif italic text-2xl'>
+                <Link to="/" className='font-extrabold italic text-2xl'>
                   Mongsue
                 </Link>
 
