@@ -6,8 +6,8 @@ import { FormLabel } from '../components/FormLabel'
 export const Login = () => {
 
     const [isError, setIsError] = useState([
-        'Username mustn\'t be empty',
-        'Password mustn\'t be empty'
+        // 'Username mustn\'t be empty',
+        // 'Password mustn\'t be empty'
     ])
 
     return (
