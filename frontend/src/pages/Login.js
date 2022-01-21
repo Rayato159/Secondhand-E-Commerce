@@ -23,6 +23,7 @@ export const Login = () => {
     // State
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [failCount, setFailCount] = useState(2)
 
     // Submit function
     const onSubmitHandle = async (e) => {
@@ -35,6 +36,12 @@ export const Login = () => {
             navigate('/')
         } catch(e) {
             dispatch(loginFail(e.message))
+            setFailCount(failCount-1)
+
+            if(failCount === 0) {
+                setFailCount(2)
+                window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+            } 
         }
     }
 
