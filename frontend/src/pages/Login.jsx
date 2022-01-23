@@ -57,7 +57,7 @@ export const Login = () => {
     return (
         <div className='md:my-4 my-2'>
             <div className='flex h-full justify-center items-center'>
-                <div className="flex shadow-lg lg:w-1/3">
+                <div className="flex shadow-lg">
                     {/* Banner */}
                     <div className='hidden md:flex bg-mycolor-600 w-52 p-4'>
                         <div className="flex flex-col justify-center h-full space-y-3">
