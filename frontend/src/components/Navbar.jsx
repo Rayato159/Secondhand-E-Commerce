@@ -117,10 +117,19 @@ export const Navbar = () => {
                   </div>
 
                   {/* Login */}
-                  <ResLinkNavbar path={"/login"} message={"เข้าสู่ระบบ"}/>
+                  {isUser?
+                    <ResLinkNavbar path={"/profile"} message={isUser.first_name}/>:<ResLinkNavbar path={"/login"} message={"เข้าสู่ระบบ"}/>
+                  }
 
                   {/* Register */}
-                  <ResLinkNavbar path={"/register"} message={"สมัครสมาชิก"}/>
+                  {isUser?
+                    <div>
+                      <button onClick={() => dispatch(logout())} className='block w-full text-sm text-center hover:bg-mycolor-100 p-4'>
+                          Logout
+                      </button>
+                    </div>:
+                    <ResLinkNavbar path={"/register"} message={"สมัครสมาชิก"}/>
+                  }
 
                   {/* AboutUs */}
                   <ResLinkNavbar path={"/about"} message={"เกี่ยวกับเรา"}/>
