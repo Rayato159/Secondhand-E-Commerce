@@ -75,7 +75,7 @@ export const Login = () => {
                             เข้าสู่ระบบ
                         </div>
 
-                        <div className='flex flex-col space-y-1'>
+                        <div className='flex flex-col space-y-2'>
                             {/* Email */}
                             <div>
                                 <FormLabel message={'Email'}/>

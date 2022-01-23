@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Components
 import { FormLabel } from '../components/FormLabel'
+import { FormInput } from '../components/FormInput'
 
 export const Register = () => {
-  return (
-      <div>
-          <div className="max-w-md mx-auto">
+
+    const [firstName, setFirstName] = useState("")
+    const [lasttName, setLastName] = useState("")
+    const [phoneNumber, setPhoneNumber] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [passwordConfirm, setPasswordConfirm] = useState("")
+
+    // Hide and Show Password Event
+    const [isShowPassword, setIsShowPassword] = useState(false)
+
+    return (
+        <div>
+            <div className="max-w-md mx-auto">
                 <div className="flex flex-col space-y-7 items-center bg-white my-8 mx-4 shadow-xl p-6">
                     {/* Header */}
                     <div className='w-full'>
@@ -24,39 +36,27 @@ export const Register = () => {
                     <div className='w-full'>
                         <form className='flex flex-col space-y-2'>
                             {/* FirstName */}
-                            <div className='flex flex-col space-y-1'>
-                                <FormLabel message={'First Name'}/>
-                                <input onChange={(e) => console.log(e.target.value)} className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="text" placeholder='Mongsue' />
-                            </div>
+                            <FormInput event={(value) => setFirstName(value)} label={'First Name'} placeholder={'Mongsue'}/>
 
                             {/* LastName */}
-                            <div className='flex flex-col space-y-1'>
-                                <FormLabel message={'Last Name'}/>
-                                <input onChange={(e) => console.log(e.target.value)} className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="text" placeholder='Muesong' />
-                            </div>
+                            <FormInput event={(value) => setLastName(value)} label={'Last Name'} placeholder={'Muesong'}/>
 
                             {/* Phone */}
-                            <div className='flex flex-col space-y-1'>
-                                <FormLabel message={'Phone Number'}/>
-                                <input onChange={(e) => console.log(e.target.value)} className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="text" placeholder='0123456789' />
-                            </div>
+                            <FormInput event={(value) => setPhoneNumber(value)} label={'Phone Number'} placeholder={'0123456789'}/>
                             
                             {/* Email */}
-                            <div className='flex flex-col space-y-1'>
-                                <FormLabel message={'Email'}/>
-                                <input onChange={(e) => console.log(e.target.value)} className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="text" placeholder='mongsue@example.com' />
-                            </div>
+                            <FormInput event={(value) => setEmail(value)} label={'Phone Number'} placeholder={'mongsue@example.com'}/>
 
                             {/* Password */}
                             <div className='flex flex-col space-y-1'>
                                 <FormLabel message={'Password'}/>
-                                <input onChange={(e) => console.log(e.target.value)} className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="password" />
+                                <input onChange={(e) => setPassword(e.target.value)} className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="password" />
                             </div>
 
                             {/* Confirm-Password */}
                             <div className='flex flex-col space-y-1'>
-                                <FormLabel message={'Confirm Your Password'}/>
-                                <input onChange={(e) => console.log(e.target.value)} className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="password" />
+                                <FormLabel message={'Password-Confirm'}/>
+                                <input onChange={(e) => setPasswordConfirm(e.target.value)} className='w-full border-b-2 border-mycolor-600 bg-mycolor-200 md:py-1 px-2 focus:outline-none focus:bg-neutral-100 duration-300 text-sm' type="password" />
                             </div>
 
 
@@ -64,15 +64,15 @@ export const Register = () => {
                     </div>
 
                     {/* Submit-Button */}
-                    <div className='flex w-full'>
-                        <button className='w-full px-4 py-2 bg-mycolor-600 hover:bg-mycolor-500'>
+                    <div className='w-full py-3'>
+                        <button type='submit' className='w-full items-center px-4 py-2 bg-mycolor-600 hover:bg-mycolor-500'>
                             <div className='font-bold text-white'>
                                 ยืนยันการสมัครสมาชิก
                             </div>
                         </button>
                     </div>
                 </div>
-          </div>
-      </div>
-  )
+            </div>
+        </div>
+    )
 }
