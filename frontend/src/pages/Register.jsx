@@ -1,20 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // Components
 import { FormLabel } from '../components/FormLabel'
 import { FormInput } from '../components/FormInput'
 
+// Services
+import { signup } from '../services/userService'
+
 export const Register = () => {
 
-    const [firstName, setFirstName] = useState("")
-    const [lasttName, setLastName] = useState("")
-    const [phoneNumber, setPhoneNumber] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [passwordConfirm, setPasswordConfirm] = useState("")
+    const navigate = useNavigate()
+
+    const [registerDetails, setRegisterDetails] = useState({
+        first_name: "",
+        last_name: "",
+        phone: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+    })
+
+    const [isRegisterLoading, setIsRegisterLoading] = useState(false)
+    const [isRegisterErrors, setIsRegisterErrors] = useState([])
+    const [isRegisterSuccess, setIsRegisterSuccess] = useState(false)
 
     // Hide and Show Password Event
     const [isShowPassword, setIsShowPassword] = useState(false)
+
+    const onSubmitHandle = async (e) => {
+        e.preventDefault()
+
+        setIsRegisterLoading(true)
+        try {
+            const res = await signup(registerDetails)
+            setIsRegisterErrors([])
+            setIsRegisterSuccess(true)
+            setIsRegisterLoading(false)
+        } catch(e) {
+            setIsRegisterLoading(false)
+            setIsRegisterErrors(e.message)
+        }
+    }
+
+    useEffect(() => {
+        if(isRegisterSuccess) {
+            navigate('/login')
+        }
+    }, [isRegisterSuccess])
 
     return (
         <div>
@@ -34,24 +67,24 @@ export const Register = () => {
 
                     {/* Register Form */}
                     <div className='w-full'>
-                        <form className='flex flex-col space-y-2'>
+                        <form onSubmit={onSubmitHandle} className='flex flex-col space-y-2'>
                             {/* FirstName */}
-                            <FormInput event={(value) => setFirstName(value)} label={'First Name'} placeholder={'Mongsue'}/>
+                            <FormInput event={(value) => setRegisterDetails({...registerDetails, first_name: value})} label={'First Name'} placeholder={'Mongsue'}/>
 
                             {/* LastName */}
-                            <FormInput event={(value) => setLastName(value)} label={'Last Name'} placeholder={'Muesong'}/>
+                            <FormInput event={(value) => setRegisterDetails({...registerDetails, last_name: value})} label={'Last Name'} placeholder={'Muesong'}/>
 
                             {/* Phone */}
-                            <FormInput event={(value) => setPhoneNumber(value)} label={'Phone Number'} placeholder={'0123456789'}/>
+                            <FormInput event={(value) => setRegisterDetails({...registerDetails, phone: value})} label={'Phone Number'} placeholder={'0123456789'}/>
                             
                             {/* Email */}
-                            <FormInput event={(value) => setEmail(value)} label={'Phone Number'} placeholder={'mongsue@example.com'}/>
+                            <FormInput event={(value) => setRegisterDetails({...registerDetails, email: value})} label={'Email'} placeholder={'mongsue@example.com'}/>
 
                             {/* Password */}
                             <div className='flex flex-col space-y-1'>
                                 <FormLabel message={'Password'}/>
                                 <div className="flex items-center">
-                                    <input onChange={(e) => setPassword(e.target.value)} className='w-full h-8 border-b-2 border-mycolor-600 bg-neutral-200 md:py-1 px-2 focus:outline-none duration-300 text-sm' type={isShowPassword? "text":"password"} />
+                                    <input onChange={(e) => setRegisterDetails({...registerDetails, password: e.target.value})} className='w-full h-8 border-b-2 border-mycolor-600 bg-neutral-200 md:py-1 px-2 focus:outline-none duration-300 text-sm' type={isShowPassword? "text":"password"} />
                                     {isShowPassword?
                                         <svg onClick={() => setIsShowPassword(!isShowPassword)} xmlns="http://www.w3.org/2000/svg" className="h-8 w-auto p-1 bg-mycolor-600 text-white cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -67,20 +100,42 @@ export const Register = () => {
                             {/* Confirm-Password */}
                             <div className='flex flex-col space-y-1'>
                                 <FormLabel message={'Password-Confirm'}/>
-                                <input onChange={(e) => setPasswordConfirm(e.target.value)} className='w-full h-8 border-b-2 border-mycolor-600 bg-neutral-200 md:py-1 px-2 focus:outline-none duration-300 text-sm' type={isShowPassword? "text":"password"} />
+                                <input onChange={(e) => setRegisterDetails({...registerDetails, passwordConfirm: e.target.value})} className='w-full h-8 border-b-2 border-mycolor-600 bg-neutral-200 md:py-1 px-2 focus:outline-none duration-300 text-sm' type={isShowPassword? "text":"password"} />
                             </div>
 
+                            {/* Errors */}
+                            {isRegisterErrors.length > 0?
+                                <div className='pt-7'>
+                                    <div className='w-full bg-red-300 border border-red-500 p-2'>
+                                        {isRegisterErrors.map((e, i) => {
+                                            return (
+                                                <div key={i} className='text-sm text-red-500'>
+                                                    * {e}
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>:null
+                            }
 
+                            {/* Submit-Button */}
+                            <div className='pt-7'>
+                                {isRegisterLoading?
+                                    <button className='flex justify-center space-x-2 bg-mycolor-500 text-white py-1 px-2 w-full'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 items-center animate-spin" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
+                                            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
+                                        </svg>
+                                        <div className='font-bold'>
+                                            กำลังดำเนินการ...
+                                        </div>
+                                    </button>:
+                                    <button type='submit' className='bg-mycolor-600 hover:bg-mycolor-500 text-white py-1 px-2 font-bold w-full'>
+                                        สมัครสมาชิก
+                                    </button>
+                                }
+                            </div>
                         </form>
-                    </div>
-
-                    {/* Submit-Button */}
-                    <div className='w-full py-3'>
-                        <button type='submit' className='w-full items-center px-4 py-2 bg-mycolor-600 hover:bg-mycolor-500'>
-                            <div className='font-bold text-white'>
-                                ยืนยันการสมัครสมาชิก
-                            </div>
-                        </button>
                     </div>
                 </div>
             </div>

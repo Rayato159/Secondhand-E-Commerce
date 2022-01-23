@@ -80,7 +80,7 @@ export const Login = () => {
 
                         <div className='flex flex-col space-y-2'>
                             {/* Email */}
-                            <FormInput event={(value) => setEmail(value)} label={'Phone Number'} placeholder={'mongsue@example.com'}/>
+                            <FormInput event={(value) => setEmail(value)} label={'Email'} placeholder={'mongsue@example.com'}/>
 
                             {/* Password */}
                             <div>
@@ -124,7 +124,7 @@ export const Login = () => {
                                         กำลังเข้าสู่ระบบ...
                                     </div>
                                 </button>:
-                                <button className='bg-mycolor-600 hover:bg-mycolor-500 text-white py-1 px-2 font-bold w-full'>
+                                <button type='submit' className='bg-mycolor-600 hover:bg-mycolor-500 text-white py-1 px-2 font-bold w-full'>
                                     เข้าสู่ระบบ
                                 </button>
                             }
