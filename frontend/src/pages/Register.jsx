@@ -5,12 +5,18 @@ import { useNavigate } from 'react-router-dom'
 import { FormLabel } from '../components/FormLabel'
 import { FormInput } from '../components/FormInput'
 
+// Redux
+import { useSelector } from 'react-redux'
+
 // Services
 import { signup } from '../services/userService'
 
 export const Register = () => {
 
     const navigate = useNavigate()
+
+    // Check if user are logged in
+    const { isAuth } = useSelector((state) => state.login)
 
     const [registerDetails, setRegisterDetails] = useState({
         first_name: "",
@@ -47,7 +53,11 @@ export const Register = () => {
         if(isRegisterSuccess) {
             navigate('/login')
         }
-    }, [isRegisterSuccess])
+
+        if(isAuth) {
+            navigate('/')
+        }
+    }, [isRegisterSuccess, isAuth])
 
     return (
         <div>

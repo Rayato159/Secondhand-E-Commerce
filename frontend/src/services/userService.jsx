@@ -47,3 +47,14 @@ export const getUserButMe = () => {
         }
     })
 }
+
+export const getUserByID = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await userController.get(`/${id}`)
+            resolve(res.data)
+        } catch(e) {
+            reject(e.response.data)
+        }
+    })
+}
