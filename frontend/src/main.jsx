@@ -16,11 +16,11 @@ import {
 // Components
 import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
-import { HomeCover } from './components/HomeCover'
 
 // Pages
 import { Home } from './pages/Home'
-import { Login } from './pages/Login';
+import { Login } from './pages/Login'
+import { Register } from './pages/Register'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -30,6 +30,7 @@ ReactDOM.render(
           <Routes>
               <Route index element={<Home />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
           </Routes>
         <Footer />
       </div>

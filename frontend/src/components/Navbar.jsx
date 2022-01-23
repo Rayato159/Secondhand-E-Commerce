@@ -10,7 +10,7 @@ import '../pages/Form.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { searchLoading, searchSuccess }  from '../features/searchSlice'
 import { userLoading, userSuccess, userFail } from '../features/userSlice'
-import { logout } from '../features/loginSlice'
+import { loginSuccess, logout } from '../features/loginSlice'
 
 // Services
 import { getUserButMe } from '../services/userService'
@@ -28,7 +28,7 @@ export const Navbar = () => {
 
   // Redux State
   const dispatch = useDispatch()
-  const [{ isAuth }, { isUserLoading, isUser, isUserErrors }] = useSelector((state) => [
+  const [{ isAuth }, { isUser }] = useSelector((state) => [
     state.login,
     state.user,
   ])
@@ -42,8 +42,10 @@ export const Navbar = () => {
 
   useEffect(() => {
     async function fetchUser() {
+
       try {
         const res = await getUserButMe()
+        dispatch(loginSuccess())
         dispatch(userSuccess(res))
       } catch(e) {
         dispatch(userFail(e.message))

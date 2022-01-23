@@ -30,6 +30,10 @@ export class SignUpCredentialsDto {
 
     @IsNotEmpty()
     @IsString()
+    passwordConfirm: string
+
+    @IsNotEmpty()
+    @IsString()
     @Matches(/([0][0-9])\d{8}/, {
         message: 'Pattern: 0123456789'
     })

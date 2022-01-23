@@ -14,9 +14,16 @@ export class UserRepository extends Repository<User> {
             last_name,
             email,
             password,
+            passwordConfirm,
             phone,
             role,
         } = signUpCredentialsDto
+
+        if(password !== passwordConfirm) {
+            throw new ConflictException({
+                message: ['Please check your password or password-confirm.']
+            })
+        }
 
         const salt = await bcrypt.genSalt()
         const hashedPassword = await bcrypt.hash(password, salt)
@@ -58,7 +65,6 @@ export class UserRepository extends Repository<User> {
             first_name,
             last_name,
             phone,
-            password,
             picture,
         } = updateAcoountDto
 
@@ -75,12 +81,6 @@ export class UserRepository extends Repository<User> {
 
             if(phone) {
                 updatedUser.phone = phone
-            }
-
-            if(password) {
-                const salt = await bcrypt.genSalt()
-                const hashedPassword = await bcrypt.hash(password, salt)
-                updatedUser.password = hashedPassword
             }
 
             if(picture) {

@@ -10,6 +10,7 @@ import { signin } from '../services/loginService'
 
 // Components
 import { FormLabel } from '../components/FormLabel'
+import { useEffect } from 'react'
 
 export const Login = () => {
 
@@ -17,7 +18,7 @@ export const Login = () => {
     const navigate = useNavigate()
 
     // Import from store
-    const { isLoginLoading, isLoginErrors } = useSelector((state) => state.login)
+    const { isAuth, isLoginLoading, isLoginErrors }= useSelector((state) => state.login)
     const dispatch = useDispatch()
 
     // State
@@ -33,7 +34,6 @@ export const Login = () => {
         try {
             const res = await signin(email, password)
             dispatch(loginSuccess())
-            navigate('/')
         } catch(e) {
             dispatch(loginFail(e.message))
             setFailCount(failCount-1)
@@ -44,6 +44,12 @@ export const Login = () => {
             } 
         }
     }
+
+    useEffect(() => {
+        if(isAuth) {
+            navigate('/')
+        }
+    }, [isAuth])
 
     return (
         <div className='my-4'>

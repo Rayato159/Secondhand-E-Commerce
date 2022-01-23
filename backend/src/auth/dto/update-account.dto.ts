@@ -23,14 +23,5 @@ export class UpdateAccountDto {
 
     @IsOptional()
     @IsString()
-    @MinLength(8)
-    @MaxLength(500)
-    @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, { 
-        message: 'Password is too weak.'
-    })
-    password?: string
-
-    @IsOptional()
-    @IsString()
     picture?: string
 }
