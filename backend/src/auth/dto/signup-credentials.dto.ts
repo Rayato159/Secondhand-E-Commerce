@@ -1,5 +1,4 @@
-import {  IsNotEmpty, IsString, Matches, MinLength, MaxLength, IsEmail, IsOptional, IsEnum } from "class-validator"
-import { UserRoleEnum } from "../enum/user-role.enum"
+import {  IsNotEmpty, Matches, IsEmail } from "class-validator"
 
 export class SignUpCredentialsDto {
     @IsNotEmpty()
@@ -26,8 +25,4 @@ export class SignUpCredentialsDto {
         message: 'Pattern: 0123456789'
     })
     phone: string
-
-    @IsOptional()
-    @IsEnum(UserRoleEnum)
-    role?: UserRoleEnum
 }

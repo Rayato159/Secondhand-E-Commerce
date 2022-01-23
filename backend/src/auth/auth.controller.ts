@@ -27,12 +27,11 @@ export class AuthController {
         return this.authService.signIn(signInCredentialsDto)
     }
 
+    // Admin
     @Get('users')
     @UseGuards(AuthGuard())
-    getUsers(
-        @GetUser() user: User,
-    ): Promise<User[]> {
-        return this.authService.getUsers(user)
+    getUsers(): Promise<User[]> {
+        return this.authService.getUsers()
     }
 
     @Get('users/me')
@@ -44,12 +43,10 @@ export class AuthController {
     }
 
     @Get(':id')
-    @UseGuards(AuthGuard())
     getUserByID(
         @Param('id') id: string,
-        @GetUser() user: User
     ): Promise<any> {
-        return this.authService.getUserbByID(id, user)
+        return this.authService.getUserbByID(id)
     }
 
     @Patch('update')
@@ -61,6 +58,7 @@ export class AuthController {
         return this.authService.updateAccount(updateAccountDto, user)
     }
 
+    // Admin
     @Delete(':id')
     @UseGuards(AuthGuard())
     deleteUser(

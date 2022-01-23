@@ -16,7 +16,6 @@ export class UserRepository extends Repository<User> {
             password,
             passwordConfirm,
             phone,
-            role,
         } = signUpCredentialsDto
 
         if(password !== passwordConfirm) {
@@ -35,29 +34,15 @@ export class UserRepository extends Repository<User> {
             })
         }
 
-        if(!role) {
-            const user = this.create({
-                first_name,
-                last_name,
-                email: email.toLocaleLowerCase(),
-                password: hashedPassword,
-                phone,
-            })
+        const user = this.create({
+            first_name,
+            last_name,
+            email: email.toLocaleLowerCase(),
+            password: hashedPassword,
+            phone,
+        })
 
-            await this.save(user)
-
-        } else {
-            const user = this.create({
-                first_name,
-                last_name,
-                email: email.toLocaleLowerCase(),
-                password: hashedPassword,
-                phone,
-                role,
-            })
-    
-            await this.save(user)
-        }
+        await this.save(user)
     }
 
     async updateAccount(updateAcoountDto: UpdateAccountDto, user: User): Promise<User> {
@@ -65,7 +50,6 @@ export class UserRepository extends Repository<User> {
             first_name,
             last_name,
             phone,
-            picture,
         } = updateAcoountDto
 
         try {
@@ -81,10 +65,6 @@ export class UserRepository extends Repository<User> {
 
             if(phone) {
                 updatedUser.phone = phone
-            }
-
-            if(picture) {
-                updatedUser.picture = picture
             }
 
             await this.save(updatedUser)

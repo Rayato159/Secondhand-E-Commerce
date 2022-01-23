@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
@@ -9,7 +9,6 @@ import { UserRepository } from './user.repository';
 import { JwtPayload } from './jwt/jwt-payload.interface';
 import { UpdateAccountDto } from './dto/update-account.dto'
 import { User } from './user.entity';
-import { UserRoleEnum } from './enum/user-role.enum';
 import { DeleteResult } from 'typeorm';
 
 @Injectable()
@@ -41,13 +40,8 @@ export class AuthService {
 
     }
 
-    async getUsers(user: User): Promise<User[]> {
-        if(user.role !== UserRoleEnum.ADMIN) {
-            throw new ForbiddenException({
-                message: ['https://www.youtube.com/watch?v=dQw4w9WgXcQ']
-            })
-        }
-
+    // Admin
+    async getUsers(): Promise<User[]> {
         try {
             const users = await this.userRepository.find()
             return users
@@ -58,34 +52,24 @@ export class AuthService {
         }
     }
 
-    async getUserbByID(id: string, user: User): Promise<any> {
+    async getUserbByID(id: string): Promise<any> {
         try {
-            const findUser = await this.userRepository.findOne(id)
-            if(user.role !== UserRoleEnum.ADMIN){
-                const {
-                    id,
-                    first_name,
-                    last_name,
-                    phone,
-                    picture,
-                    cheater,
-                    products,
-                } = user
+            const user = await this.userRepository.findOne(id)
+            const {
+                first_name,
+                last_name,
+                phone,
+                picture,
+                cheater,
+            } = user
 
-                const userFindNormal = {
-                    id,
-                    first_name,
-                    last_name,
-                    phone,
-                    picture,
-                    cheater,
-                    products,
-                }
-
-                return userFindNormal
+            return {
+                first_name,
+                last_name,
+                phone,
+                picture,
+                cheater,
             }
-
-            return findUser
 
         } catch(e) {
             throw new NotFoundException({
@@ -109,13 +93,9 @@ export class AuthService {
         return this.userRepository.updateAccount(updateAcoountDto, user)
     }
 
-    async deleteUser(id: string, user: User): Promise<DeleteResult> {
 
-        if(user.role !== UserRoleEnum.ADMIN) {
-            throw new ForbiddenException({
-                message: ['https://www.youtube.com/watch?v=dQw4w9WgXcQ']
-            })
-        }
+    // Admin
+    async deleteUser(id: string, user: User): Promise<DeleteResult> {
 
         try {
             const userDelete =  await this.userRepository.delete(id)

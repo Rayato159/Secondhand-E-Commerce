@@ -1,5 +1,4 @@
 import { Product } from "src/product/product.entity";
-import { UserRoleEnum } from "./enum/user-role.enum";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({name: 'users'})
@@ -27,9 +26,6 @@ export class User {
 
     @Column({ type: 'boolean', default: false})
     cheater: boolean
-
-    @Column({ default: UserRoleEnum.USER })
-    role: UserRoleEnum
 
     // Default
     @CreateDateColumn()
