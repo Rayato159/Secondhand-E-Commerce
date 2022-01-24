@@ -21,6 +21,8 @@ import { Footer } from './components/Footer'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
+import { Products } from './pages/Products';
+import { Sell } from './pages/Sell'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -28,9 +30,12 @@ ReactDOM.render(
       <div className='flex flex-col justify-between h-screen font-serif'>
         <Navbar />
           <Routes>
-              <Route index element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+            <Route index element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="products" element={<Products />}>
+              <Route path="sell" element={<Sell />} />
+            </Route>
           </Routes>
         <Footer />
       </div>

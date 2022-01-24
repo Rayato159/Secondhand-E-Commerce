@@ -80,7 +80,7 @@ export const Navbar = () => {
 
                 {/* AboutUs */}
                 <div className='hidden md:flex'>
-                  <Link to="/about" className='text-sm hover:text-gray-500'>
+                  <Link to="about" className='text-sm hover:text-gray-500'>
                     เกี่ยวกับเรา
                   </Link>
                 </div>
@@ -94,14 +94,14 @@ export const Navbar = () => {
               {/* Right */}
               {isUser?
                 <div className='hidden md:flex space-x-6 items-center p-4'>
-                  <LinkNavbar path={"/profile"} message={isUser.first_name}/>
+                  <LinkNavbar path={"profile"} message={isUser.first_name}/>
                   <button onClick={() => dispatch(logout())} className='text-sm hover:text-gray-500'>
                     ออกจากระบบ
                   </button>
                 </div>:
                 <div className='hidden md:flex space-x-6 items-center p-4'>
-                  <LinkNavbar path={"/login"} message={"เข้าสู่ระบบ"}/>
-                  <LinkNavbar path={"/register"} message={"สมัครสมาชิก"}/>
+                  <LinkNavbar path={"login"} message={"เข้าสู่ระบบ"}/>
+                  <LinkNavbar path={"register"} message={"สมัครสมาชิก"}/>
                 </div>
               }
             </div>
@@ -128,11 +128,11 @@ export const Navbar = () => {
                           Logout
                       </button>
                     </div>:
-                    <ResLinkNavbar path={"/register"} message={"สมัครสมาชิก"}/>
+                    <ResLinkNavbar path={"register"} message={"สมัครสมาชิก"}/>
                   }
 
                   {/* AboutUs */}
-                  <ResLinkNavbar path={"/about"} message={"เกี่ยวกับเรา"}/>
+                  <ResLinkNavbar path={"about"} message={"เกี่ยวกับเรา"}/>
                 </div>
               </div>
             :null}

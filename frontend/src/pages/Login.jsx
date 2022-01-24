@@ -50,7 +50,7 @@ export const Login = () => {
 
     useEffect(() => {
         if(isAuth) {
-            navigate('/')
+            navigate(-1)
         }
     }, [isAuth])
 
