@@ -96,22 +96,25 @@ export const Sell = () => {
 
                     <div className="flex space-x-3">
                         <label className='md:w-44 w-48'></label>
+                        {errors.length > 0 &&
+                            <div className='w-full bg-red-300 border border-red-500 p-2'>
+                                {errors.map((e, i) => {
+                                    return (
+                                        <div key={i} className='text-sm text-red-500'>
+                                            * {e}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        }
+                    </div>
+
+                    <div className="flex space-x-3">
+                        <label className='md:w-44 w-48'></label>
                         <button type="submit" className='w-full p-2 text-white bg-mycolor-600 hover:bg-mycolor-500'>
                             ยืนยันการลงขาย
                         </button>
                     </div>
-
-                    {errors.length > 0 &&
-                        <div className='bg-red-300 border border-red-500 p-2'>
-                            {isLoginErrors.map((e, i) => {
-                                return (
-                                    <div key={i} className='text-sm text-red-500'>
-                                        * {e}
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    }
 
                 </form>
             </div>
