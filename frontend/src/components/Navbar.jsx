@@ -123,7 +123,7 @@ export const Navbar = () => {
               {/* Register */}
               {isUser?
                 <div>
-                  <button onClick={() => dispatch(logout())} className='block w-full text-sm text-center hover:bg-mycolor-100 p-4'>
+                  <button onClick={() => dispatch(logout())} className='block w-full text-sm text-center hover:bg-mycolor-100 p-4 duration-300'>
                       Logout
                   </button>
                 </div>:

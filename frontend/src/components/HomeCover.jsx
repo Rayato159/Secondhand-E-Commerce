@@ -13,7 +13,7 @@ export const HomeCover = () => {
             <div className="bg-mycolor-600">
                 <div className="max-w-6xl mx-auto">
                     <div className="flex justify-between items-center">
-                        <div className="flex flex-col py-11 lg:p-12 px-4">
+                        <div className="flex flex-col py-11 lg:p-14 px-4">
                             <div className='font-extrabold italic md:text-6xl text-4xl text-white'>
                                 Mongsue
                             </div>
