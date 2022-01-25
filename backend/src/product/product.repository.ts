@@ -30,7 +30,9 @@ export class ProductRepository extends Repository<Product> {
             await this.save(product)
             return product
         } catch(error) {
-            throw new ConflictException()
+            throw new ConflictException({
+                message: 'Please check your input.'
+            })
         }
     }
 
@@ -51,7 +53,9 @@ export class ProductRepository extends Repository<Product> {
             const products = await query.getMany()
             return products
         } catch(error) {
-            throw new NotFoundException()
+            throw new NotFoundException({
+                message: 'Product not found.'
+            })
         }
     }
 
@@ -70,7 +74,9 @@ export class ProductRepository extends Repository<Product> {
             const products = await query.getMany()
             return products
         } catch(error) {
-            throw new NotFoundException()
+            throw new NotFoundException({
+                message: 'Product not found.'
+            })
         }
     }
 }

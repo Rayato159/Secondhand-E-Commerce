@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom'
 // Redux store
 import { useSelector } from 'react-redux'
 
+// Services
+import { createProduct } from '../services/productService'
+
 // Components
 import { ReactDropZone } from '../components/ReactDropZone'
 
@@ -17,16 +20,29 @@ export const Sell = () => {
 
     // State
     const [productName, setProductName] = useState("")
-    const [price, setPrice] = useState(0)
+    const [price, setPrice] = useState(null)
     const [description, setDescription] = useState("")
     const [address, setAddress] = useState("")
     const [images, setImages] = useState([])
+
+    // Errors
+    const [errors, setErrors] = useState([])
 
     const onSubmitHandle = async (e) => {
         e.preventDefault()
 
         if(window.confirm('กรุณากดยืนยันอีกครั้ง หากท่าแน่ใจแล้ว')) {
-            console.log('fire')
+            try {
+                const res = await createProduct({
+                    product_name: productName,
+                    price: price,
+                    description: description,
+                    address: address,
+                })
+                console.log(res)
+            } catch(e) {
+                setErrors(e.message)
+            }
         }
     }
 
@@ -84,6 +100,18 @@ export const Sell = () => {
                             ยืนยันการลงขาย
                         </button>
                     </div>
+
+                    {errors.length > 0 &&
+                        <div className='bg-red-300 border border-red-500 p-2'>
+                            {isLoginErrors.map((e, i) => {
+                                return (
+                                    <div key={i} className='text-sm text-red-500'>
+                                        * {e}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    }
 
                 </form>
             </div>
