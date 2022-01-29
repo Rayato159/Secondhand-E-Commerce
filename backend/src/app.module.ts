@@ -1,19 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule, ConfigService } from '@nestjs/config';
-
-import { ProductModule } from './product/product.module';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
-    ProductModule,
-    AuthModule,
-
     ConfigModule.forRoot({
       envFilePath: [`.env.stage.${process.env.STAGE}`],
     }),
-
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -30,8 +26,10 @@ import { AuthModule } from './auth/auth.module';
         }
       },
     }),
+    AuthModule,
+    UsersModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 
