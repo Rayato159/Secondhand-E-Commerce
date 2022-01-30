@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Products } from "src/products/products.entity";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Role } from "./enum/role.enum";
 
 @Entity({ name: 'users' })
@@ -25,7 +26,7 @@ export class Users {
     @Column()
     phoneNumber: string
 
-    @Column({ default: () => Role.User })
+    @Column({ default: Role.User })
     role: Role
 
     @CreateDateColumn()
@@ -33,4 +34,7 @@ export class Users {
 
     @UpdateDateColumn()
     updated: Date
+
+    @OneToMany(type => Products, products => products.user)
+    products: Products[]
 }
