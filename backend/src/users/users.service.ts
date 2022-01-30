@@ -17,8 +17,13 @@ export class UsersService {
             const {
                 email,
                 password,
+                passwordConfirm,
                 ...details
             } = registerDto
+
+            if(passwordConfirm !== password) {
+                throw new BadRequestException()
+            }
     
             const hash = bcrypt.hashSync(password, 10)
             const user = this.usersRepository.create({
@@ -30,7 +35,7 @@ export class UsersService {
             return await this.usersRepository.save(user)
         } catch(e) {
             throw new BadRequestException({
-                message: ['Email has been already using.']
+                message: ['Please check your information and try again.']
             })
         }
     }

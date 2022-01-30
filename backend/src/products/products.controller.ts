@@ -1,7 +1,6 @@
-import { Body, Controller, Post, UseGuards, Request, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guards';
 import { CreateProductDto } from './dto/create-product.dto';
-import { ProductTransformInterceptor } from './interceptors/product.interceptor';
 import { Products } from './products.entity';
 import { ProductsService } from './products.service';
 
@@ -10,7 +9,6 @@ export class ProductsController {
     constructor(private productsService: ProductsService) {}
 
     @UseGuards(JwtAuthGuard)
-    @UseInterceptors(ProductTransformInterceptor)
     @Post('create')
     createProduct(
         @Body() createProductDto: CreateProductDto,

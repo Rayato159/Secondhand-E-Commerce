@@ -28,5 +28,6 @@ export class Products {
     updated: Date
 
     @ManyToOne(type => Users, user => user.products)
+    @Exclude({ toPlainOnly: true })
     user: Users
 }
