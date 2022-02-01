@@ -28,9 +28,13 @@ export class Products {
     updated: Date
 
     @ManyToOne(type => Users, user => user.products, {
-        onDelete: "CASCADE"
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
     })
-    @JoinColumn({ name: "zone_id" })
+    @JoinColumn({ 
+        name: 'user_id',
+        referencedColumnName: 'user_id', 
+    })
     @Exclude({ toPlainOnly: true })
     user: Users
 }

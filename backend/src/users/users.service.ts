@@ -58,9 +58,9 @@ export class UsersService {
         }
     }
 
-    async getUserById(id: string): Promise<Users> {
+    async getUserById(user_id: string): Promise<Users> {
         try {
-            const user = await this.usersRepository.findOne(id)
+            const user = await this.usersRepository.findOne(user_id)
             return user
         } catch(e) {
             throw new NotFoundException({
@@ -128,6 +128,18 @@ export class UsersService {
         } catch(e) {
             throw new BadRequestException({
                 message: 'Please check your password and try again.'
+            })
+        }
+    }
+
+    async deleteUser(user_id: string): Promise<Users> {
+        try {
+            const user = this.getUserById(user_id)
+            await this.usersRepository.delete(user_id)
+            return user
+        } catch(e) {
+            throw new NotFoundException({
+                message: 'User not found.'
             })
         }
     }
