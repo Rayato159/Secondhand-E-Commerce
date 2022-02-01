@@ -6,7 +6,7 @@ import { Role } from "./enum/role.enum";
 export class Users {
 
     @PrimaryGeneratedColumn('uuid')
-    userId: string
+    user_id: string
 
     @Column({ unique: true })
     email: string
@@ -15,18 +15,18 @@ export class Users {
     password: string
 
     @Column()
-    firstName: string
+    first_name: string
 
     @Column()
-    lastName: string
+    last_name: string
 
     @Column()
     address: string
 
     @Column()
-    phoneNumber: string
+    phone_number: string
 
-    @Column({ default: Role.User })
+    @Column({ type: 'enum', enum: Role, default: Role.User })
     role: Role
 
     @CreateDateColumn()

@@ -1,4 +1,42 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Request, UseGuards, UseInterceptors } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { ChangePasswordDto } from './dto/change-password.dto';
+import { EditUserDto } from './dto/edit-user.dto';
+import { Role } from './enum/role.enum';
+import { UsersInterceptor } from './interceptors/users.interceptor';
+import { Roles } from './roles.decorator';
+import { RolesGuard } from './roles.guard';
+import { User } from './users.decorator';
+import { Users } from './users.entity';
+import { UsersService } from './users.service';
 
 @Controller('users')
-export class UsersController {}
+export class UsersController {
+    constructor(private usersService: UsersService) {}
+
+    @UseGuards(JwtAuthGuard)
+    @UseInterceptors(UsersInterceptor)
+    @Patch('edit')
+    editUserInfo(
+        @User() user: Users,
+        @Body() editUserDto: EditUserDto,
+    ): Promise<Users> {
+        return this.usersService.editUserInfo(user, editUserDto)
+    }
+
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(Role.Admin)
+    @Get()
+    getUsers(): Promise<Users[]> {
+        return this.usersService.getUsers()
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Patch('change_password')
+    changePassword(
+        @User() user: Users,
+        @Body() changePasswordDto: ChangePasswordDto,
+    ): Promise<string> {
+        return this.usersService.changePassword(user, changePasswordDto)
+    }
+}

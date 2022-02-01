@@ -17,18 +17,17 @@ export class AuthService {
                 password, 
                 created, 
                 updated, 
-                role, 
                 ...details 
             } = user
             return details
         }
-
         return null
     }
 
     async login(user: any) {
         const payload = { 
-            userId: user.userId,
+            user_id: user.user_id,
+            role: user.role
         }
         return {
             accessToken: this.jwtService.sign(payload)

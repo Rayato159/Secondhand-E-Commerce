@@ -14,13 +14,13 @@ export class RegisterDto {
     password: string
 
     @IsNotEmpty()
-    passwordConfirm: string
+    password_confirm: string
 
     @IsNotEmpty()
-    firstName: string
+    first_name: string
 
     @IsNotEmpty()
-    lastName: string
+    last_name: string
 
     @IsNotEmpty()
     address: string
@@ -29,7 +29,7 @@ export class RegisterDto {
     @Matches(/^[0-9]{0,10}$/, {
         message: 'The phone number is not correct as a pattern.'
     })
-    phoneNumber: string
+    phone_number: string
 
     @IsOptional()
     @IsEnum(Role)

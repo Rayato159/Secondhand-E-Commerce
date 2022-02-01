@@ -1,5 +1,5 @@
 import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guards';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Products } from './products.entity';
 import { ProductsService } from './products.service';
