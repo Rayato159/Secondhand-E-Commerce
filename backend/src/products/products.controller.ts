@@ -1,6 +1,9 @@
-import { Body, Controller, Post, UseGuards, Request, Get, Param } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Get, Param, Delete, Query, Patch } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { User } from 'src/users/users.decorator';
+import { Users } from 'src/users/users.entity';
 import { CreateProductDto } from './dto/create-product.dto';
+import { SearchProductsDto } from './dto/search-products.dto';
 import { Products } from './products.entity';
 import { ProductsService } from './products.service';
 
@@ -12,20 +15,48 @@ export class ProductsController {
     @Post('create')
     createProduct(
         @Body() createProductDto: CreateProductDto,
-        @Request() { user }: any
+        @User() user: Users
     ): Promise<Products> {
         return this.productsService.createProduct(createProductDto, user)
     }
 
     @Get()
-    getProducts(): Promise<Products[]> {
-        return this.productsService.getProducts()
+    getProducts(
+        @Query() searchProductsDto: SearchProductsDto,
+    ): Promise<any> {
+        return this.productsService.getProducts(searchProductsDto)
     }
 
-    @Get(':user_id')
+    @Get('user_products/:user_id')
     getProductByUser(
         @Param('user_id') user_id: string
     ): Promise<Products[]> {
         return this.productsService.getProductByUser(user_id)
+    }
+
+    @Get(':product_id')
+    getProductById(
+        @Param('product_id') product_id: string
+    ) {
+        return this.productsService.getProductById(product_id)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Patch(':product_id/status')
+    updateProductStatus(
+        @Param('product_id') product_id: string,
+        @User() user: Users,
+        @Body() { status }: any
+    ): Promise<Products> {
+        return this.productsService.updateProductStatus(product_id, user, status)
+    }
+    
+    @UseGuards(JwtAuthGuard)
+    @Delete(':product_id/delete')
+    deleteProduct(
+        @Param('product_id') product_id: string,
+        @User() user: Users,
+    ): Promise<Products> {
+        return this.productsService.deleteProduct(product_id, user)
     }
 }

@@ -2,6 +2,7 @@ import { Users } from "src/users/users.entity";
 import { Status } from '../products/enum/status.enum'
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Exclude } from "class-transformer";
+import { Categories } from "src/categories/categories.entity";
 
 @Entity({ name: 'products' })
 export class Products {
@@ -33,8 +34,17 @@ export class Products {
     })
     @JoinColumn({ 
         name: 'user_id',
-        referencedColumnName: 'user_id', 
     })
     @Exclude({ toPlainOnly: true })
     user: Users
+
+    @ManyToOne((_type) => Categories, category => category.products, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        eager: true,
+    })
+    @JoinColumn({ 
+        name: 'category_id',
+    })
+    category: Categories
 }
