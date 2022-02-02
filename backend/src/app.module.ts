@@ -6,6 +6,8 @@ import { UsersModule } from './users/users.module';
 import { AppController } from './app.controller';
 import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
+import { ProfilePhotosModule } from './profile-photos/profile-photos.module';
+import { ProductPhotosModule } from './product-photos/product-photos.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { CategoriesModule } from './categories/categories.module';
     UsersModule,
     ProductsModule,
     CategoriesModule,
+    ProfilePhotosModule,
+    ProductPhotosModule,
   ],
   controllers: [AppController],
   providers: [],

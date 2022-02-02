@@ -40,21 +40,21 @@ export const Navbar = () => {
     dispatch(searchSuccess(searchEvent))
   }
 
-  useEffect(() => {
-    async function fetchUser() {
+  // useEffect(() => {
+  //   async function fetchUser() {
 
-      try {
-        const res = await getUserButMe()
-        dispatch(loginSuccess())
-        dispatch(userSuccess(res))
-      } catch(e) {
-        dispatch(userFail(e.message))
-      }
-    }
+  //     try {
+  //       const res = await getUserButMe()
+  //       dispatch(loginSuccess())
+  //       dispatch(userSuccess(res))
+  //     } catch(e) {
+  //       dispatch(userFail(e.message))
+  //     }
+  //   }
 
-    dispatch(userLoading())
-    fetchUser()
-  }, [isAuth])
+  //   dispatch(userLoading())
+  //   fetchUser()
+  // }, [isAuth])
 
   return (
     <nav className='bg-mycolor-200 sticky top-0 w-full z-50 shadow-lg'>
