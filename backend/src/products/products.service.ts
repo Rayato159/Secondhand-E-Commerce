@@ -5,6 +5,7 @@ import { Users } from 'src/users/users.entity';
 import { UsersService } from 'src/users/users.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { SearchProductsDto } from './dto/search-products.dto';
+import { UpdateProductDto } from './dto/update-products.dto';
 import { Status } from './enum/status.enum';
 import { Products } from './products.entity';
 import { ProductsRepository } from './products.repository';
@@ -101,6 +102,37 @@ export class ProductsService {
         } catch(e) {
             throw new NotFoundException({
                 message: 'Product not found.'
+            })
+        }
+    }
+
+    async updateProduct(product_id: string, user: Users, updateProductDto: UpdateProductDto): Promise<Products> {
+        try {
+            const product = await this.productsRepository.findOne({ where: { product_id, user } })
+            const { title, description, price, category } = updateProductDto
+
+            if(title) {
+                product.title = title
+            }
+
+            if(description) {
+                product.description = description
+            }
+
+            if(price) {
+                product.price = price
+            }
+
+            if(category) {
+                const categoryFound = await this.categoriesService.findCategory(category)
+                product.category = categoryFound
+            }
+
+            return await this.productsRepository.save(product)
+
+        } catch(e) {
+            throw new NotFoundException({
+                message: 'Prodcut not found.'
             })
         }
     }
