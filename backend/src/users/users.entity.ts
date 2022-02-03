@@ -1,5 +1,6 @@
 import { Products } from "src/products/products.entity";
-import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { ProfilePhotos } from "src/profile-photos/profile-photos.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Role } from "./enum/role.enum";
 
 @Entity({ name: 'users' })

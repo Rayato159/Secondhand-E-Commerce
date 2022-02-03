@@ -38,6 +38,7 @@ lerna-debug.log*
 
 # Fontend
 
+/frontend/assets/uploads
 /frontend/node_modules
 .DS_Store
 /frontend/dist

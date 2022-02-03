@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Users } from "src/users/users.entity";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'profile_photos' })
 export class ProfilePhotos {
@@ -11,4 +12,10 @@ export class ProfilePhotos {
 
     @Column()
     name: string
+
+    @OneToOne(() => Users, {
+        eager: true,
+    })
+    @JoinColumn({ name: 'user_id' })
+    user: Users
 }

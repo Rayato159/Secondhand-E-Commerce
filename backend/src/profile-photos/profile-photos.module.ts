@@ -8,9 +8,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { diskStorage } from 'multer';
 import * as path from 'path'
 import { v4 as uuidv4 } from 'uuid';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
+    UsersModule,
     TypeOrmModule.forFeature([ProfilePhotosRepository]),
     MulterModule.registerAsync({
       imports: [ConfigModule],
