@@ -8,10 +8,16 @@ import { ProductPhotosRepository } from './product-photos.repository';
 import { ProductPhotosService } from './product-photos.service';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { ProductsModule } from 'src/products/products.module';
+import { ProductsRepository } from 'src/products/products.repository';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ProductPhotosRepository]),
+    ProductsModule,
+    TypeOrmModule.forFeature([
+      ProductPhotosRepository,
+      ProductsRepository,
+    ]),
     MulterModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

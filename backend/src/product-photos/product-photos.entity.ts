@@ -14,11 +14,11 @@ export class ProductPhotos {
     name: string
 
     @ManyToOne(type => Products, product => product.product_photos, {
+        eager: true,
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
     })
     @JoinColumn({ 
-        name: 'product_photo_id',
+        name: 'product_id',
     })
     product: Products
 }

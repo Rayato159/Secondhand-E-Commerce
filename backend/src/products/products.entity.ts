@@ -49,6 +49,6 @@ export class Products {
     })
     category: Categories
 
-    @OneToMany(type => ProductPhotos, product_photos => product_photos.product, { eager: true })
+    @OneToMany(type => ProductPhotos, product_photos => product_photos.product)
     product_photos: ProductPhotos
 }
