@@ -15,6 +15,7 @@ export class ProfilePhotos {
 
     @OneToOne(() => Users, {
         eager: true,
+        onDelete: 'CASCADE',
     })
     @JoinColumn({ name: 'user_id' })
     user: Users

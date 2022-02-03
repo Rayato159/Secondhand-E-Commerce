@@ -1,8 +1,9 @@
 import { Users } from "src/users/users.entity";
 import { Status } from '../products/enum/status.enum'
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Exclude } from "class-transformer";
 import { Categories } from "src/categories/categories.entity";
+import { ProductPhotos } from "src/product-photos/product-photos.entity";
 
 @Entity({ name: 'products' })
 export class Products {
@@ -47,4 +48,7 @@ export class Products {
         name: 'category_id',
     })
     category: Categories
+
+    @OneToMany(type => ProductPhotos, product_photos => product_photos.product, { eager: true })
+    product_photos: ProductPhotos
 }
