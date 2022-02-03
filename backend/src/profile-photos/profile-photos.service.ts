@@ -14,8 +14,9 @@ export class ProfilePhotosService {
 
     async uploadProfilePhoto(path: string, filename: string, user: Users): Promise<ProfilePhotos> {
         try {
+            const newPath = path.match(/(?<=frontend).*$/)[0]
             const profilePhoto = this.profilePhotoRepository.create({
-                path,
+                path: newPath,
                 name: filename,
                 user,
             })
@@ -53,7 +54,7 @@ export class ProfilePhotosService {
     async deleteProfilePhotoByUser(user: Users): Promise<ProfilePhotos> {
         try {
             const profilePhoto = await this.profilePhotoRepository.findOne({ where: { user } })
-            fs.unlinkSync(profilePhoto.path)
+            fs.unlinkSync(`..\\frontend\\${profilePhoto.path}`)
             await this.profilePhotoRepository.delete({ user })
             return profilePhoto
         } catch(e) {

@@ -50,5 +50,5 @@ export class Products {
     category: Categories
 
     @OneToMany(type => ProductPhotos, product_photos => product_photos.product)
-    product_photos: ProductPhotos
+    product_photos: ProductPhotos[]
 }
