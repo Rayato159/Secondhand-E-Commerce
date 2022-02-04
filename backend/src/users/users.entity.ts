@@ -1,3 +1,4 @@
+import { Invoices } from "src/invoices/invoices.entity";
 import { Orders } from "src/orders/orders.entity";
 import { Products } from "src/products/products.entity";
 import { ProfilePhotos } from "src/profile-photos/profile-photos.entity";
@@ -42,4 +43,7 @@ export class Users {
 
     @OneToMany(type => Orders, orders => orders.user)
     orders: Orders[]
+
+    @OneToMany(type => Invoices, invoices => invoices.user)
+    invoices: Invoices[]
 }

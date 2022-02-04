@@ -94,11 +94,23 @@ export class ProductsService {
         }
     }
 
-    async updateProductStatus(product_id: string, user: Users, status: Status): Promise<Products> {
+    async updateProductStatusByUser(product_id: string, user: Users, status: Status): Promise<Products> {
         try {
-            const product = await this.productsRepository.findOne({ where: { product_id, user } })
+            const product = await this.productsRepository.findOne({ where: { product_id: product_id, user } })
             product.status = status
-            return product
+            return await this.productsRepository.save(product)
+        } catch(e) {
+            throw new NotFoundException({
+                message: 'Product not found.'
+            })
+        }
+    }
+
+    async updateProductStatus(product_id: string): Promise<Products> {
+        try {
+            const product = await this.productsRepository.findOne(product_id)
+            product.status = Status.SoldOut
+            return await this.productsRepository.save(product)
         } catch(e) {
             throw new NotFoundException({
                 message: 'Product not found.'

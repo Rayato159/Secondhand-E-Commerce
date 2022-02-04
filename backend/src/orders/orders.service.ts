@@ -2,7 +2,6 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductsService } from 'src/products/products.service';
 import { Users } from 'src/users/users.entity';
-import { UsersService } from 'src/users/users.service';
 import { Orders } from './orders.entity';
 import { OrdersRepository } from './orders.repository';
 
@@ -11,9 +10,7 @@ export class OrdersService {
     constructor(
         @InjectRepository(OrdersRepository)
         private ordersRepository: OrdersRepository,
-
         private productsService: ProductsService,
-        private usersService: UsersService,
     ) {}
 
     async createOrder(product_id: string, user: Users): Promise<Orders> {

@@ -49,7 +49,7 @@ export class ProductsController {
         @User() user: Users,
         @Body() { status }: any
     ): Promise<Products> {
-        return this.productsService.updateProductStatus(product_id, user, status)
+        return this.productsService.updateProductStatusByUser(product_id, user, status)
     }
 
     @UseGuards(JwtAuthGuard)
