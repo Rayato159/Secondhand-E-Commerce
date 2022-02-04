@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductsService } from 'src/products/products.service';
 import { Users } from 'src/users/users.entity';
@@ -26,6 +26,28 @@ export class InvoicesService {
         } catch(e) {
             throw new BadRequestException({
                 message: 'Please check your purchase order.'
+            })
+        }
+    }
+
+    async getInvoicesByUser(user: Users): Promise<Invoices[]> {
+        try {
+            const invoices = await this.invoicesRepository.find({ where: { user } })
+            return invoices
+        } catch(e) {
+            throw new NotFoundException({
+                message: 'Invoices are empty.'
+            })
+        }
+    }
+
+    async getInvoicesByIdButUser(invoice_id: string, user: Users): Promise<Invoices> {
+        try {
+            const invoice = await this.invoicesRepository.findOne({ where: { invoice_id, user } })
+            return invoice
+        } catch(e) {
+            throw new NotFoundException({
+                message: 'Invoice not found.'
             })
         }
     }
