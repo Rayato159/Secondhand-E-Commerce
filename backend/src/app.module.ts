@@ -8,6 +8,8 @@ import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProfilePhotosModule } from './profile-photos/profile-photos.module';
 import { ProductPhotosModule } from './product-photos/product-photos.module';
+import { OrdersModule } from './orders/orders.module';
+import { InvoicesModule } from './invoices/invoices.module';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { ProductPhotosModule } from './product-photos/product-photos.module';
     CategoriesModule,
     ProfilePhotosModule,
     ProductPhotosModule,
+    OrdersModule,
+    InvoicesModule,
   ],
   controllers: [AppController],
   providers: [],

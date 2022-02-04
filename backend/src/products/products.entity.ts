@@ -4,6 +4,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, Pri
 import { Exclude } from "class-transformer";
 import { Categories } from "src/categories/categories.entity";
 import { ProductPhotos } from "src/product-photos/product-photos.entity";
+import { Orders } from "src/orders/orders.entity";
 
 @Entity({ name: 'products' })
 export class Products {
@@ -30,8 +31,7 @@ export class Products {
     updated: Date
 
     @ManyToOne(type => Users, user => user.products, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        cascade: true,
     })
     @JoinColumn({ 
         name: 'user_id',
@@ -40,8 +40,7 @@ export class Products {
     user: Users
 
     @ManyToOne((_type) => Categories, category => category.products, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        cascade: true,
         eager: true,
     })
     @JoinColumn({ 
@@ -51,4 +50,7 @@ export class Products {
 
     @OneToMany(type => ProductPhotos, product_photos => product_photos.product)
     product_photos: ProductPhotos[]
+
+    @OneToMany(type => Orders, orders => orders.product)
+    orders: Orders[]
 }

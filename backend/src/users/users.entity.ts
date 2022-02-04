@@ -1,3 +1,4 @@
+import { Orders } from "src/orders/orders.entity";
 import { Products } from "src/products/products.entity";
 import { ProfilePhotos } from "src/profile-photos/profile-photos.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
@@ -38,4 +39,7 @@ export class Users {
 
     @OneToMany(type => Products, products => products.user)
     products: Products[]
+
+    @OneToMany(type => Orders, orders => orders.user)
+    orders: Orders[]
 }

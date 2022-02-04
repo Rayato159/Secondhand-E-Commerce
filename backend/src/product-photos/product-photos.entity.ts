@@ -15,7 +15,7 @@ export class ProductPhotos {
 
     @ManyToOne(type => Products, product => product.product_photos, {
         eager: true,
-        onDelete: 'CASCADE',
+        cascade: true,
     })
     @JoinColumn({ 
         name: 'product_id',
