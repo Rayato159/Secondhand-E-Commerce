@@ -51,4 +51,26 @@ export class InvoicesService {
             })
         }
     }
+
+    async getInvoicesAll(): Promise<Invoices[]> {
+        try {
+            const invoices = await this.invoicesRepository.find()
+            return invoices
+        } catch(e) {
+            throw new NotFoundException({
+                message: 'Invoices are empty.'
+            })
+        }
+    }
+
+    async deleteInvoice(invoice_id: string): Promise<Invoices> {
+        try {
+            const invoice = await this.invoicesRepository.findOne(invoice_id)
+            return invoice
+        } catch(e) {
+            throw new NotFoundException({
+                message: 'Invoice not found.'
+            })
+        }
+    }
 }
