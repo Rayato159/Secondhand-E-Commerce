@@ -7,7 +7,7 @@ export const ReactDropZone = ({props}) => {
     getRootProps,
     getInputProps
   } = useDropzone({
-    accept: 'image/jpeg, image/png'
+    accept: 'image/jpeg, image/png, image/jpeg'
   })
 
   // Fire images out of this components

@@ -49,6 +49,7 @@ export class UsersController {
     }
 
     @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(Role.Admin)
     @Delete(':user_id/delete')
     deleteUser(
         @Param('user_id') user_id: string

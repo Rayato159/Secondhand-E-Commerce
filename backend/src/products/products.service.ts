@@ -56,6 +56,7 @@ export class ProductsService {
                 query.andWhere('products.category_id = :category_id', { category_id: `${category_id}` })
             }
 
+            query.andWhere('products.status = :status', { status: `${Status.Avaliable}` })
             query.leftJoinAndSelect('products.category', 'categories')
 
             const products = await query.getMany()

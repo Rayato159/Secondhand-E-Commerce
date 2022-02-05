@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // Route
 import { Link } from 'react-router-dom'
@@ -7,13 +7,10 @@ import { Link } from 'react-router-dom'
 import '../pages/Form.css'
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
-import { searchLoading, searchSuccess }  from '../features/searchSlice'
-import { userLoading, userSuccess, userFail } from '../features/userSlice'
-import { loginSuccess, logout } from '../features/loginSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../features/loginSlice'
 
 // Services
-import { getUserButMe } from '../services/userService'
 
 // Components
 import { LinkNavbar } from './LinkNavbar'
@@ -22,39 +19,24 @@ import { Searchbox } from './Searchbox'
 
 export const Navbar = () => {
 
-  // Hook State
+  // Hook state
   const [isShowToggle, setIsShowToggle] = useState(false)
   const [searchEvent, setSearchEvent] = useState("")
+  const [username, setUsername] = useState(null)
 
-  // Redux State
+  // Redux state
   const dispatch = useDispatch()
-  const [{ isAuth }, { isUser }] = useSelector((state) => [
-    state.login,
-    state.user,
-  ])
+  const { isAuth } = useSelector((state) => state.login)
 
   const parentOnSubmit = (e) => {
     e.preventDefault()
 
-    dispatch(searchLoading())
-    dispatch(searchSuccess(searchEvent))
+    console.log('fire')
   }
 
-  // useEffect(() => {
-  //   async function fetchUser() {
-
-  //     try {
-  //       const res = await getUserButMe()
-  //       dispatch(loginSuccess())
-  //       dispatch(userSuccess(res))
-  //     } catch(e) {
-  //       dispatch(userFail(e.message))
-  //     }
-  //   }
-
-  //   dispatch(userLoading())
-  //   fetchUser()
-  // }, [isAuth])
+  useEffect(() => {
+    setUsername(localStorage.getItem("first_name"))
+  }, [isAuth])
 
   return (
     <nav className='bg-mycolor-200 sticky top-0 w-full z-50 shadow-lg'>
@@ -91,9 +73,9 @@ export const Navbar = () => {
           </div>
 
           {/* Right */}
-          {isUser?
+          {username?
             <div className='hidden md:flex space-x-6 items-center p-4'>
-              <LinkNavbar path={"profile"} message={isUser.first_name}/>
+              <LinkNavbar path={"profile"} message={username}/>
               <button onClick={() => dispatch(logout())} className='text-sm hover:text-gray-500'>
                 ออกจากระบบ
               </button>
@@ -116,15 +98,15 @@ export const Navbar = () => {
               </div>
 
               {/* Login */}
-              {isUser?
-                <ResLinkNavbar path={"/profile"} message={isUser.first_name}/>:<ResLinkNavbar path={"/login"} message={"เข้าสู่ระบบ"}/>
+              {username?
+                <ResLinkNavbar path={"/profile"} message={username}/>:<ResLinkNavbar path={"/login"} message={"เข้าสู่ระบบ"}/>
               }
 
               {/* Register */}
-              {isUser?
+              {username?
                 <div>
                   <button onClick={() => dispatch(logout())} className='block w-full text-sm text-center hover:bg-mycolor-100 p-4 duration-300'>
-                      Logout
+                      ออกจากระบบ
                   </button>
                 </div>:
                 <ResLinkNavbar path={"register"} message={"สมัครสมาชิก"}/>

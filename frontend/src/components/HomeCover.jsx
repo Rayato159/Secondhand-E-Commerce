@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 // Redux
-import { useSelector } from 'react-redux'
 
 export const HomeCover = () => {
-
-    const { isAuth } = useSelector((state) => state.login)
     
+    const [isAuth, setIsAuth] = useState(false)
+
     return (
         <div className='relative w-full top-0'>
             <div className="bg-mycolor-600">
