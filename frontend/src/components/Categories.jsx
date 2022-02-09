@@ -6,7 +6,7 @@ import { Card } from './Card'
 export const Categories = () => {
   return (
       <div>
-          <div className='max-w-7xl mx-auto p-6'>
+          <div className='relative max-w-7xl mx-auto p-6 -top-16'>
               <div className='flex flex-col items-center'>
                 <div className='font md:text-2xl text-xl text-center'>
                     สนใจอะไรอยู่หรอ? เลือกซื้อเลยสิ อย่าไปรอ!!!
