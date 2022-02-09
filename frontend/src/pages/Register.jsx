@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // Styles
 import './Form.css'
@@ -8,12 +9,28 @@ import { AiOutlineMail } from 'react-icons/ai'
 import { AiOutlinePhone } from 'react-icons/ai'
 import { AiOutlineUserAdd } from 'react-icons/ai'
 import { AiOutlineEyeInvisible } from 'react-icons/ai'
+import { AiOutlineEye } from 'react-icons/ai'
+
+// Redux
+import { useSelector } from 'react-redux'
 
 export const Register = () => {
+
+    // Navigate
+    const navigate = useNavigate()
+
+    // Redux state
+    const { isToken } = useSelector((state) => state.login)
 
     // Hook state
     const [isShowPassword, setIsShowPassword] = useState(false)
 
+    useEffect(() => {
+        if(localStorage.getItem("accessToken")) {
+            navigate('/')
+        }
+    }, [isToken])
+    
     return (
     <div className="w-full py-10">
         <div className="max-w-md mx-auto shadow-xl bg-white px-4 py-10 rounded-xl">
@@ -58,7 +75,10 @@ export const Register = () => {
                         {/* Password */}
                         <div className='relative flex space-x-2 items-center justify-end'>
                             <input className="w-full border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type={isShowPassword? "text": "password"} maxLength={36} placeholder="Password"/>
-                            <AiOutlineEyeInvisible onClick={() => setIsShowPassword(!isShowPassword)} className='absolute w-6 h-6 cursor-pointer' />
+                            {isShowPassword?
+                                <AiOutlineEye onClick={() => setIsShowPassword(!isShowPassword)} className='absolute w-6 h-6 cursor-pointer' />
+                                :<AiOutlineEyeInvisible onClick={() => setIsShowPassword(!isShowPassword)} className='absolute w-6 h-6 cursor-pointer' />
+                            }
                         </div>
 
                         {/* Password-Confirm */}
