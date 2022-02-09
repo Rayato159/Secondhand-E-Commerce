@@ -21,7 +21,7 @@ export const HomeCover = () => {
                             มองสือ ที่แปลว่ามือสอง ซื้อ-ขาย ของมือสองเพียงเอื้อมมือ
                         </div>
                         <div className='py-3'>
-                            <Link to={isToken? '/products/sell': '/login'} className='bg-mycolor-200 hover:bg-mycolor-100 shadow-md text-md px-10 py-2'>
+                            <Link to={(localStorage.getItem("accessToken") || isToken)? '/products/sell': '/login'} className='bg-mycolor-200 hover:bg-mycolor-100 shadow-md text-md px-10 py-2'>
                                 ลงขายเลย
                             </Link>
                         </div>

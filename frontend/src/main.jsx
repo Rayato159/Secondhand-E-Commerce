@@ -20,6 +20,8 @@ import { Footer } from './components/Footer'
 // Pages
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
+import { Products } from './pages/Products'
+import { Sell } from './pages/Sell'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -29,6 +31,9 @@ ReactDOM.render(
           <Routes>
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
+            <Route path="products" element={<Products />}>
+              <Route path="sell" element={<Sell />} />
+            </Route>
           </Routes>
         <Footer />
       </div>
