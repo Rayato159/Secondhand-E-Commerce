@@ -25,14 +25,16 @@ export const login = (email, password) => {
     })
 }
 
-export const register = (
-    email,
-    password,
-    password_confirm,
-    first_name,
-    last_name,
-    address,
-    phone_number,
+export const registerNewUser = (
+    {
+        email,
+        password,
+        password_confirm,
+        first_name,
+        last_name,
+        address,
+        phone_number,
+    }
 ) => {
     return new Promise(async (resolve, reject) => {
         try {
