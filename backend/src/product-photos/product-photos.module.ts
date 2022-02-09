@@ -31,8 +31,8 @@ import { ProductsRepository } from 'src/products/products.repository';
             }
           },
           limits: {
-            fileSize: 2e+6,
-            files: 6,
+            fileSize: 10e+6,
+            files: 5,
           },
           storage: diskStorage({
             destination: configService.get('PRODUCT_PHOTOS_PATH'),

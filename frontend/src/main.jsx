@@ -22,6 +22,7 @@ import { Home } from './pages/Home'
 import { Login } from './pages/Login'
 import { Products } from './pages/Products'
 import { Sell } from './pages/Sell'
+import { Register } from './pages/Register';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -31,6 +32,7 @@ ReactDOM.render(
           <Routes>
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
             <Route path="products" element={<Products />}>
               <Route path="sell" element={<Sell />} />
             </Route>

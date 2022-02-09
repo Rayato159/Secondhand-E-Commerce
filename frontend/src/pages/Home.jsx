@@ -7,7 +7,7 @@ import { Categories } from '../components/Categories'
 export const Home = () => {
 
   return (
-      <div className=''>
+      <div>
         <HomeCover />
         <Categories />
       </div>
