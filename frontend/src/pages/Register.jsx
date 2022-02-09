@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 
+// Styles
+import './Form.css'
+
 // Icons
 import { AiOutlineMail } from 'react-icons/ai'
 import { AiOutlinePhone } from 'react-icons/ai'
@@ -40,11 +43,6 @@ export const Register = () => {
                             <input className="w-full border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type="text" placeholder="Last Name"/>
                         </div>
 
-                        {/* Address */}
-                        <div className='flex space-x-2 items-center'>
-                            <input className="w-full border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type="text" placeholder="Address"/>
-                        </div>
-
                         {/* Phone Number */}
                         <div className='flex space-x-2 items-center'>
                             <AiOutlinePhone className='w-6 h-6' />
@@ -66,6 +64,11 @@ export const Register = () => {
                         {/* Password-Confirm */}
                         <div className='flex space-x-2 items-center'>
                             <input className="w-full border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type={isShowPassword? "text": "password"} maxLength={36} placeholder="Password-Confirm"/>
+                        </div>
+
+                        {/* Address */}
+                        <div className='flex space-x-2 items-center'>
+                            <textarea className="w-full bg-gray-100 border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type="text" rows="3" placeholder="Address"/>
                         </div>
                     </div>
                     

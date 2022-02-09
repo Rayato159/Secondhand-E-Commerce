@@ -1,3 +1,7 @@
 input:focus::placeholder {
     color: transparent;
 }
+
+textarea {
+    resize: none;
+ }
