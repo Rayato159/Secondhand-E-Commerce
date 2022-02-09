@@ -74,14 +74,14 @@ export const Register = () => {
                             {/* First Name */}
                             <div className='flex space-x-2 items-center'>
                                 <input className="w-full border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type="text" placeholder="First Name"
-                                    {...register("first_name"),  { required: true }}
+                                    {...register("first_name", { required: true })}
                                 />
                             </div>
 
                             {/* Last Name */}
                             <div className='flex space-x-2 items-center'>
                                 <input className="w-full border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type="text" placeholder="Last Name"
-                                    {...register("last_name"),  { required: true }}
+                                    {...register("last_name", { required: true })}
                                 />
                             </div>
 
@@ -89,7 +89,7 @@ export const Register = () => {
                             <div className='flex space-x-2 items-center'>
                                 <AiOutlinePhone className='w-6 h-6' />
                                 <input className="w-full border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type="text" placeholder="Phone Number"
-                                    {...register("phone_number"),  { required: true, pattern: /^[0-9]{0,10}$/ }}
+                                    {...register("phone_number", { required: true, pattern: /^[0-9]{0,10}$/ })}
                                 />
                             </div>
                             
@@ -97,14 +97,14 @@ export const Register = () => {
                             <div className='flex space-x-2 items-center'>
                                 <AiOutlineMail className='w-6 h-6' />
                                 <input className="w-full border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type="text" placeholder="Email"
-                                    {...register("email"),  { required: true, pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/ }}
+                                    {...register("email", { required: true, pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/ })}
                                 />
                             </div>
 
                             {/* Password */}
                             <div className='relative flex space-x-2 items-center justify-end'>
                                 <input className="w-full border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type={isShowPassword? "text": "password"} maxLength={36} placeholder="Password"
-                                    {...register("password"),  { required: true, pattern: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/ }}
+                                    {...register("password", { required: true, pattern: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/ })}
                                 />
                                 {isShowPassword?
                                     <AiOutlineEye onClick={() => setIsShowPassword(!isShowPassword)} className='absolute w-6 h-6 cursor-pointer' />
@@ -115,14 +115,14 @@ export const Register = () => {
                             {/* Password-Confirm */}
                             <div className='flex space-x-2 items-center'>
                                 <input className="w-full border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type={isShowPassword? "text": "password"} maxLength={36} placeholder="Password-Confirm"
-                                    {...register("password_confirm"),  { required: true }}
+                                    {...register("password_confirm", { required: true })}
                                 />
                             </div>
 
                             {/* Address */}
                             <div className='flex space-x-2 items-center'>
                                 <textarea className="w-full bg-gray-100 border-b-2 border-mycolor-500 py-1 px-2 focus:outline-none focus:border-black" type="text" rows="3" placeholder="Address"
-                                    {...register("address"),  { required: true }}
+                                    {...register("address", { required: true })}
                                 />
                             </div>
                         </div>
