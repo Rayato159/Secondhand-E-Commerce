@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialStateValue = {
-    isAuth: false,
     isLoginLoading: false,
-    isLoginError: null
+    isLoginError: null,
+    isToken: localStorage.getItem("accessToken")
 }
 
 export const loginSlice = createSlice({
@@ -23,7 +23,7 @@ export const loginSlice = createSlice({
 
             state.isLoginLoading = false
             state.isLoginError = null
-            state.isAuth = true
+            state.isToken = localStorage.getItem("accessToken")
         },
 
         loginFail: (state, { payload }) => {
@@ -32,7 +32,8 @@ export const loginSlice = createSlice({
         },
 
         logout: (state) => {
-            state.isAuth = false,
+            state.isToken = null
+
             localStorage.removeItem("accessToken")
             localStorage.removeItem("user_id")
             localStorage.removeItem("first_name")

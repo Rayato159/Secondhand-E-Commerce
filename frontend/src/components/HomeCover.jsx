@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 // Redux
+import { useSelector } from 'react-redux'
 
 export const HomeCover = () => {
-    
-    const [isAuth, setIsAuth] = useState(false)
+
+    // Redux state
+    const { isToken } = useSelector((state) => state.login)
 
     return (
         <div className='relative w-full -top-32 bg-mycolor-600 pt-32'>
@@ -19,7 +21,7 @@ export const HomeCover = () => {
                             มองสือ ที่แปลว่ามือสอง ซื้อ-ขาย ของมือสองเพียงเอื้อมมือ
                         </div>
                         <div className='py-3'>
-                            <Link to={isAuth? '/products/sell':'/login'} className='bg-mycolor-200 hover:bg-mycolor-100 shadow-md text-md px-10 py-2'>
+                            <Link to={isToken? '/products/sell': '/login'} className='bg-mycolor-200 hover:bg-mycolor-100 shadow-md text-md px-10 py-2'>
                                 ลงขายเลย
                             </Link>
                         </div>

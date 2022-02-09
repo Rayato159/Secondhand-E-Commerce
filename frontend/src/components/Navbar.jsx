@@ -26,7 +26,7 @@ export const Navbar = () => {
 
   // Redux state
   const dispatch = useDispatch()
-  const { isAuth } = useSelector((state) => state.login)
+  const { isToken } = useSelector((state) => state.login)
 
   const parentOnSubmit = (e) => {
     e.preventDefault()
@@ -36,7 +36,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     setUsername(localStorage.getItem("first_name"))
-  }, [isAuth])
+  }, [isToken])
 
   return (
     <nav className='bg-mycolor-200 sticky top-0 w-full z-50 shadow-lg'>

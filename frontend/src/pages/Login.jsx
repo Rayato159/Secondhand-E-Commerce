@@ -20,14 +20,13 @@ export const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [token, setToken] = useState(localStorage.getItem("accessToken"))
 
     // Navigate
     const navigate = useNavigate()
 
     // Redux State
     const dispatch = useDispatch()
-    const { isAuth, isLoginLoading, isLoginError } = useSelector((state) => state.login)
+    const { isLoginLoading, isLoginError, isToken } = useSelector((state) => state.login)
 
     const onSubmitHandle = async (e) => {
         e.preventDefault()
@@ -42,10 +41,10 @@ export const Login = () => {
     }
 
     useEffect(() => {
-        if(token || isAuth) {
+        if(localStorage.getItem("accessToken")) {
             navigate('/')
         }
-    }, [isAuth])
+    }, [isToken])
 
     return (
         <div className="w-full py-6">
