@@ -27,7 +27,7 @@ import { Register } from './pages/Register';
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <div className='h-screen flex flex-col justify-between font-serif'>
+      <div className='h-screen flex flex-col justify-between'>
         <Navbar />
           <Routes>
             <Route index element={<Home />} />

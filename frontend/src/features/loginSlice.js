@@ -32,11 +32,13 @@ export const loginSlice = createSlice({
         },
 
         logout: (state) => {
-            state.isToken = null
+            if(window.confirm("ต้องการออกจากระบบใช่หรือไม่?")) {
+                state.isToken = null
 
-            localStorage.removeItem("accessToken")
-            localStorage.removeItem("user_id")
-            localStorage.removeItem("first_name")
+                localStorage.removeItem("accessToken")
+                localStorage.removeItem("user_id")
+                localStorage.removeItem("first_name")
+            }
         }
     }
 })
