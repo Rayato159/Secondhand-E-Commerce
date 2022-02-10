@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react'
 // React rounter
 import { useNavigate } from 'react-router-dom';
 
+// Icons
+import { ImSpinner8 } from 'react-icons/im'
+
 // Components
 import { LoginHeader } from "../components/login/LoginHeader";
 import { EmailInput } from "../components/login/EmailInput";
@@ -67,7 +70,8 @@ export const Login = () => {
                         {/* Button */}
                         <div className="flex justify-center pt-3">
                             {isLoginLoading?
-                                <button disabled={true} className="p-2 rounded-full shadow-md w-full disabled:bg-mycolor-200" type="submit">
+                                <button disabled className="flex space-x-3 justify-center p-2 rounded-full shadow-md w-full disabled:bg-mycolor-200 disabled:text-gray-400" type="submit">
+                                    <ImSpinner8 className='w-6 h-6 animate-spin text-gray-400'/>
                                     <div className="font-bold">
                                         กำลังดำเนินการ...
                                     </div>
