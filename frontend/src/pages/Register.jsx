@@ -14,6 +14,7 @@ import { AiOutlineUserAdd } from 'react-icons/ai'
 import { AiOutlineEyeInvisible } from 'react-icons/ai'
 import { AiOutlineEye } from 'react-icons/ai'
 import { BiErrorCircle } from 'react-icons/bi'
+import { ImSpinner8 } from 'react-icons/im'
 
 // Redux
 import { useSelector } from 'react-redux'
@@ -42,6 +43,7 @@ export const Register = () => {
         try {
             const res = await registerNewUser(data)
             setIsPending(false)
+            navigate('/login')
         } catch(e) {
             setIsPending(false)
             setError(e.message)
@@ -228,7 +230,8 @@ export const Register = () => {
                         {/* Button */}
                         <div className='pt-6'>
                             {isPending?
-                                <button disabled className="p-2 rounded-full shadow-md w-full disabled:bg-mycolor-200" type="submit">
+                                <button disabled className="flex space-x-3 justify-center p-2 rounded-full shadow-md w-full disabled:bg-mycolor-200 disabled:text-gray-400" type="submit">
+                                    <ImSpinner8 className='w-6 h-6 animate-spin text-gray-400'/>
                                     <div className="font-bold">
                                         กำลังดำเนินการ...
                                     </div>
