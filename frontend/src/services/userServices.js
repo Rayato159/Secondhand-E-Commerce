@@ -48,9 +48,6 @@ export const registerNewUser = (
                     address,
                     phone_number,
                 },
-                {
-                    headers: { "Authorization": `Bearer ${accessToken}`}
-                }
             )
 
             resolve(res.data)
