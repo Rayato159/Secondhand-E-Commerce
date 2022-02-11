@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+// Select component
+import Select from 'react-select'
+
+// Upload component
+import { ProductPhotosUpload } from '../components/Sell/ProductPhotosUpload'
+
 // Styles
 import './Form.css'
 
@@ -8,7 +14,6 @@ import './Form.css'
 import { useForm } from "react-hook-form";
 
 // Icons
-import { AiOutlineUserAdd } from 'react-icons/ai'
 import { BiErrorCircle } from 'react-icons/bi'
 import { ImSpinner8 } from 'react-icons/im'
 import { AiOutlineTags } from 'react-icons/ai'
@@ -17,6 +22,7 @@ import { AiOutlineTags } from 'react-icons/ai'
 import { useSelector } from 'react-redux'
 
 // Services
+import { getCategories } from '../services/categoryServices';
 import { createProduct, uploadProductPhotos } from '../services/productServices'
 
 export const Sell = () => {
@@ -32,6 +38,8 @@ export const Sell = () => {
     const [error, setError] = useState("")
 
     // State to create product
+    const [options, setOptions] = useState([])
+    const [category, setCategory] = useState("")
     const [images, setImages] = useState([])
 
     // React hook forms
@@ -50,12 +58,27 @@ export const Sell = () => {
         // }
     }
 
+    const fetchCategories = async () => {
+      try {
+        const res = await getCategories()
+        setOptions(res)
+      } catch(e) {
+        setOptions(e.message)
+      }
+    }
+
     useEffect(() => {
         if(!localStorage.getItem("accessToken")) {
             navigate('/')
         }
     }, [isToken])
+
+    useEffect(() => {
+      fetchCategories()
+    }, [])
     
+    console.log(options)
+
     return (
         <div className="w-full py-10">
             <div className="max-w-md mx-auto shadow-xl bg-white border border-gray-200 px-4 py-10 md:rounded-xl">
@@ -135,6 +158,20 @@ export const Sell = () => {
                             </div>
                             
                             {/* Category */}
+                            <div className='flex flex-col space-y-2'>
+                                <label className='font-bold'>Category</label>
+                                <div>
+                                  <Select placeholder="เลือกประเภทของสินค้า" options={options} />
+                                </div>
+                            </div>
+
+                            {/* Images uplaod field */}
+                            <div className='flex flex-col space-y-2'>
+                              <label className='font-bold'>Image upload</label>
+                              <div>
+                                <ProductPhotosUpload props={(files) => setImages(files)}/>
+                              </div>
+                            </div>
 
                             {error && 
                                 <div className='flex space-x-2 text-xs text-red-500 items-center'>
@@ -149,7 +186,7 @@ export const Sell = () => {
                         </div>
                         
                         {/* Button */}
-                        <div className='pt-6'>
+                        <div>
                             {isPending?
                                 <button disabled className="flex space-x-3 justify-center p-2 rounded-full shadow-md w-full disabled:bg-mycolor-200 disabled:text-gray-400" type="submit">
                                     <ImSpinner8 className='w-6 h-6 animate-spin text-gray-400'/>

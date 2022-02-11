@@ -26,6 +26,11 @@ export class CategoriesController {
         return this.categoriesService.getCategories()
     }
 
+    @Get('select')
+    getCategoriesSelect(): Promise<any> {
+        return this.categoriesService.getCategoriesSelect()
+    }
+
     @Roles(Role.Admin)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Patch(':category_id/update')

@@ -38,6 +38,22 @@ export class CategoriesService {
         }
     }
 
+    async getCategoriesSelect(): Promise<any> {
+        try {
+            const categories = await this.categoriesReposiotry.find()
+
+            let categoriesSelect:any = []
+            for(let i=0; i<categories.length; i++) {
+                categoriesSelect.push({ value: categories[i].name, label: categories[i].name })
+            }
+            return categoriesSelect
+        } catch(e) {
+            throw new NotFoundException({
+                message: 'Categories are empty.'
+            })
+        }
+    }
+
     async findCategory(category: string): Promise<Categories> {
         try {
             const categoryFinder = await this.categoriesReposiotry.findOne({ where: { name: category } })
