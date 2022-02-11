@@ -51,7 +51,7 @@ export const Login = () => {
 
     return (
         <div className="w-full py-6">
-            <div className="w-80 mx-auto shadow-xl bg-white px-4 py-6 rounded-xl">
+            <div className="w-80 mx-auto shadow-xl bg-white border border-gray-200 px-4 py-6 rounded-xl">
                 <div className="flex justify-center">
 
                     {/* Login forms */}
@@ -68,7 +68,7 @@ export const Login = () => {
                         </div>
 
                         {/* Button */}
-                        <div className="flex justify-center pt-3">
+                        <div className="flex justify-center pt-6">
                             {isLoginLoading?
                                 <button disabled className="flex space-x-3 justify-center p-2 rounded-full shadow-md w-full disabled:bg-mycolor-200 disabled:text-gray-400" type="submit">
                                     <ImSpinner8 className='w-6 h-6 animate-spin text-gray-400'/>

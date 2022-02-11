@@ -30,12 +30,11 @@ ReactDOM.render(
       <div className='h-screen flex flex-col justify-between'>
         <Navbar />
           <Routes>
-            <Route index element={<Home />} />
+            <Route path='/' element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
-            <Route path="products" element={<Products />}>
-              <Route path="sell" element={<Sell />} />
-            </Route>
+            <Route path="products" element={<Products />}/>
+            <Route path="sell" element={<Sell />} />
           </Routes>
         <Footer />
       </div>

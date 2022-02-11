@@ -3,9 +3,11 @@ import { Outlet } from 'react-router-dom'
 
 export const Products = () => {
   return (
-    <div>
-        Products
-        <Outlet />
-    </div>
+      <div>
+          <div>
+            Products
+          </div>
+          <Outlet />
+      </div>
   )
 }

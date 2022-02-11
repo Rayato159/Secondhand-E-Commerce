@@ -58,7 +58,7 @@ export const Register = () => {
     
     return (
         <div className="w-full py-10">
-            <div className="max-w-md mx-auto shadow-xl bg-white px-4 py-10 md:rounded-xl">
+            <div className="max-w-md mx-auto shadow-xl bg-white border border-gray-200 px-4 py-10 md:rounded-xl">
                 <div className="flex justify-center">
                     {/* Register forms */}
                     <form onSubmit={handleSubmit(onSubmit)} className="w-72 flex flex-col space-y-6">
