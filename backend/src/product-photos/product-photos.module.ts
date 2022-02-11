@@ -37,7 +37,7 @@ import { ProductsRepository } from 'src/products/products.repository';
           storage: diskStorage({
             destination: configService.get('PRODUCT_PHOTOS_PATH'),
             filename: (req, file, cb) => {
-              const filename: string = `profile_${uuidv4()}`
+              const filename: string = `product_${uuidv4()}`
               const extension: string = path.parse(file.originalname).ext
 
               cb(null, `${filename}${extension}`)

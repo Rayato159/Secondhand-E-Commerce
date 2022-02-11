@@ -31,7 +31,8 @@ export class Products {
     updated: Date
 
     @ManyToOne(type => Users, user => user.products, {
-        cascade: true,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
     })
     @JoinColumn({ 
         name: 'user_id',
@@ -40,7 +41,8 @@ export class Products {
     user: Users
 
     @ManyToOne((_type) => Categories, category => category.products, {
-        cascade: true,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
         eager: true,
     })
     @JoinColumn({ 

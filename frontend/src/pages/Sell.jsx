@@ -45,17 +45,24 @@ export const Sell = () => {
     // React hook forms
     const { register, handleSubmit, formState: { errors } } = useForm()
 
+    // Submit form
     const onSubmit = async (data) => {
         setIsPending(true)
 
-        // try {
-        //     const res = await registerNewUser(data)
-        //     setIsPending(false)
-        //     navigate('/login')
-        // } catch(e) {
-        //     setIsPending(false)
-        //     setError(e.message)
-        // }
+        try {
+            const res = await createProduct({...data, category})
+            if(images) {
+                const photo = await uploadProductPhotos(res.product_id, images)
+                setIsPending(false)
+                navigate('/')
+            } else {
+                setIsPending(false)
+                navigate('/')
+            }
+        } catch(e) {
+            setIsPending(false)
+            setError(e.message)
+        }
     }
 
     const fetchCategories = async () => {
