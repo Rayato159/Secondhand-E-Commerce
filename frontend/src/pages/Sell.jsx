@@ -76,8 +76,8 @@ export const Sell = () => {
     useEffect(() => {
       fetchCategories()
     }, [])
-    
-    console.log(options)
+
+    console.log(images, category)
 
     return (
         <div className="w-full py-10">
@@ -161,7 +161,7 @@ export const Sell = () => {
                             <div className='flex flex-col space-y-2'>
                                 <label className='font-bold'>Category</label>
                                 <div>
-                                  <Select placeholder="เลือกประเภทของสินค้า" options={options} />
+                                  <Select onChange={(option) => setCategory(option.value)} placeholder="เลือกประเภทของสินค้า" options={options} />
                                 </div>
                             </div>
 
