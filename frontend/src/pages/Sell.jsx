@@ -51,17 +51,17 @@ export const Sell = () => {
 
         try {
             const res = await createProduct({...data, category})
-            if(images) {
-                const photo = await uploadProductPhotos(res.product_id, images)
-                setIsPending(false)
-                navigate('/')
-            } else {
-                setIsPending(false)
-                navigate('/')
+            const photo = await uploadProductPhotos(res.product_id, images)
+
+            if(photo.length === 0) {
+                throw new Error()
             }
+
+            setIsPending(false)
+            navigate('/')
         } catch(e) {
             setIsPending(false)
-            setError(e.message)
+            setError("Please input an image.")
         }
     }
 
