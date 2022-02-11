@@ -48,6 +48,7 @@ import { ProductsRepository } from 'src/products/products.repository';
     })
   ],
   controllers: [ProductPhotosController],
-  providers: [ProductPhotosService]
+  providers: [ProductPhotosService],
+  exports: [ProductPhotosService]
 })
 export class ProductPhotosModule {}

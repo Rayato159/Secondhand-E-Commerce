@@ -1,5 +1,4 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
 
 export const Products = () => {
   return (
@@ -7,7 +6,6 @@ export const Products = () => {
           <div>
             Products
           </div>
-          <Outlet />
       </div>
   )
 }

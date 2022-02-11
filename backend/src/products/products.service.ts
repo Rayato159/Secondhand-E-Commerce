@@ -9,12 +9,17 @@ import { UpdateProductDto } from './dto/update-products.dto';
 import { Status } from './enum/status.enum';
 import { Products } from './products.entity';
 import { ProductsRepository } from './products.repository';
+import * as fs from 'fs';
+import { ProductPhotosRepository } from 'src/product-photos/product-photos.repository';
 
 @Injectable()
 export class ProductsService {
     constructor(
         @InjectRepository(ProductsRepository)
         private productsRepository: ProductsRepository,
+
+        @InjectRepository(ProductPhotosRepository)
+        private productPhotosRepository: ProductPhotosRepository,
 
         private userService: UsersService,
         private categoriesService: CategoriesService,
@@ -47,17 +52,18 @@ export class ProductsService {
             const query = this.productsRepository.createQueryBuilder('products')
 
             if(search) {
-                query.andWhere('LOWER(products.title) LIKE LOWER(:search)', { search: `%${search}%` })
+                query.andWhere('(LOWER(products.title) LIKE LOWER(:search))', { search: `%${search}%` })
             }
 
             if(category) {
                 const categoryFound = await this.categoriesService.findCategory(category)
                 const { category_id } = categoryFound
-                query.andWhere('products.category_id = :category_id', { category_id: `${category_id}` })
+                query.andWhere('(products.category_id = :category_id)', { category_id: `${category_id}` })
             }
 
-            query.andWhere('products.status = :status', { status: `${Status.Avaliable}` })
+            query.andWhere('(products.status = :status)', { status: `${Status.Avaliable}` })
             query.leftJoinAndSelect('products.category', 'categories')
+            query.leftJoinAndSelect('products.user', 'users')
 
             const products = await query.getMany()
             if(products.length === 0) {
@@ -150,9 +156,15 @@ export class ProductsService {
         }
     }
 
-    async deleteProduct(product_id: string, user: Users): Promise<Products> {
+    async deleteProduct(product_id: string): Promise<Products> {
         try {
-            const product = await this.productsRepository.findOne({ where: { product_id: product_id, user } })
+            const product = await this.productsRepository.findOne(product_id)
+            const photos = await this.productPhotosRepository.find({ product })
+
+            for(let i=0; i<photos.length; i++) {
+                fs.unlinkSync(`..\\frontend${photos[i].path}`)
+            }
+
             await this.productsRepository.delete(product_id)
             return product
         } catch(e) {

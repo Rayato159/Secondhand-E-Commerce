@@ -5,18 +5,21 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsRepository } from './products.repository';
 import { UsersModule } from 'src/users/users.module';
 import { CategoriesModule } from 'src/categories/categories.module';
-import { ProductPhotos } from 'src/product-photos/product-photos.entity';
+import { ProductPhotosRepository } from 'src/product-photos/product-photos.repository';
+import { PassportModule } from '@nestjs/passport';
+import { RolesGuard } from 'src/users/roles.guard';
 
 @Module({
   imports: [
-    ProductPhotos,
+    PassportModule,
     TypeOrmModule.forFeature([
       ProductsRepository,
+      ProductPhotosRepository,
     ]),
     UsersModule,
     CategoriesModule,
   ],
-  providers: [ProductsService],
+  providers: [ProductsService ,RolesGuard],
   controllers: [ProductsController],
   exports: [ProductsService],
 })

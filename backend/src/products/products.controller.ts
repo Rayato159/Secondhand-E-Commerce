@@ -1,5 +1,8 @@
 import { Body, Controller, Post, UseGuards, Get, Param, Delete, Query, Patch } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { Role } from 'src/users/enum/role.enum';
+import { Roles } from 'src/users/roles.decorator';
+import { RolesGuard } from 'src/users/roles.guard';
 import { User } from 'src/users/users.decorator';
 import { Users } from 'src/users/users.entity';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -62,12 +65,12 @@ export class ProductsController {
         return this.productsService.updateProduct(product_id, user, updateProductDto)
     }
     
-    @UseGuards(JwtAuthGuard)
+    @Roles(Role.Admin)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Delete(':product_id/delete')
     deleteProduct(
         @Param('product_id') product_id: string,
-        @User() user: Users,
     ): Promise<Products> {
-        return this.productsService.deleteProduct(product_id, user)
+        return this.productsService.deleteProduct(product_id)
     }
 }

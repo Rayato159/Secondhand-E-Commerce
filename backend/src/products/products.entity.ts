@@ -33,11 +33,11 @@ export class Products {
     @ManyToOne(type => Users, user => user.products, {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
+        eager: true,
     })
     @JoinColumn({ 
         name: 'user_id',
     })
-    @Exclude({ toPlainOnly: true })
     user: Users
 
     @ManyToOne((_type) => Categories, category => category.products, {

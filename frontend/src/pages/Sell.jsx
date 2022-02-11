@@ -58,7 +58,7 @@ export const Sell = () => {
             }
 
             setIsPending(false)
-            navigate('/')
+            navigate('/profile')
         } catch(e) {
             setIsPending(false)
             setError("Please input an image.")
