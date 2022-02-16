@@ -8,7 +8,8 @@ import { Users } from 'src/users/users.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { SearchProductsDto } from './dto/search-products.dto';
 import { UpdateProductDto } from './dto/update-products.dto';
-import { ProductsInterceptor } from './interceptors/product.interceptor';
+import { ProductInterceptor } from './interceptors/product.interceptor';
+import { ProductsInterceptor } from './interceptors/products.interceptor';
 import { Products } from './products.entity';
 import { ProductsService } from './products.service';
 
@@ -40,6 +41,7 @@ export class ProductsController {
         return this.productsService.getProductByUser(user_id)
     }
 
+    @UseInterceptors(ProductInterceptor)
     @Get(':product_id')
     getProductById(
         @Param('product_id') product_id: string
