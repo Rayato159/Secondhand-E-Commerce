@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 
 // Icons
 import { ImSpinner8 } from 'react-icons/im'
+import { ImFilesEmpty } from 'react-icons/im'
 
 // Services
 import { getProducts } from '../services/productServices'
@@ -24,7 +25,7 @@ export const Products = () => {
   // Redux State
   const dispatch = useDispatch()
   const [
-    { isProductsLoading, productsArray },
+    { isProductsLoading, isProductsError, productsArray },
     { search },
   ] = useSelector((state) => [
     state.products,
@@ -43,11 +44,16 @@ export const Products = () => {
   }
 
   useEffect(() => {
-    fetchProducts(search)
-  }, [search])
+    dispatch(productsSuccess(null))
+    if(search) {
+      fetchProducts(search)
+    } else {
+      fetchProducts(searchParams.get('search'))
+    }
+  }, [search, searchParams])
 
   return (
-      <div>
+      <div className='mx-3'>
         {isProductsLoading &&
           <div className='flex justify-center'>
             <ImSpinner8 className='md:h-10 md:w-10 h-6 w-6 text-gray-500 animate-spin'/>
@@ -56,9 +62,22 @@ export const Products = () => {
         {(productsArray && !isProductsLoading) &&
           productsArray.map((product) => {
             return (
-              <ProductCard product={product} />
+              <ProductCard key={product.product_id} product={product} />
             )
           })
+        }
+
+        {isProductsError &&
+          <div className='flex justify-center'>
+            <div className='flex space-x-4'>
+              <div>
+                <ImFilesEmpty className='md:h-10 md:w-10 h-8 w-8'/>
+              </div>
+              <div className='md:text-3xl text-xl'>
+                {isProductsError}
+              </div>
+            </div>
+          </div>
         }
       </div>
   )

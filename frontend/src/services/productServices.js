@@ -62,7 +62,7 @@ export const uploadProductPhotos = (product_id, images) => {
 export const getProducts = (search) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const res = await axios.get(`${baseURL}products${search? `?search=${search}`: ""}`)
+            const res = await productsController.get(`?search=${search? `${search}`: ""}`)
             resolve(res.data)
         } catch(e) {
             reject(e.response.data)
