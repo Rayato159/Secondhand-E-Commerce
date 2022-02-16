@@ -27,9 +27,11 @@ export const Products = () => {
   const [
     { isProductsLoading, isProductsError, productsArray },
     { search },
+    { isToken },
   ] = useSelector((state) => [
     state.products,
-    state.search
+    state.search,
+    state.login
   ])
 
   // Function
@@ -50,7 +52,7 @@ export const Products = () => {
     } else {
       fetchProducts(searchParams.get('search'))
     }
-  }, [search, searchParams])
+  }, [search, searchParams, isToken])
 
   return (
       <div className='mx-3'>
@@ -69,7 +71,7 @@ export const Products = () => {
 
         {isProductsError &&
           <div className='flex justify-center'>
-            <div className='flex space-x-4'>
+            <div className='flex space-x-6'>
               <div>
                 <ImFilesEmpty className='md:h-10 md:w-10 h-8 w-8'/>
               </div>

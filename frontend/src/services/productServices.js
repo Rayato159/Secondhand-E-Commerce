@@ -62,7 +62,7 @@ export const uploadProductPhotos = (product_id, images) => {
 export const getProducts = (search) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const res = await productsController.get(`?search=${search? `${search}`: ""}`)
+            const res = await productsController.get(`?search=${search? `${search}`: ""}${localStorage.getItem("user_id")? `&user_id=${localStorage.getItem("user_id")}`: ``}`)
             resolve(res.data)
         } catch(e) {
             reject(e.response.data)
