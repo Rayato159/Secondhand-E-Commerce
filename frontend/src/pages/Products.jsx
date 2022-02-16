@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
 
+// Route
+import { useSearchParams } from 'react-router-dom';
+
 // Icons
 import { ImSpinner8 } from 'react-icons/im'
 
@@ -15,21 +18,24 @@ import { ProductCard } from '../components/products/ProductCard'
 
 export const Products = () => {
 
+  // Search Params
+  const [searchParams] = useSearchParams()
+
   // Redux State
   const dispatch = useDispatch()
   const [
     { isProductsLoading, productsArray },
-    { search, category },
+    { search },
   ] = useSelector((state) => [
     state.products,
     state.search
   ])
 
   // Function
-  const fetchProducts = async (search, category) => {
+  const fetchProducts = async (search) => {
     dispatch(productsLoading())
     try {
-      const res = await getProducts(search, category)
+      const res = await getProducts(search)
       dispatch(productsSuccess(res))
     } catch(e) {
       dispatch(productsFail(e.message))
@@ -37,10 +43,8 @@ export const Products = () => {
   }
 
   useEffect(() => {
-    fetchProducts(search, category)
+    fetchProducts(search)
   }, [search])
-
-  console.log(productsArray)
 
   return (
       <div>

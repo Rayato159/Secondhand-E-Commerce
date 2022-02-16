@@ -49,24 +49,18 @@ export class ProductsService {
 
     async getProducts(searchProductsDto: SearchProductsDto): Promise<any> {
         try {
-            const { search, category } = searchProductsDto
+            const { search } = searchProductsDto
 
             const query = this.productsRepository.createQueryBuilder('products')
-
-            if(search) {
-                query.andWhere('(LOWER(products.title) LIKE LOWER(:search))', { search: `%${search}%` })
-            }
-
-            if(category) {
-                const categoryFound = await this.categoriesService.findCategory(category)
-                const { category_id } = categoryFound
-                query.andWhere('(products.category_id = :category_id)', { category_id: `${category_id}` })
-            }
 
             query.andWhere('(products.status = :status)', { status: `${Status.Avaliable}` })
             query.leftJoinAndSelect('products.category', 'categories')
             query.leftJoinAndSelect('products.user', 'users')
             query.leftJoinAndSelect('products.product_photos', 'product_photos')
+
+            if(search) {
+                query.andWhere('(LOWER(products.title) LIKE LOWER(:search) OR LOWER(categories.name) LIKE LOWER(:search))', { search: `%${search}%` })
+            }
 
             const products = await query.getMany()
             if(products.length === 0) {

@@ -9,7 +9,7 @@ import '../pages/Form.css'
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../features/loginSlice'
-import { setSearch, setCategory } from '../features/searchSlice'
+import { setSearch } from '../features/searchSlice'
 
 // Components
 import { LinkNavbar } from './LinkNavbar'

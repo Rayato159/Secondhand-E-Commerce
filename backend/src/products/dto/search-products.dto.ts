@@ -4,7 +4,4 @@ export class SearchProductsDto {
 
     @IsOptional()
     search?: string
-
-    @IsOptional()
-    category?: string
 }
