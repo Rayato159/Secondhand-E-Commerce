@@ -12,6 +12,7 @@ export const searchSlice = createSlice({
     reducers: {
         setSearch: (state, { payload }) => {
             state.search = payload
+            window.location.href = `http://localhost:3435/products?search=${payload}`
         },
     }
 })
