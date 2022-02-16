@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+const baseURL = 'http://localhost:3000/api/'
+
 const productPhotosController = axios.create({
     baseURL: 'http://localhost:3000/api/product-photos'
 })
@@ -58,18 +60,9 @@ export const uploadProductPhotos = (product_id, images) => {
 }
 
 export const getProducts = (search, category) => {
-
-    if(!search) {
-        search = ""
-    }
-
-    if(!category) {
-        category = ""
-    }
-
     return new Promise(async (resolve, reject) => {
         try {
-            const res = await productsController.get(`?search=${search}&category=${category}`)
+            const res = await axios.get(`${baseURL}products?search=${search? search:""}&category=${category? category:""}`)
             resolve(res.data)
         } catch(e) {
             reject(e.response.data)
@@ -77,13 +70,13 @@ export const getProducts = (search, category) => {
     })
 }
 
-export const getProductPhotos = (product_id) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const res = await productPhotosController.post(`product-photos/${product_id}`)
-            resolve(res.data)
-        } catch(e) {
-            reject(e.response.data)
-        }
-    })
-}
+// export const getProductPhotos = (product_id) => {
+//     return new Promise(async (resolve, reject) => {
+//         try {
+//             const res = await productPhotosController.post(`product-photos/${product_id}`)
+//             resolve(res.data)
+//         } catch(e) {
+//             reject(e.response.data)
+//         }
+//     })
+// }

@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialStateValue = {
     isProductsLoading: false,
     isProductsError: null,
-    getProducts: [],
+    productsArray: [],
 }
 
 export const productsSlice = createSlice({
     name: 'products',
     initialState: {
-    value: initialStateValue
+        value: initialStateValue
     },
     reducers: {
         productsLoading: (state) => {
@@ -17,7 +17,7 @@ export const productsSlice = createSlice({
         },
 
         productsSuccess: (state, { payload }) => {
-            state.getProducts = payload
+            state.productsArray = payload
             state.isProductsError = null
             state.isProductsLoading = false
         },

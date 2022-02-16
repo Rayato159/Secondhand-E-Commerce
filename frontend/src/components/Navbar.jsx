@@ -9,8 +9,7 @@ import '../pages/Form.css'
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../features/loginSlice'
-
-// Services
+import { setSearch, setCategory } from '../features/searchSlice'
 
 // Components
 import { LinkNavbar } from './LinkNavbar'
@@ -26,12 +25,16 @@ export const Navbar = () => {
 
   // Redux state
   const dispatch = useDispatch()
-  const { isToken } = useSelector((state) => state.login)
+  const [
+    { isToken },
+  ] = useSelector((state) => [
+    state.login,
+  ])
 
   const parentOnSubmit = (e) => {
     e.preventDefault()
 
-    console.log('fire')
+    dispatch(setSearch(searchEvent))
   }
 
   useEffect(() => {
