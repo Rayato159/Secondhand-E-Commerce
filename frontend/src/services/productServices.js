@@ -43,7 +43,7 @@ export const uploadProductPhotos = (product_id, images) => {
 
     return new Promise(async (resolve, reject) => {
         try {
-            const res = await productPhotosController.post(`product-photos/uploads/${product_id}`,
+            const res = await productPhotosController.post(`uploads/${product_id}`,
                 formData,
                 {
                     headers: { 

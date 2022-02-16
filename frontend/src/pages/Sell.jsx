@@ -47,19 +47,18 @@ export const Sell = () => {
 
     // Submit form
     const onSubmit = async (data) => {
-        setIsPending(true)
 
+        setIsPending(true)
         try {
             const res = await createProduct({...data, category})
-            console.log(res)
-            const photo = await uploadProductPhotos(res.product_id, images)
-
-            if(photo.length === 0) {
+            
+            try {
+                const photo = await uploadProductPhotos(res.product_id, images)
+                setIsPending(false)
+                navigate('/profile')
+            } catch(e) {
                 throw new Error()
             }
-
-            setIsPending(false)
-            navigate('/profile')
         } catch(e) {
             setIsPending(false)
             setError("Please input an image.")
@@ -84,8 +83,6 @@ export const Sell = () => {
     useEffect(() => {
       fetchCategories()
     }, [])
-
-    console.log(images, category)
 
     return (
         <div className="w-full py-10">
