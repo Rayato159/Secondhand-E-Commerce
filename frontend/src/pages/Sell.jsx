@@ -51,6 +51,7 @@ export const Sell = () => {
 
         try {
             const res = await createProduct({...data, category})
+            console.log(res)
             const photo = await uploadProductPhotos(res.product_id, images)
 
             if(photo.length === 0) {

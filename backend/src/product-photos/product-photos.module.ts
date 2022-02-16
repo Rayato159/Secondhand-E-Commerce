@@ -31,7 +31,6 @@ import { ProductsRepository } from 'src/products/products.repository';
             }
           },
           limits: {
-            fileSize: 10e+6,
             files: 5,
           },
           storage: diskStorage({

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards, Get, Param, Delete, Query, Patch } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Get, Param, Delete, Query, Patch, UseInterceptors } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 import { Role } from 'src/users/enum/role.enum';
 import { Roles } from 'src/users/roles.decorator';
@@ -8,6 +8,7 @@ import { Users } from 'src/users/users.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { SearchProductsDto } from './dto/search-products.dto';
 import { UpdateProductDto } from './dto/update-products.dto';
+import { ProductsInterceptor } from './interceptors/product.interceptor';
 import { Products } from './products.entity';
 import { ProductsService } from './products.service';
 
@@ -24,6 +25,7 @@ export class ProductsController {
         return this.productsService.createProduct(createProductDto, user)
     }
 
+    @UseInterceptors(ProductsInterceptor)
     @Get()
     getProducts(
         @Query() searchProductsDto: SearchProductsDto,
