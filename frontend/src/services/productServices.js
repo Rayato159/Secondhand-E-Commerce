@@ -1,7 +1,11 @@
 import axios from 'axios'
 
-const controller = axios.create({
-    baseURL: 'http://localhost:3000/api'
+const productPhotosController = axios.create({
+    baseURL: 'http://localhost:3000/api/product-photos'
+})
+
+const productsController = axios.create({
+    baseURL: 'http://localhost:3000/api/products'
 })
 
 const accessToken = localStorage.getItem("accessToken")
@@ -9,7 +13,7 @@ const accessToken = localStorage.getItem("accessToken")
 export const createProduct = ({ title, description, price, category }) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const res = await controller.post('products/create', 
+            const res = await productsController.post('create', 
                 {
                     title,
                     description,
@@ -37,7 +41,7 @@ export const uploadProductPhotos = (product_id, images) => {
 
     return new Promise(async (resolve, reject) => {
         try {
-            const res = await controller.post(`product-photos/uploads/${product_id}`,
+            const res = await productPhotosController.post(`product-photos/uploads/${product_id}`,
                 formData,
                 {
                     headers: { 
@@ -46,6 +50,37 @@ export const uploadProductPhotos = (product_id, images) => {
                     }
                 }
             )
+            resolve(res.data)
+        } catch(e) {
+            reject(e.response.data)
+        }
+    })
+}
+
+export const getProducts = (search, category) => {
+
+    if(!search) {
+        search = ""
+    }
+
+    if(!category) {
+        category = ""
+    }
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await productsController.get(`?search=${search}&category=${category}`)
+            resolve(res.data)
+        } catch(e) {
+            reject(e.response.data)
+        }
+    })
+}
+
+export const getProductPhotos = (product_id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await productPhotosController.post(`product-photos/${product_id}`)
             resolve(res.data)
         } catch(e) {
             reject(e.response.data)

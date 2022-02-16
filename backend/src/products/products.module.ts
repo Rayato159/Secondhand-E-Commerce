@@ -8,6 +8,7 @@ import { CategoriesModule } from 'src/categories/categories.module';
 import { ProductPhotosRepository } from 'src/product-photos/product-photos.repository';
 import { PassportModule } from '@nestjs/passport';
 import { RolesGuard } from 'src/users/roles.guard';
+import { ProductPhotosService } from 'src/product-photos/product-photos.service';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { RolesGuard } from 'src/users/roles.guard';
     UsersModule,
     CategoriesModule,
   ],
-  providers: [ProductsService ,RolesGuard],
+  providers: [ProductsService ,RolesGuard, ProductPhotosService],
   controllers: [ProductsController],
   exports: [ProductsService],
 })

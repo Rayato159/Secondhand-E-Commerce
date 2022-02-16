@@ -11,6 +11,7 @@ import { Products } from './products.entity';
 import { ProductsRepository } from './products.repository';
 import * as fs from 'fs';
 import { ProductPhotosRepository } from 'src/product-photos/product-photos.repository';
+import { ProductPhotosService } from 'src/product-photos/product-photos.service';
 
 @Injectable()
 export class ProductsService {
@@ -21,6 +22,7 @@ export class ProductsService {
         @InjectRepository(ProductPhotosRepository)
         private productPhotosRepository: ProductPhotosRepository,
 
+        private productPhotosService: ProductPhotosService,
         private userService: UsersService,
         private categoriesService: CategoriesService,
     ) {}
@@ -64,6 +66,7 @@ export class ProductsService {
             query.andWhere('(products.status = :status)', { status: `${Status.Avaliable}` })
             query.leftJoinAndSelect('products.category', 'categories')
             query.leftJoinAndSelect('products.user', 'users')
+            query.leftJoinAndSelect('products.product_photos', 'product_photos')
 
             const products = await query.getMany()
             if(products.length === 0) {
