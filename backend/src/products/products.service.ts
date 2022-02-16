@@ -49,7 +49,7 @@ export class ProductsService {
 
     async getProducts(searchProductsDto: SearchProductsDto): Promise<any> {
         try {
-            const { search } = searchProductsDto
+            const { search, user_id } = searchProductsDto
 
             const query = this.productsRepository.createQueryBuilder('products')
 
@@ -57,6 +57,10 @@ export class ProductsService {
             query.leftJoinAndSelect('products.category', 'categories')
             query.leftJoinAndSelect('products.user', 'users')
             query.leftJoinAndSelect('products.product_photos', 'product_photos')
+
+            if(user_id) {
+                query.andWhere('users.user_id != :user_id', { user_id: `${user_id}` })
+            }
 
             if(search) {
                 query.andWhere('(LOWER(products.title) LIKE LOWER(:search) OR LOWER(categories.name) LIKE LOWER(:search))', { search: `%${search}%` })

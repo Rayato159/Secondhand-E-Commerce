@@ -6,9 +6,9 @@ export const ProductCard = ({ product }) => {
             <div className='flex items-center md:justify-between'>
 
                 {/* Left */}
-                <div className='flex space-x-6 items-center'>
+                <div className='flex space-x-4 items-center'>
                 <div>
-                    <img className='md:h-24 md:w-48 h-20 w-32 object-cover' src={product.product_photos[0].path} />
+                    <img className='md:h-24 md:w-36 h-20 w-32 object-cover' src={product.product_photos[0].path} />
                 </div>
                 <div className='hidden md:flex flex-col space-y-2'>
                     <div className='md:text-xl text-md truncate'>
