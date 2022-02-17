@@ -73,10 +73,23 @@ export const Products = () => {
           <div className='flex justify-center'>
             <div className='flex space-x-6'>
               <div>
-                <ImFilesEmpty className='md:h-10 md:w-10 h-8 w-8'/>
+                <ImFilesEmpty className='md:h-8 md:w-8 h-6 w-6'/>
               </div>
-              <div className='md:text-3xl text-xl'>
-                {isProductsError}
+              <div className="flex flex-col space-y-2">
+                <div className='md:text-3xl text-xl'>
+                  {isProductsError}
+                </div>
+                <div className='text-md'>
+                  Error, products are empty or something is worng.
+                </div>
+                <div className='flex space-x-2 text-md'>
+                  <div>
+                    Need help?
+                  </div>
+                  <div>
+                    <a className='text-blue-400 hover:text-blue-700 underline underline-offset-2' href='https://www.youtube.com/watch?v=dQw4w9WgXcQ' target='_blank'>http://www.help.mongsue.com</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

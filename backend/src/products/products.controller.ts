@@ -45,7 +45,7 @@ export class ProductsController {
     @Get(':product_id')
     getProductById(
         @Param('product_id') product_id: string
-    ) {
+    ): Promise<any> {
         return this.productsService.getProductById(product_id)
     }
 

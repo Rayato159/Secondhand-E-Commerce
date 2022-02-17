@@ -69,3 +69,15 @@ export const getProducts = (search) => {
         }
     })
 }
+
+export const getProductById = (product_id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const product = await productsController.get(`${product_id}`)
+            const photos = await productPhotosController.get(`${product_id}`)
+            resolve({ ...product.data, ...photos.data })
+        } catch(e) {
+            reject(e.response.data)
+        }
+    })
+}

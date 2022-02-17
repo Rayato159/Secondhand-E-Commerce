@@ -79,7 +79,7 @@ export class ProductsService {
         }
     }
 
-    async getProductById(product_id: string): Promise<Products> {
+    async getProductById(product_id: string): Promise<any> {
         try {
             const product = await this.productsRepository.findOne(product_id)
             return product

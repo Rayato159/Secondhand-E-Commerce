@@ -3,6 +3,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 import { User } from 'src/users/users.decorator';
 import { Users } from 'src/users/users.entity';
+import { ProductPhotosInterceptor } from './interceptors/product-photos.interceptor';
 import { ProductPhotos } from './product-photos.entity';
 import { ProductPhotosService } from './product-photos.service';
 
@@ -21,6 +22,7 @@ export class ProductPhotosController {
         return this.productPhotosService.uploadProductPhotos(files, product_id, user)
     }
 
+    @UseInterceptors(ProductPhotosInterceptor)
     @Get(':product_id')
     getProductPhotos(
         @Param('product_id') product_id: string,

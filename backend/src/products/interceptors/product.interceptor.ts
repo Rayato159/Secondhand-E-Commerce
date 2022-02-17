@@ -10,10 +10,10 @@ export interface Response<T> {
 export class ProductInterceptor<T> implements NestInterceptor<T, Response<T>> {
   intercept(context: ExecutionContext, next: CallHandler): Observable<Response<T>> {
     return next.handle().pipe(map(data => {
-        const newUser = data.user
-        const { user, ...product } = data
-        const { password, role, created, updated, ...userDetails } = newUser
-        return { ...product, ...{userDetails} }
+      const newUser = data.user
+      const { user, ...product } = data
+      const { password, role, created, updated, ...userDetails } = newUser
+      return { ...product, ...{userDetails} }
     }))
   }
 }
