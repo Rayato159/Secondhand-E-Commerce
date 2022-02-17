@@ -46,12 +46,13 @@ export const ProductOne = () => {
                                     <img className='md:w-96 md:h-72 w-40 object-cover' src={product.photos[0].path} />
                                 </div>
                             </div>
+
                             <div className='flex w-full'>
                                 <div className='flex flex-col space-y-4 w-full ml-16 justify-between'>
                                     <div className='flex space-x-6'>
                                         <div className='flex space-x-2'>
                                             <div className='flex space-x-2 items-center'>
-                                                <AiOutlineTags className='w-7 h-7'/>
+                                                <AiOutlineTags className='w-6 h-6'/>
                                             </div>
                                             <div className='font-bold text-2xl'>
                                                 {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -68,12 +69,34 @@ export const ProductOne = () => {
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div className='flex flex-col space-y-1'>
+                                        <div className='flex space-x-2'>
+                                            <div className='font-bold'>
+                                                ผู้ขาย:
+                                            </div>
+                                            <div>
+                                                {product.userDetails.first_name} {product.userDetails.last_name}
+                                            </div>
+                                        </div>
+                                        <div className='flex space-x-2'>
+                                            <div className='font-bold'>
+                                                Tel:
+                                            </div>
+                                            <div>
+                                                {product.userDetails.phone_number}
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div className='font-bold text-xl'>
                                         {product.title}
                                     </div>
+
                                     <div>
                                         {product.description}
                                     </div>
+
                                     <div className='flex space-x-4'>
                                         <button className='py-1 px-4 border border-black bg-amber-300 hover:bg-amber-400'>
                                             <div className='text-xl'>
@@ -101,36 +124,59 @@ export const ProductOne = () => {
                             <div className='font-bold text-xl'>
                                 {product.title}
                             </div>
+
                             <div className='flex justify-start items-center'>
                                 <div className='flex flex-col space-y-3'>
                                     <img className='w-full object-cover' src={product.photos[0].path} />
                                 </div>
                             </div>
-                                <div>
-                                    <div className='flex space-x-6'>
-                                        <div className='flex space-x-1'>
-                                            <div className='flex space-x-2 items-center'>
-                                                <AiOutlineTags className='w-7 h-7'/>
-                                            </div>
-                                            <div className='font-bold text-2xl'>
-                                                {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                                            </div>
-                                            <div className='text-2xl'>
-                                                ฿
-                                            </div>
+
+                            <div>
+                                <div className='flex space-x-6'>
+                                    <div className='flex space-x-1'>
+                                        <div className='flex space-x-2 items-center'>
+                                            <AiOutlineTags className='w-6 h-6'/>
                                         </div>
-                                        <div>
-                                            <div className='animate-pulse'>
-                                                <div className='bg-amber-500 rounded-md w-20 p-1 text-center'>
-                                                    {product.status}
-                                                </div>
+                                        <div className='font-bold text-2xl'>
+                                            {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                        </div>
+                                        <div className='text-2xl'>
+                                            ฿
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className='animate-pulse'>
+                                            <div className='bg-amber-500 rounded-md w-20 p-1 text-center'>
+                                                {product.status}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div className='flex flex-col space-y-1'>
+                                <div className='flex space-x-2'>
+                                    <div className='font-bold'>
+                                        ผู้ขาย:
+                                    </div>
+                                    <div>
+                                        {product.userDetails.first_name} {product.userDetails.last_name}
+                                    </div>
+                                </div>
+                                <div className='flex space-x-2'>
+                                    <div className='font-bold'>
+                                        Tel:
+                                    </div>
+                                    <div>
+                                        {product.userDetails.phone_number}
+                                    </div>
+                                </div>
+                            </div>
+
                             <div>
                                 {product.description}
                             </div>
+
                             <div className='flex space-x-4'>
                                 <button className='py-1 px-4 border border-black bg-amber-300 hover:bg-amber-400'>
                                     <div className='text-xl'>
