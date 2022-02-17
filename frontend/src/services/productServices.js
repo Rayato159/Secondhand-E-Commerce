@@ -75,7 +75,7 @@ export const getProductById = (product_id) => {
         try {
             const product = await productsController.get(`${product_id}`)
             const photos = await productPhotosController.get(`${product_id}`)
-            resolve({ ...product.data, ...photos.data })
+            resolve({ ...product.data, photos: photos.data })
         } catch(e) {
             reject(e.response.data)
         }
