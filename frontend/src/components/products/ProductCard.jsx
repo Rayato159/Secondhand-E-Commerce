@@ -1,14 +1,21 @@
 import React from 'react'
 
+// Routes
+import { useNavigate } from 'react-router-dom'
+
 export const ProductCard = ({ product }) => {
+
+    // Router
+    const navigate = useNavigate()
+
     return (
-        <div className='max-w-4xl md:mx-auto bg-white shadow-md p-3 border border-gray-200 my-4 mx-3'>
+        <div onClick={() => navigate(`${product.product_id}`)} className='max-w-4xl md:mx-auto bg-white shadow-md p-3 border border-gray-200 my-4 mx-3 cursor-pointer'>
             <div className='flex items-center md:justify-between'>
 
                 {/* Left */}
                 <div className='flex space-x-4 items-center'>
                 <div>
-                    <img className='md:h-24 md:w-36 h-20 w-32 object-cover' src={product.product_photos[0].path} />
+                    <img className='md:h-24 md:w-36 h-20 w-32 object-cover border border-gray-200' src={product.product_photos[0].path} />
                 </div>
                 <div className='hidden md:flex flex-col space-y-2'>
                     <div className='md:text-xl text-md truncate'>
