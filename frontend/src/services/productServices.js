@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3000/api/'
-
 const productPhotosController = axios.create({
     baseURL: 'http://localhost:3000/api/product-photos'
 })
@@ -45,12 +43,7 @@ export const uploadProductPhotos = (product_id, images) => {
         try {
             const res = await productPhotosController.post(`uploads/${product_id}`,
                 formData,
-                {
-                    headers: { 
-                        "Authorization": `Bearer ${accessToken}`,
-                        "Content-Type": "multipart/form-data",
-                    }
-                }
+                { headers: { "Authorization": `Bearer ${accessToken}` } }
             )
             resolve(res.data)
         } catch(e) {

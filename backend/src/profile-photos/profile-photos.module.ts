@@ -20,14 +20,14 @@ import { UsersModule } from 'src/users/users.module';
       useFactory: async (configService: ConfigService) => {
         return {
           fileFilter: (req, file, cb) => {
-            if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
               cb(null, true);
             } else {
               cb(null, false);
             }
           },
           limits: {
-            fileSize: 2e+6
+            files: 1,
           },
           storage: diskStorage({
             destination: configService.get('PROFILE_PHOTOS_PATH'),
