@@ -45,7 +45,7 @@ export const ProductOne = () => {
                     <div className='max-w-5xl mx-auto shadow-lg border border-gray-200 md:p-6 p-4'>
                         <div className='flex justify-between'>
                             <div className='flex justify-center items-center'>
-                                <div className='flex flex-col space-y-3 md:w-96 md:h-72'>
+                                <div className='flex flex-col space-y-3 md:w-96'>
                                     <Slidebar props={product.photos}/>
                                 </div>
                             </div>
