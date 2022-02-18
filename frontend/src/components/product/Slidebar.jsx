@@ -10,7 +10,7 @@ export const Slidebar = ({ props }) => {
     // Hooks State
     const [currentIndex, setCurrentIndex] = useState(0)
     const [currentPhoto, setCurrentPhoto] = useState(props[0].product_photo_id)
-    const [lastIndex, setLastIndex] = useState(currentIndex % props.length - 1)
+    const [lastIndex, setLastIndex] = useState(3)
     const [images, setImages] = useState(props.slice(0, props.length))
     const slideRef = useRef()
 
