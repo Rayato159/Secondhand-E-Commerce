@@ -6,6 +6,9 @@ import { AiOutlineTags } from 'react-icons/ai'
 // Params
 import { useParams } from 'react-router-dom'
 
+// Components
+import { Slidebar } from '../components/product/Slidebar'
+
 // Services
 import { getProductById } from '../services/productServices'
 
@@ -43,29 +46,22 @@ export const ProductOne = () => {
                         <div className='flex justify-between'>
                             <div className='flex justify-center items-center'>
                                 <div className='flex flex-col space-y-3 md:w-96 md:h-72'>
-                                    <img className='md:w-96 md:h-72 w-40 object-cover' src={product.photos[0].path} />
+                                    <Slidebar props={product.photos}/>
                                 </div>
                             </div>
 
                             <div className='flex w-full'>
                                 <div className='flex flex-col space-y-4 w-full ml-16 justify-between'>
-                                    <div className='flex space-x-6'>
+                                    <div className='flex space-x-4'>
                                         <div className='flex space-x-2'>
                                             <div className='flex space-x-2 items-center'>
-                                                <AiOutlineTags className='w-6 h-6'/>
+                                                <AiOutlineTags className='w-7 h-7'/>
                                             </div>
                                             <div className='font-bold text-2xl'>
                                                 {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                                             </div>
                                             <div className='text-2xl'>
                                                 ฿
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className='animate-pulse'>
-                                                <div className='bg-amber-500 rounded-md w-20 p-1 text-center'>
-                                                    {product.status}
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +123,7 @@ export const ProductOne = () => {
 
                             <div className='flex justify-start items-center'>
                                 <div className='flex flex-col space-y-3'>
-                                    <img className='w-full object-cover' src={product.photos[0].path} />
+                                    <Slidebar props={product.photos}/>
                                 </div>
                             </div>
 
@@ -142,13 +138,6 @@ export const ProductOne = () => {
                                         </div>
                                         <div className='text-2xl'>
                                             ฿
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className='animate-pulse'>
-                                            <div className='bg-amber-500 rounded-md w-20 p-1 text-center'>
-                                                {product.status}
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
