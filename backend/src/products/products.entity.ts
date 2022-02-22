@@ -1,10 +1,9 @@
 import { Users } from "src/users/users.entity";
 import { Status } from '../products/enum/status.enum'
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Exclude } from "class-transformer";
 import { Categories } from "src/categories/categories.entity";
 import { ProductPhotos } from "src/product-photos/product-photos.entity";
-import { Orders } from "src/orders/orders.entity";
+import { Carts } from "src/carts/carts.entity";
 
 @Entity({ name: 'products' })
 export class Products {
@@ -53,6 +52,6 @@ export class Products {
     @OneToMany(type => ProductPhotos, product_photos => product_photos.product)
     product_photos: ProductPhotos[]
 
-    @OneToMany(type => Orders, orders => orders.product)
-    orders: Orders[]
+    @OneToMany(type => Carts, Carts => Carts.product)
+    carts: Carts[]
 }

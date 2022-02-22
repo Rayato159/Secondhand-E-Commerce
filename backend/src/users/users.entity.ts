@@ -1,8 +1,7 @@
-import { Invoices } from "src/invoices/invoices.entity";
-import { Orders } from "src/orders/orders.entity";
+import { Carts } from "src/carts/carts.entity";
+import { Payments } from "src/payments/payments.entity";
 import { Products } from "src/products/products.entity";
-import { ProfilePhotos } from "src/profile-photos/profile-photos.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Role } from "./enum/role.enum";
 
 @Entity({ name: 'users' })
@@ -41,9 +40,13 @@ export class Users {
     @OneToMany(type => Products, products => products.user)
     products: Products[]
 
-    @OneToMany(type => Orders, orders => orders.user)
-    orders: Orders[]
+    @OneToMany(type => Carts, carts => carts.user, {
+        eager: true
+    })
+    carts: Carts[]
 
-    @OneToMany(type => Invoices, invoices => invoices.user)
-    invoices: Invoices[]
+    @OneToMany(type => Payments, payments => payments.user, {
+        eager: true,
+    })
+    payments: Payments[]
 }

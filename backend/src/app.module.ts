@@ -8,8 +8,8 @@ import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProfilePhotosModule } from './profile-photos/profile-photos.module';
 import { ProductPhotosModule } from './product-photos/product-photos.module';
-import { OrdersModule } from './orders/orders.module';
-import { InvoicesModule } from './invoices/invoices.module';
+import { CartsModule } from './carts/carts.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -38,8 +38,8 @@ import { InvoicesModule } from './invoices/invoices.module';
     CategoriesModule,
     ProfilePhotosModule,
     ProductPhotosModule,
-    OrdersModule,
-    InvoicesModule,
+    CartsModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [],

@@ -43,6 +43,6 @@ import { UsersModule } from 'src/users/users.module';
     })
   ],
   providers: [ProfilePhotosService],
-  controllers: [ProfilePhotosController]
+  controllers: [ProfilePhotosController],
 })
 export class ProfilePhotosModule {}
