@@ -19,6 +19,9 @@ export class Payments {
     @JoinColumn({ name: 'cart_id' })
     cart: Carts
 
+    @Column({ type: 'double precision' })
+    total: number
+
     @Column()
     address: string
 
