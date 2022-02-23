@@ -40,13 +40,9 @@ export class Users {
     @OneToMany(type => Products, products => products.user)
     products: Products[]
 
-    @OneToMany(type => Carts, carts => carts.user, {
-        eager: true
-    })
+    @OneToMany(type => Carts, carts => carts.user)
     carts: Carts[]
 
-    @OneToMany(type => Payments, payments => payments.user, {
-        eager: true,
-    })
+    @OneToMany(type => Payments, payments => payments.user)
     payments: Payments[]
 }

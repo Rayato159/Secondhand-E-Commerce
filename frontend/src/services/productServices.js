@@ -17,7 +17,7 @@ export const createProduct = ({ title, description, price, category }) => {
                 {
                     title,
                     description,
-                    price,
+                    price: parseFloat(price.replace(/,/g, '')).toFixed(2),
                     category
                 }, 
                 {

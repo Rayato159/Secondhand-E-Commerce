@@ -9,7 +9,7 @@ export class Payments {
     payment_id: string
 
     @ManyToOne(type => Users, user => user.payments, {
-        nullable: true,
+        eager: true,
         onDelete: 'CASCADE'
     })
     @JoinColumn({ name: 'user_id' })
